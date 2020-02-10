@@ -1,5 +1,4 @@
-from django.http import HttpResponse
+from django.views import generic
 
-
-def index(request):
-    return HttpResponse("Hello, world. You're at SuperTuber homepage")
+class HomeView(generic.TemplateView):
+    template_name = 'FindTutors/home.html'
