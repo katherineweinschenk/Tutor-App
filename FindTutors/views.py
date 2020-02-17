@@ -8,7 +8,6 @@ from django.shortcuts import render
 class HomeView(generic.TemplateView):
     template_name = 'FindTutors/home.html'
 
-
 class SignUpView(generic.CreateView):
     model = BigUser
     form_class = TutorUserSignUpForm
@@ -29,5 +28,3 @@ def Dashboard(request):
     allUsers = BigUser.objects.all()
     return render(request,'dashboard.html', {'all:': allUsers})
 
-class HomeView(generic.TemplateView):
-    template_name = 'FindTutors/home.html'
