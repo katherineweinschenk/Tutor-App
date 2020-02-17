@@ -28,3 +28,6 @@ def Dashboard(request):
     model = BigUser
     allUsers = BigUser.objects.all()
     return render(request,'dashboard.html', {'all:': allUsers})
+
+class HomeView(generic.TemplateView):
+    template_name = 'FindTutors/home.html'

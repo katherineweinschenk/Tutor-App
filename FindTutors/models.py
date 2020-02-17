@@ -38,6 +38,6 @@ class BigUser(AbstractUser):
 #     name_text = models.CharField(max_length = 200)
 #     introduction = models.CharField(max_length = 200)
 #     subject = models.CharField(max_length =200)
-#     avaialable_at = models.DateField(null=True, blank=True)
 
+#     avaialable_at = models.DateField(null=True, blank=True)
 
