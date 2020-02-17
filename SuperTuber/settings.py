@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'bootstrap4',
 ]
 
-AUTH_USER_MODEL = 'FindTutors.MyUser'
+AUTH_USER_MODEL = 'FindTutors.BigUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
