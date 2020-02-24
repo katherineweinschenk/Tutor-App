@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html>
 <html lang="en">
 <head>
   <title>Tutors</title>
@@ -16,7 +17,7 @@
 </div>
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-  <a class="navbar-brand" href="/../home/">Home</a>
+  <a class="navbar-brand" href="/../home/"><font color="grey">Home</font></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -42,8 +43,28 @@
   </div>
 </nav>
 <body>
-    {% for tutor in tutors %}
-        <h2> {{ tutor }} </h2>
-    {% endfor %}
+  <div class="container">
+    <h2>Tutors</h2>                       
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>Tutor's Name</th>
+          <th>Tutor's Year</th>
+          <th>Tutor's Subjects</th>
+          <th>Request</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for tutor in tutors %}
+          <tr>
+            <td><a href="{{tutor.firstname}}/">{{ tutor.firstname }} {{tutor.lastname }}</a></td>
+            <td>{{ tutor.year }} </td>
+            <td>{{ tutor.subjects }} </td>
+            <td><a class="btn btn-primary" href="/../home/request/?user={{tutor}}" role = "button">Send Request</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </body>
-    
+</html>
