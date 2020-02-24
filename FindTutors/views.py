@@ -8,6 +8,9 @@ from django.shortcuts import render
 class HomeView(generic.TemplateView):
     template_name = 'FindTutors/home.html'
 
+class MessagesView(generic.TemplateView):
+    template_name = "FindTutors/messages.html"
+
 class SignUpView(generic.CreateView):
     model = BigUser
     form_class = TutorUserSignUpForm
