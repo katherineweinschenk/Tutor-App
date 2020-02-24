@@ -1,7 +1,8 @@
 <!DOCTYPE html>
+<html>
 <html lang="en">
 <head>
-  <title>Home</title>
+  <title>Tutors</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -10,14 +11,13 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 
-<body>
 <div class="jumbotron text-center bg-primary text-white" style="margin-bottom:0">
   <h1>SuperTuber</h1>
   <h4>Quickly Find Help For Your Study Problems</h4>
 </div>
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-  <a class="navbar-brand" href="#">Home</a>
+  <a class="navbar-brand" href="/../home/"><font color="grey">Home</font></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -26,8 +26,9 @@
       <li class="nav-item">
         <a class="nav-link" href="tutors/">About Us</a>
       </li>
+      
         <li class="nav-item">
-        <a class="nav-link" href="tutors/">Tutors</a>
+        <a class="nav-link" href="#"><font color="white">Tutors</font></a>
       </li>
         <li class="nav-item">
         <a class="nav-link" href="tutors/">Subjects</a>
@@ -41,3 +42,29 @@
     </ul>
   </div>
 </nav>
+<body>
+  <div class="container">
+    <h2>Tutors</h2>                       
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>Tutor's Name</th>
+          <th>Tutor's Year</th>
+          <th>Tutor's Subjects</th>
+          <th>Request</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for tutor in tutors %}
+          <tr>
+            <td><a href="{{tutor.firstname}}/">{{ tutor.firstname }} {{tutor.lastname }}</a></td>
+            <td>{{ tutor.year }} </td>
+            <td>{{ tutor.subjects }} </td>
+            <td><a class="btn btn-primary" href="/../home/request/?user={{tutor}}" role = "button">Send Request</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

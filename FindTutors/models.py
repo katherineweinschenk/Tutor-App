@@ -13,6 +13,15 @@ class BigUser(AbstractUser):
     phone_number = models.IntegerField(blank=True, null=True)
     is_tutee = models.BooleanField('student status', default=False)
     is_tutor = models.BooleanField('teacher status', default=False)
+    year = models.IntegerField(blank=True, null=True)
+    subjects = models.CharField(max_length = 500, default="")
+
+class Request(models.Model):
+    sender = models.ForeignKey(BigUser,models.SET_NULL,related_name="BigUser_sender",blank=True,null=True)
+    recipient = models.ForeignKey(BigUser,models.SET_NULL,related_name="BigUser_recipient",blank=True,null=True)
+    subject = models.CharField(max_length = 500, default="")
+    description = models.CharField(max_length = 500, default="")
+    location = models.CharField(max_length = 500, default="")
 
 #types of the users
 # class Tutor(models.Model):

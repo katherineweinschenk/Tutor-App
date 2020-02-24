@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import  BigUser
+from .models import  BigUser, Request
+from django.forms import ModelForm
 #
 # class TutorSignUpForm(UserCreationForm):
 #     class Meta(UserCreationForm.Meta):
@@ -25,6 +26,11 @@ from .models import  BigUser
 #         user.is_tutee = True
 #         user.save()
 #         return user
+
+class RequestForm(ModelForm):
+    class Meta:
+        model = Request
+        fields = ('subject', 'description', 'location',)
 
 class TutorUserSignUpForm(UserCreationForm):
     class Meta:
