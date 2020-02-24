@@ -28,3 +28,11 @@ def Dashboard(request):
     allUsers = BigUser.objects.all()
     return render(request,'dashboard.html', {'all:': allUsers})
 
+def Tutors(request):
+    model = BigUser
+    the_tutors = []
+    for user in BigUser.objects.all():
+        if user.is_tutor:
+            the_tutors.append(user)
+            print(user)
+    return render(request,'FindTutors/tutors.html',{'tutors':the_tutors})
