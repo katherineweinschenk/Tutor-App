@@ -15,7 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from FindTutors import views
+from django.conf.urls import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('home/', views.HomeView.as_view(), name='home'),
+    path('', views.SignUpView.as_view(), name='signup'),
+    path('', include('social_django.urls', namespace='social')),
+    path('logout/', views.logout, name='logout'),
 ]
