@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User
 from django.utils import timezone
 
 # class MyUser(AbstractUser):
@@ -23,24 +24,15 @@ class Request(models.Model):
     description = models.CharField(max_length = 500, default="")
     location = models.CharField(max_length = 500, default="")
 
-#types of the users
-# class Tutor(models.Model):
-#     user = models.OneToOneField(BigUser, on_delete = models.CASCADE, primary_key = True)
-#     #dataase fields in the model
-#     name_text = models.CharField(max_length = 200)
-#     biography_text = models.CharField(max_length = 200)
-#     reviews = models.CharField(max_length = 200)
-#     number_of_people_tutored = models.IntegerField(default = 0)
-#     STAR_RATING_CHOICES = (
-#         (5, '5'),
-#         ( 4, '4'),
-#         (3,'3' ),
-#         (2 , '2'),
-#         (1 , '1'),
-#         )
-#     star_rating = models.IntegerField(choices=STAR_RATING_CHOICES, default=5)
-#
-#
+class Chat(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(BigUser, on_delete=models.CASCADE)
+    message = models.TextField()
+
+    def __unicode__(self):
+        return self.message
+
+
 # class Tutee(models.Model):
 #     #database fields in the model
 #     user = models.OneToOneField(BigUser, on_delete=models.CASCADE, primary_key=True)

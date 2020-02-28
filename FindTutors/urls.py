@@ -1,4 +1,5 @@
 from django.urls import path
+from django.conf.urls import url
 
 from . import views
 
@@ -9,6 +10,8 @@ urlpatterns = [
     path('register/', views.SignUpView.as_view(), name='signup'),
     path('dashboard/', views.Dashboard, name='dashboard'),
     path('tutors/', views.Tutors, name='tutors'),
-    path('messages/', views.MessagesView.as_view(), name = 'messages'),
     path('request/', views.RequestView.as_view(), name='request'),
+    url(r'^messages/$', views.MessagesView, name='messages'),
+    url(r'^post/$', views.Post, name='post'),
+    url(r'^GetMessages/$', views.GetMessages, name='GetMessages'),
 ]

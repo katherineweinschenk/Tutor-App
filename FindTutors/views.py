@@ -1,16 +1,13 @@
 from django.views import generic
-from .models import BigUser, Request
+from .models import BigUser, Request, Chat
 from .forms import TutorUserSignUpForm, TuteeUserSignUpForm, RequestForm
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
 
 class HomeView(generic.TemplateView):
     template_name = 'FindTutors/home.html'
-
-class MessagesView(generic.TemplateView):
-    template_name = "FindTutors/messages.html"
 
 class SignUpView(generic.CreateView):
     model = BigUser
@@ -28,18 +25,9 @@ class RequestView(generic.CreateView):
     model = Request
     form_class = RequestForm
     template_name = 'FindTutors/request.html'
-    recipient = None
 
-    def get(self, request, *args, **kwargs):
-        self.recipient = request.GET.get('recipient')
-        form = self.form_class(initial=self.initial)
-        return render(request, self.template_name, {'form': form})
-    
     def form_valid(self, form):
-        self.request_input = form.save(commit=False)
-        self.request_input.sender = self.request.user
-        self.request_input.recipient = self.recipient
-        self.request_input.save()
+        request_input = form.save(commit=False)
         return redirect('/../home/')        
 
 def signup(request):
@@ -58,3 +46,27 @@ def Tutors(request):
             the_tutors.append(user)
             print(user)
     return render(request,'FindTutors/tutors.html',{'tutors':the_tutors})
+
+
+def MessagesView(request):
+    c = Chat.objects.all()
+    return render(request, "FindTutors/messages.html", {'home': 'active', 'chat': c})
+
+
+def Post(request):
+    if request.method == "POST":
+        msg = request.POST.get('msgbox', None)
+
+        c = Chat(user=request.user, message=msg)
+
+        if msg != '':
+            c.save()
+        # mg = src="https://scontent-ord1-1.xx.fbcdn.net/hprofile-xaf1/v/t1.0-1/p160x160/11070096_10204126647988048_6580328996672664529_n.jpg?oh=f9b916e359cd7de9871d8d8e0a269e3d&oe=576F6F12"
+        return JsonResponse({'msg': msg, 'user': c.user.username})
+    else:
+        return HttpResponse('Request must be POST.')
+
+def GetMessages(request):
+    c = Chat.objects.all()
+    return render(request, 'FindTutors/messages.html', {'chat': c})
+
