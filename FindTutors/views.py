@@ -1,28 +1,26 @@
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse
 from django.views import generic
+from django.utils import timezone
+from django.contrib.auth import login, logout, authenticate
 from .models import BigUser, Request
-from .forms import TutorUserSignUpForm, TuteeUserSignUpForm, RequestForm
-from django.contrib.auth import authenticate, login
+from .forms import RequestForm
 from django.shortcuts import redirect
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+
+#registration views
+class SignUpView(generic.TemplateView):
+    template_name = 'registration/signup.html'
+    
+class redirectView(generic.TemplateView):
+    template_name = 'registration/redirect.html'
 
 class HomeView(generic.TemplateView):
     template_name = 'FindTutors/home.html'
 
 class MessagesView(generic.TemplateView):
     template_name = "FindTutors/messages.html"
-
-class SignUpView(generic.CreateView):
-    model = BigUser
-    form_class = TutorUserSignUpForm
-    template_name = 'Registration/signup_form.html'
-
-    def form_valid(self, form):
-        user = form.save(commit=False)
-        user.username = self.request.user.username
-        # login(self.request, user)
-        user.save()
-        return redirect('/FindTutors/dashboard/')
 
 class RequestView(generic.CreateView):
     model = Request
@@ -41,9 +39,6 @@ class RequestView(generic.CreateView):
         self.request_input.recipient = self.recipient
         self.request_input.save()
         return redirect('/../home/')        
-
-def signup(request):
-    return render(request, 'Registration/signup_form.html')
 
 def Dashboard(request):
     model = BigUser
