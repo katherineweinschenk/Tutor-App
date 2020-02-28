@@ -9,10 +9,8 @@ from django.contrib.auth import login, logout
 class SignUpView(generic.TemplateView):
     template_name = 'registration/signup.html'
     
-
-def logoutview(request):
-    logout(request)
-    return render(request, 'registration/signup.html')
+class redirectView(generic.TemplateView):
+    template_name = 'registration/redirect.html'
 
 #@login_required
 class HomeView(generic.TemplateView):
