@@ -8,6 +8,7 @@ from .models import BigUser, Request
 from .forms import RequestForm
 from django.shortcuts import redirect
 from django.shortcuts import render
+from .models import BigUser
 
 #registration views
 class SignUpView(generic.TemplateView):
@@ -26,17 +27,15 @@ class RequestView(generic.CreateView):
     model = Request
     form_class = RequestForm
     template_name = 'FindTutors/request.html'
-    recipient = None
 
-    def get(self, request, *args, **kwargs):
-        self.recipient = request.GET.get('recipient')
-        form = self.form_class(initial=self.initial)
-        return render(request, self.template_name, {'form': form})
+    # def get(self, request, *args, **kwargs):
+    #     self.request_input.recipient = request.GET.get('recipient')
+    #     return render(request, self.template_name, {'form': form})
     
     def form_valid(self, form):
         self.request_input = form.save(commit=False)
-        self.request_input.sender = self.request.user
-        self.request_input.recipient = self.recipient
+        self.request_input.sender = self.request.user.biguser
+        self.request_input.recipient = BigUser.objects.get(email=self.request.GET.get('recipient'))
         self.request_input.save()
         return redirect('/../home/')        
 

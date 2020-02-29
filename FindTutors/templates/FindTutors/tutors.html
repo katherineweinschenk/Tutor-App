@@ -53,7 +53,7 @@
             <td><a href="{{tutor.firstname}}/">{{ tutor.firstname }} {{tutor.lastname }}</a></td>
             <td>{{ tutor.year }} </td>
             <td>{{ tutor.subjects }} </td>
-            <td><a class="btn btn-primary" href="/../home/request/?recipient={{tutor}}" role = "button">Send Request</a></td>
+            <td><a class="btn btn-primary" href="/../home/request/?recipient={{tutor.email}}" role = "button">Send Request</a></td>
           </tr>
         {% endfor %}
       </tbody>
