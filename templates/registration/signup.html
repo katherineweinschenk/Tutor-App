@@ -1,6 +1,12 @@
-{% block content %}
-  <h2>Sign up for a free account</h2>
-  <p class="lead">Start here!</p>
-  <a href="{% url 'tutee_signup' %}" class="btn btn-teacher btn-lg" role="button">I'm looking for a tutor</a>
-  <a href="{% url 'tutor_signup' %}" class="btn btn-student btn-lg" role="button">I want to be a tutor</a>
-{% endblock %}
+<div class="jumbotron">
+    <h1>User Login</h1>
+    {% if user.is_authenticated %}
+        <meta http-equiv = "refresh" content = "0; url = {% url 'home' %}" />
+      <!--<p>Logged as {{ user.username }}</p> -->
+      <!--<a class="btn btn-primary" href="{% url 'logout' %}">Logout</a> -->
+    {% else %}
+      <a class="btn btn-primary" href="{% url 'social:begin' 'google-oauth2' %}">
+        Login
+      </a>
+    {% endif %}
+  </div>
