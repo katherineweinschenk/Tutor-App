@@ -154,3 +154,5 @@ try:
     django_heroku.settings(locals())
 except ImportError:
     found = False
+
+django_heroku.settings(locals())
