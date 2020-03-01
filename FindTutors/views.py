@@ -84,17 +84,22 @@ class RequestView(generic.CreateView):
     template_name = 'FindTutors/request.html'
     recipient = None
 
-    def get(self, request, *args, **kwargs):
-        self.recipient = request.GET.get('recipient')
-        form = self.form_class(initial=self.initial)
-        return render(request, self.template_name, {'form': form})
+    #def get(self, request, *args, **kwargs):
+     #   self.recipient = request.GET.get('recipient')
+      #  form = self.form_class(initial=self.initial)
+       # return render(request, self.template_name, {'form': form})
     
     def form_valid(self, form):
         self.request_input = form.save(commit=False)
-        self.request_input.sender = self.request.user
-        self.request_input.recipient = self.recipient
+      #  self.request_input.sender = self.request.user
+       # self.request_input.recipient = self.recipient
         self.request_input.save()
-        return redirect('/../home/')        
+        return redirect('/home/request/tutor_request/')
+
+def TutorRequest(request):
+    model = TUser
+    all_tutors = TUser.objects.filter(is_tutor = True)
+    return render(request,'FindTutors/tutor_request.html', {'tutors':all_tutors})
 
 #def Dashboard(request):
  #   model = BigUser

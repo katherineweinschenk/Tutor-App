@@ -41,8 +41,8 @@ class TUser(AbstractBaseUser, PermissionsMixin):
 #     location = models.CharField(max_length = 500, default="")
 
 class Request(models.Model):
-    sender = models.ForeignKey(TUser,models.SET_NULL,related_name="BigUser_sender",blank=True,null=True)
-    recipient = models.ForeignKey(TUser,models.SET_NULL,related_name="BigUser_recipient",blank=True,null=True)
+    sender = models.ForeignKey(TUser,models.SET_NULL,related_name="TUser_sender",blank=True,null=True)
+    recipient = models.ForeignKey(TUser,models.SET_NULL,related_name="TUser_recipient",blank=True,null=True)
     subject = models.CharField(max_length = 500, default="")
     description = models.CharField(max_length = 500, default="")
     location = models.CharField(max_length = 500, default="")
