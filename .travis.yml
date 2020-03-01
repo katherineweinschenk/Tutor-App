@@ -7,6 +7,8 @@ script:
 - python manage.py test
 deploy:
   provider: heroku
+  api_key:
+    secure: af934097-ff4e-4565-9703-2fe06bd6b7c8
   app: SuperTuber
   on:
     repo: uva-cs3240-s20/project-102-supertuber
