@@ -1,7 +1,8 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import BigUser, Request
-
-admin.site.register(BigUser)
+from .models import TUser, Request
+#from .models import BigUser
+# admin.site.register(BigUser)
+admin.site.register(TUser)
 admin.site.register(Request)

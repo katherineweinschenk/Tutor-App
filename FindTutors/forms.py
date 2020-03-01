@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import  BigUser, Request
+# from .models import  BigUser, Request, TUser
+from .models import TUser, Request
 from django.forms import ModelForm
 #
 # class TutorSignUpForm(UserCreationForm):
@@ -35,13 +36,13 @@ class RequestForm(ModelForm):
 # Creating a Central Registration Form that will work for both Tutor and Tutee (set Booleans in view)
 class RegisterForm(UserCreationForm):
     class Meta:
-        model = BigUser
+        model = TUser
         fields = ('firstname', 'lastname', 'email', 'phone_number',)
 
 class TutorUserSignUpForm(UserCreationForm):
     class Meta:
-        model = BigUser
-        fields = ('firstname', 'lastname', 'email', 'phone_number',)
+        model = TUser
+        fields = ('firstname', 'lastname', 'email', 'phone_number','year','subjects')
     # def save(self, commit=True):
     #     user = super().save(commit=False)
     #     user.is_tutor = True
@@ -51,8 +52,8 @@ class TutorUserSignUpForm(UserCreationForm):
 
 class TuteeUserSignUpForm(UserCreationForm):
     class Meta:
-        model = BigUser
-        fields= ('firstname', 'lastname', 'email', 'phone_number',)
+        model = TUser
+        fields= ('firstname', 'lastname', 'email', 'phone_number','year','subjects')
     # def save(self, commit=True):
     #     user = super().save(commit=False)
     #     user.is_tutee = True

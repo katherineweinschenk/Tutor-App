@@ -4,42 +4,45 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from django.contrib.auth import login, logout, authenticate
-from .models import BigUser, Request
+from .models import Request, TUser
+#from .models import BigUser
 from .forms import RequestForm, RegisterForm
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.views.generic import CreateView, ListView
 
 class TutorRegisterView(CreateView):
-    model = BigUser
-    form_class = RegisterForm               # check form
+    model = TUser
+    #form_class = RegisterForm               # check form
+    fields = ['firstname', 'lastname', 'email', 'subjects', 'year', ]
     template_name = 'FindTutors/tutor_signup.html' # correct form HTML
 
     def form_valid(self, form):
         user = form.save(commit=False)
         user.is_tutor = True
         user.save()
-        return redirect('tutors') # Go back to the table of tutors
+        return redirect('/home/tutors/') # Go back to the table of tutors
         #return redirect('dashboard')           # redirect to proper dashboard
 
 class TuteeRegisterView(CreateView):
-    model = BigUser
-    form_class = RegisterForm               # check form
+    model = TUser
+    # form_class = RegisterForm               # check form
+    fields = ['firstname','lastname','email','subjects','year',]
     template_name = 'FindTutors/tutee_signup.html' # correct form HTML
 
     def form_valid(self, form):
         user = form.save(commit=False)
         user.is_tutee = True
         user.save()
-        return redirect('tutees')  # Go back to the table of tutors
+        return redirect('/home/tutees/')  # Go back to the table of tutors
         # login(self.request, user)
 
         #return redirect('dashboard')           # redirect to proper dashboard
 
 def Tutors(request):
-    model = BigUser
+    model = TUser
     #the_tutors = []
-    the_tutors = BigUser.objectsfilter(is_tutor = True)
+    the_tutors = TUser.objects.filter(is_tutor = True)
     # for user in BigUser.objects.all()
     #     if user.is_tutor:
     #         the_tutors.append(user)
@@ -47,7 +50,7 @@ def Tutors(request):
     return render(request,'FindTutors/tutors.html',{'tutors':the_tutors})
 
 def Tutees(request):
-    all_tutees = BigUser.objectsfilter(is_tutee=True)
+    all_tutees = TUser.objects.filter(is_tutee=True)
 
     return render(request, 'FindTutors/tutees.html', {'tutees': all_tutees})
 
@@ -93,8 +96,8 @@ class RequestView(generic.CreateView):
         self.request_input.save()
         return redirect('/../home/')        
 
-def Dashboard(request):
-    model = BigUser
-    allUsers = BigUser.objects.all()
-    return render(request,'dashboard.html', {'all:': allUsers})
+#def Dashboard(request):
+ #   model = BigUser
+  #  allUsers = BigUser.objects.all()
+   # return render(request,'dashboard.html', {'all:': allUsers})
 

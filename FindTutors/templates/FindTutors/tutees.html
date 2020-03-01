@@ -37,7 +37,7 @@
 </nav>
 <body>
   <div class="container">
-    <h2>Tutors</h2>
+    <h2>Tutees</h2>
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
@@ -50,9 +50,9 @@
       <tbody>
         {% for tutee in tutees %}
           <tr>
-            <td><a href="{{tutee.firstname}}/">{{ tutee.firstname }} {{tutotuteer.lastname }}</a></td>
-            <td>{{ tutor.year }} </td>
-            <td>{{ tutor.subjects }} </td>
+            <td><a href="{{tutee.firstname}}/">{{ tutee.firstname }} {{tutee.lastname }}</a></td>
+            <td>{{ tutee.year }} </td>
+            <td>{{ tutee.subjects }} </td>
             <td><a class="btn btn-primary" href="/../home/request/?recipient={{tutor}}" role = "button">Send Request</a></td>
           </tr>
         {% endfor %}
