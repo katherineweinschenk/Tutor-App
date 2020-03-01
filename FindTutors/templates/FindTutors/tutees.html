@@ -1,7 +1,8 @@
 <!DOCTYPE html>
+<html>
 <html lang="en">
 <head>
-  <title>Home</title>
+  <title>Tutors</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -10,19 +11,13 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 
-<body>
 <div class="jumbotron text-center bg-primary text-white" style="margin-bottom:0">
   <h1>SuperTuber</h1>
-  {% if user.is_authenticated %}
-  <p>{{user.get_full_name}}</p>
-  {% endif %}
   <h4>Quickly Find Help For Your Study Problems</h4>
-  <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
 </div>
 
-
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-  <a class="navbar-brand" href="">Home</a>
+  <a class="navbar-brand" href="/home"><font color="grey">Home</font></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -32,7 +27,7 @@
         <a class="nav-link" href="/home/profile">My Profile</a>
       </li>
         <li class="nav-item">
-        <a class="nav-link" href="/home/tutors">Find Tutors</a>
+        <a class="nav-link" href="">Find Tutors</a>
       </li>
         <li class="nav-item">
         <a class="nav-link" href="/home/messages">Messages</a>
@@ -40,3 +35,29 @@
     </ul>
   </div>
 </nav>
+<body>
+  <div class="container">
+    <h2>Tutees</h2>
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>Tutee's Name</th>
+          <th>Tutee's Year</th>
+          <th>Tutee's Subjects</th>
+          <th>Request</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for tutee in tutees %}
+          <tr>
+            <td><a href="{{tutee.firstname}}/">{{ tutee.firstname }} {{tutee.lastname }}</a></td>
+            <td>{{ tutee.year }} </td>
+            <td>{{ tutee.subjects }} </td>
+            <td><a class="btn btn-primary" href="/../home/request/?recipient={{tutor}}" role = "button">Send Request</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
