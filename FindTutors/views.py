@@ -75,6 +75,7 @@ class redirectView(generic.TemplateView):
 class HomeView(generic.TemplateView):
     template_name = 'FindTutors/home.html'
 
+
 class MessagesView(generic.TemplateView):
     template_name = "FindTutors/messages.html"
 
@@ -99,6 +100,8 @@ class RequestView(generic.CreateView):
 def TutorRequest(request):
     model = TUser
     all_tutors = TUser.objects.filter(is_tutor = True)
+    if request.user.is_authenticated:
+        print('pie')
     return render(request,'FindTutors/tutor_request.html', {'tutors':all_tutors})
 
 #def Dashboard(request):
