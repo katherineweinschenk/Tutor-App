@@ -13,3 +13,5 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('complete/google-oauth2/home/', views.redirectView.as_view(), name='redirect'),
 ]
+
+

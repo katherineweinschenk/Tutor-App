@@ -5,13 +5,66 @@ from django.views import generic
 from django.utils import timezone
 from django.contrib.auth import login, logout, authenticate
 from .models import BigUser, Request
-from .forms import RequestForm
+from .forms import RequestForm, RegisterForm
 from django.shortcuts import redirect
 from django.shortcuts import render
+from django.views.generic import CreateView, ListView
+
+class TutorRegisterView(CreateView):
+    model = BigUser
+    form_class = RegisterForm               # check form
+    template_name = 'FindTutors/tutor_signup.html' # correct form HTML
+
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        user.is_tutor = True
+        user.save()
+        return redirect('tutors') # Go back to the table of tutors
+        #return redirect('dashboard')           # redirect to proper dashboard
+
+class TuteeRegisterView(CreateView):
+    model = BigUser
+    form_class = RegisterForm               # check form
+    template_name = 'FindTutors/tutee_signup.html' # correct form HTML
+
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        user.is_tutee = True
+        user.save()
+        return redirect('tutees')  # Go back to the table of tutors
+        # login(self.request, user)
+
+        #return redirect('dashboard')           # redirect to proper dashboard
+
+def Tutors(request):
+    model = BigUser
+    #the_tutors = []
+    the_tutors = BigUser.objectsfilter(is_tutor = True)
+    # for user in BigUser.objects.all()
+    #     if user.is_tutor:
+    #         the_tutors.append(user)
+    #         print(user)
+    return render(request,'FindTutors/tutors.html',{'tutors':the_tutors})
+
+def Tutees(request):
+    all_tutees = BigUser.objectsfilter(is_tutee=True)
+
+    return render(request, 'FindTutors/tutees.html', {'tutees': all_tutees})
+
+
 
 #registration views
 class SignUpView(generic.TemplateView):
     template_name = 'registration/signup.html'
+
+
+# class SignUpAsTutor(generic.TemplateView):
+#     template_name = 'registration/signup.html'
+#     redirect('tutor_dashboard')
+#
+# class SignUpAsTutee(generic.TemplateView):
+#     template_name = 'registration/signup.html'
+#     redirect('tutee_dashboard')
     
 class redirectView(generic.TemplateView):
     template_name = 'registration/redirect.html'
@@ -45,11 +98,3 @@ def Dashboard(request):
     allUsers = BigUser.objects.all()
     return render(request,'dashboard.html', {'all:': allUsers})
 
-def Tutors(request):
-    model = BigUser
-    the_tutors = []
-    for user in BigUser.objects.all():
-        if user.is_tutor:
-            the_tutors.append(user)
-            print(user)
-    return render(request,'FindTutors/tutors.html',{'tutors':the_tutors})

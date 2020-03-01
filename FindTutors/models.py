@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 class BigUser(models.Model):  
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
     firstname = models.CharField(max_length = 200)
     lastname = models.CharField(max_length = 200)
     email = models.EmailField(max_length = 255)

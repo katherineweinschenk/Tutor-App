@@ -32,6 +32,12 @@ class RequestForm(ModelForm):
         model = Request
         fields = ('subject', 'description', 'location',)
 
+# Creating a Central Registration Form that will work for both Tutor and Tutee (set Booleans in view)
+class RegisterForm(UserCreationForm):
+    class Meta:
+        model = BigUser
+        fields = ('firstname', 'lastname', 'email', 'phone_number',)
+
 class TutorUserSignUpForm(UserCreationForm):
     class Meta:
         model = BigUser
