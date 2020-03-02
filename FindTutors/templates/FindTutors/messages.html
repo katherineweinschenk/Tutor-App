@@ -1,54 +1,37 @@
-{% load static %}
-
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <div><title>Chat Panel</title></div>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{% static 'chat.css' %}">
-
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
-    <!-- Latest compiled JavaScript -->
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
+  <title>Home</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-    <div id="chat-body" class="panel panel-default">
-        <div class="panel-heading">Messages</div>
-        <div id="msg-list-div" class="panel-body">
-            <ul id="msg-list" class="list-group">
-                {% for obj in chat %}
-                {%  if obj.user == request.user %}
-                        <li class="text-right list-group-item">{{ obj.message }}</li>
-                {%else%}
-                        <li class="text-left list-group-item">{{ obj.message }}</li>
-                        {%endif%}
-                {% empty %}
-                        <li class="text-right list-group-item">No messages yet!</li>
-                {% endfor %}
-                <script>
-                    var chatlist = document.getElementById('msg-list-div');
-                    chatlist.scrollTop = chatlist.scrollHeight;
-                </script>
-            </ul>
-    </div>
+<div class="jumbotron text-center bg-primary text-white" style="margin-bottom:0">
+  <h1>SuperTuber</h1>
+  <h4>Quickly Find Help For Your Study Problems</h4>
+</div>
 
-    <form id="chat-form" method="post" action="/home/messages/">
-        {% csrf_token %}
-        <div id="chat-bottom" class="input-group">
-            <input type="text" id="chat-msg" name="chat-msg" class="form-control"/>
-            <span class="input-group-btn">
-            <div>
-                <input class="btn btn-primary" id="send" type="submit" value="Send"/>
-            </div>
-
-            </span>
-        </div>
-    </form>
-</body>
-<script src="{% static 'chat.js' %}"></script>
-</html>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <a class="navbar-brand" href="/home">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/home/profile">My Profile</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="/home/tutors">Find Tutors</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="">Messages</a>
+      </li>
+    </ul>
+  </div>
+</nav>

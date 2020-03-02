@@ -1,13 +1,15 @@
-from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
-from django.shortcuts import get_object_or_404, render, redirect
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
-from .models import BigUser, Request, Chat, TUser
-from .forms import TutorUserSignUpForm, TuteeUserSignUpForm, RequestForm, RegisterForm
 from django.utils import timezone
 from django.contrib.auth import login, logout, authenticate
+from .models import Request, TUser
+#from .models import BigUser
+from .forms import RequestForm, RegisterForm
+from django.shortcuts import redirect
+from django.shortcuts import render
 from django.views.generic import CreateView, ListView
-
 
 class TutorRegisterView(CreateView):
     model = TUser
@@ -27,7 +29,6 @@ class TuteeRegisterView(CreateView):
     # form_class = RegisterForm               # check form
     fields = ['firstname','lastname','email','subjects','year',]
     template_name = 'FindTutors/tutee_signup.html' # correct form HTML
-
 
     def form_valid(self, form):
         user = form.save(commit=False)
@@ -94,7 +95,6 @@ class RequestView(generic.CreateView):
         self.request_input.save()
         return redirect('/home/request/tutor_request/')
 
-
 def TutorRequest(request):
     model = TUser
     all_tutors = TUser.objects.filter(is_tutor = True)
@@ -107,25 +107,3 @@ def TutorRequest(request):
   #  allUsers = BigUser.objects.all()
    # return render(request,'dashboard.html', {'all:': allUsers})
 
-
-def MessagesView(request):
-    c = Chat.objects.all()
-    return render(request, "FindTutors/messages.html", {'home': 'active', 'chat': c})
-
-
-def Post(request):
-    if request.method == "POST":
-        msg = request.POST.get('msgbox', None)
-
-        c = Chat(user=request.user, message=msg)
-
-        if msg != '':
-            c.save()
-        # mg = src="https://scontent-ord1-1.xx.fbcdn.net/hprofile-xaf1/v/t1.0-1/p160x160/11070096_10204126647988048_6580328996672664529_n.jpg?oh=f9b916e359cd7de9871d8d8e0a269e3d&oe=576F6F12"
-        return JsonResponse({'msg': msg, 'user': c.user.username})
-    else:
-        return HttpResponse('Request must be POST.')
-
-def GetMessages(request):
-    c = Chat.objects.all()
-    return render(request, 'FindTutors/messages.html', {'chat': c})

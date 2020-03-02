@@ -1,5 +1,4 @@
 from django.urls import path
-from django.conf.urls import url
 
 from . import views
 
@@ -9,11 +8,8 @@ urlpatterns = [
     path('register/', views.SignUpView.as_view(), name='signup'),
     #path('dashboard/', views.Dashboard, name='dashboard'),
     path('tutors/', views.Tutors, name='tutors'),
-    url(r'^messages/$', views.MessagesView, name='messages'),
-    url(r'^post/$', views.Post, name='post'),
-    url(r'^GetMessages/$', views.GetMessages, name='GetMessages'),
-
     path('tutees/', views.Tutees, name='tutees'),
+    path('messages/', views.MessagesView.as_view(), name = 'messages'),
     path('request/', views.RequestView.as_view(), name='request'),
     path('register_tutor/', views.TutorRegisterView.as_view(), name='tutor_register'),
     path('register_tutee/', views.TuteeRegisterView.as_view(), name='tutee_register'),
