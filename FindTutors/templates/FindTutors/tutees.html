@@ -37,23 +37,23 @@
 </nav>
 <body>
   <div class="container">
-    <h2>Tutors</h2>                       
+    <h2>Tutees</h2>
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
-          <th>Tutor's Name</th>
-          <th>Tutor's Year</th>
-          <th>Tutor's Subjects</th>
+          <th>Tutee's Name</th>
+          <th>Tutee's Year</th>
+          <th>Tutee's Subjects</th>
           <th>Request</th>
         </tr>
       </thead>
       <tbody>
-        {% for tutor in tutors %}
+        {% for tutee in tutees %}
           <tr>
-            <td><a href="{{tutor.firstname}}/">{{ tutor.firstname }} {{tutor.lastname }}</a></td>
-            <td>{{ tutor.year }} </td>
-            <td>{{ tutor.subjects }} </td>
-            <td><a class="btn btn-primary" href="/../home/request/?recipient={{tutor.email}}" role = "button">Send Request</a></td>
+            <td><a href="{{tutee.firstname}}/">{{ tutee.firstname }} {{tutee.lastname }}</a></td>
+            <td>{{ tutee.year }} </td>
+            <td>{{ tutee.subjects }} </td>
+            <td><a class="btn btn-primary" href="/../home/request/?recipient={{tutor}}" role = "button">Send Request</a></td>
           </tr>
         {% endfor %}
       </tbody>
