@@ -1,4 +1,5 @@
 from django.urls import path
+from django.conf.urls import url
 
 from . import views
 
@@ -9,9 +10,11 @@ urlpatterns = [
     #path('dashboard/', views.Dashboard, name='dashboard'),
     path('tutors/', views.Tutors, name='tutors'),
     path('tutees/', views.Tutees, name='tutees'),
-    path('messages/', views.MessagesView.as_view(), name = 'messages'),
     path('request/', views.RequestView.as_view(), name='request'),
     path('register_tutor/', views.TutorRegisterView.as_view(), name='tutor_register'),
     path('register_tutee/', views.TuteeRegisterView.as_view(), name='tutee_register'),
-    path('request/tutor_request/', views.TutorRequest, name='tutor_request' )
+    path('request/tutor_request/', views.TutorRequest, name='tutor_request'),
+    url(r'^messages/$', views.MessagesView.as_view(), name='messages'),
+    url(r'^post/$', views.Post, name='post'),
+    url(r'^GetMessages/$', views.GetMessages, name='GetMessages'),
 ]
