@@ -1,32 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 # from .models import  BigUser, Request, TUser
-from .models import TUser, Request
+from .models import TUser, Request, Profile
 from django.forms import ModelForm
-#
-# class TutorSignUpForm(UserCreationForm):
-#     class Meta(UserCreationForm.Meta):
-#         model = Tutor
-#         # fields = ('firstname', 'lastname', 'email', 'phone_number')
-#
-#     def save(self, commit=True):
-#         user = super().save(commit=False)
-#         user.is_tutor = True
-#         if commit:
-#             user.save()
-#         return user
-#
-#
-# class TuteeSignUpForm(UserCreationForm):
-#     class Meta(UserCreationForm.Meta):
-#         model = Tutee
-#         # fields = ('firstname', 'lastname', 'email', 'phone_number')
-#
-#     def save(self):
-#         user = super().save(commit=False)
-#         user.is_tutee = True
-#         user.save()
-#         return user
+from django.contrib.auth.models import User
 
 class RequestForm(ModelForm):
     class Meta:
@@ -60,3 +37,11 @@ class TuteeUserSignUpForm(UserCreationForm):
     #     if commit:
     #         user.save()
     #     return user
+
+
+#update user profile
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['image', 'year', 'user_type', 'subjects', 'bio']
+

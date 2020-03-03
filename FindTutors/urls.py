@@ -1,6 +1,7 @@
 from django.urls import path
-
 from . import views
+from SuperTuber import settings
+from django.conf.urls.static import static
 
 app_name = 'FindTutors'
 
@@ -13,5 +14,10 @@ urlpatterns = [
     path('request/', views.RequestView.as_view(), name='request'),
     path('register_tutor/', views.TutorRegisterView.as_view(), name='tutor_register'),
     path('register_tutee/', views.TuteeRegisterView.as_view(), name='tutee_register'),
-    path('request/tutor_request/', views.TutorRequest, name='tutor_request' )
+    path('request/tutor_request/', views.TutorRequest, name='tutor_request' ),
+    path('profile/', views.ProfileView.as_view(), name='profile'),
+    path('profile/edit', views.editprofile, name='edit_profile'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
