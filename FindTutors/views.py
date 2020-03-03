@@ -1,13 +1,37 @@
+<<<<<<< HEAD
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
+||||||| merged common ancestors
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse
+=======
+from django.http import HttpResponse, JsonResponse
+>>>>>>> master
 from django.views import generic
+<<<<<<< HEAD
 from django.utils import timezone
 from django.contrib.auth import login, logout, authenticate
 from .models import Request, TUser
 from .forms import RequestForm, RegisterForm, ProfileUpdateForm
 from django.views.generic import CreateView, ListView
 from django.contrib.auth.decorators import login_required
+||||||| merged common ancestors
+from django.utils import timezone
+from django.contrib.auth import login, logout, authenticate
+from .models import Request, TUser
+#from .models import BigUser
+from .forms import RequestForm, RegisterForm
+from django.shortcuts import redirect
+from django.shortcuts import render
+from django.views.generic import CreateView, ListView
+=======
+from .models import Request, TUser, Chat
+from .forms import RequestForm
+from django.shortcuts import redirect, render
+from django.views.generic import CreateView
+>>>>>>> master
 
 class TutorRegisterView(CreateView):
     model = TUser
@@ -62,10 +86,6 @@ class redirectView(generic.TemplateView):
 class HomeView(generic.TemplateView):
     template_name = 'FindTutors/home.html'
 
-
-class MessagesView(generic.TemplateView):
-    template_name = "FindTutors/messages.html"
-
 class RequestView(generic.CreateView):
     model = Request
     form_class = RequestForm
@@ -94,6 +114,7 @@ def TutorRequest(request):
   #  allUsers = BigUser.objects.all()
    # return render(request,'dashboard.html', {'all:': allUsers})
 
+<<<<<<< HEAD
 class ProfileView(generic.TemplateView):
     template_name = 'FindTutors/myprofile.html'
 
@@ -113,3 +134,26 @@ def editprofile(request):
 
     return render(request, 'FindTutors/editprofile.html', context)
 
+||||||| merged common ancestors
+=======
+class MessagesView(generic.TemplateView):
+    template_name = "FindTutors/messages.html"
+
+def Post(request):
+    if request.method == "POST":
+        msg = request.POST.get('msgbox', None)
+
+        c = Chat(user=request.user, message=msg)
+
+        if msg != '':
+            c.save()
+        # mg = src="https://scontent-ord1-1.xx.fbcdn.net/hprofile-xaf1/v/t1.0-1/p160x160/11070096_10204126647988048_6580328996672664529_n.jpg?oh=f9b916e359cd7de9871d8d8e0a269e3d&oe=576F6F12"
+        return JsonResponse({'msg': msg, 'user': c.user.username})
+    else:
+        return HttpResponse('Request must be POST.')
+
+def GetMessages(request):
+    c = Chat.objects.all()
+    return render(request, 'FindTutors/messages.html', {'chat': c})
+
+>>>>>>> master

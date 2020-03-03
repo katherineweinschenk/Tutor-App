@@ -118,3 +118,11 @@ class Request(models.Model):
     subject = models.CharField(max_length = 500, default="")
     description = models.CharField(max_length = 500, default="")
     location = models.CharField(max_length = 500, default="")
+
+class Chat(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(TUser, on_delete=models.CASCADE)
+    message = models.TextField()
+
+    def __unicode__(self):
+        return self.message
