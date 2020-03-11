@@ -60,6 +60,15 @@ class TUser(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.username
 
+class TutorProfile(models.Model):
+    user = models.OneToOneField(TUser, on_delete = models.CASCADE)
+    firstname = TUser.firstname
+    lastname = TUser.lastname
+    phone_number = models.IntegerField(blank = True, null = True)
+    subjects = models.Charfield(max_length = 500, default = "")
+
+
+
 
 class Profile(models.Model):
     user = models.OneToOneField(TUser,on_delete=models.CASCADE)

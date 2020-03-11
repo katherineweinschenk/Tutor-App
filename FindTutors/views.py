@@ -85,6 +85,14 @@ def TutorRequest(request):
         print('pie')
     return render(request,'FindTutors/tutor_request.html', {'tutors':all_tutors})
 
+
+#TutorRegistration view
+def TutorRegistration(request):
+    model = TUser
+    all_tutors = TUser.objects.filter(is_tutor = True)
+    template_name = 'FindTutors/tutor_registration.html'
+    return render(request, 'FindTutors/tutor_registration.html',{'tutors':all_tutors})
+
 #def Dashboard(request):
  #   model = BigUser
   #  allUsers = BigUser.objects.all()

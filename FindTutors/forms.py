@@ -38,6 +38,12 @@ class TuteeUserSignUpForm(UserCreationForm):
     #         user.save()
     #     return user
 
+#TutorRegistrationForm
+class TutorRegistration(UserCreationForm):
+    class Meta:
+        model = TUser
+        fields = ('firstname', 'lastname', 'phone_number', 'subjects')
+
 
 #update user profile
 class ProfileUpdateForm(forms.ModelForm):
