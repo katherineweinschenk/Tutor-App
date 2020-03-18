@@ -87,11 +87,11 @@ def TutorRequest(request):
 
 
 #TutorRegistration view
-def TutorRegistration(request):
+class TutorRegistration(CreateView):
     model = TUser
-    all_tutors = TUser.objects.filter(is_tutor = True)
-    template_name = 'FindTutors/tutor_registration.html'
-    return render(request, 'FindTutors/tutor_registration.html',{'tutors':all_tutors})
+    # form_class = RegisterForm               # check form
+    fields = ['firstname', 'lastname', 'email', 'subjects', 'year', ]
+    template_name = 'FindTutors/tutor_registration.html'  # correct form HTML
 
 #def Dashboard(request):
  #   model = BigUser

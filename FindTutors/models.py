@@ -65,7 +65,7 @@ class TutorProfile(models.Model):
     firstname = TUser.firstname
     lastname = TUser.lastname
     phone_number = models.IntegerField(blank = True, null = True)
-    subjects = models.Charfield(max_length = 500, default = "")
+    subjects = models.CharField(max_length = 500, default = "")
 
 
 

@@ -102,16 +102,16 @@ DATABASES = {
     }
 }
 
-# DATABASES = {
-# 'default': {
-# 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-# 'NAME': 'SuperTuber',
-# 'USER': 'myprojectuser',
-# 'PASSWORD': 'password',
-# 'HOST': 'localhost',
-# 'PORT': '',
-# }
-# }
+DATABASES = {
+'default': {
+'ENGINE': 'django.db.backends.postgresql_psycopg2',
+'NAME': 'supertuber',
+'USER': 'postgres',
+'PASSWORD': 'Volleyball123',
+'HOST': 'localhost',
+'PORT': '',
+}
+}
 
 
 # Password validation
