@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,6 +10,7 @@
       <meta name="author" content = "">
       <title>Home</title>
 
+      {% load static %}
 
     <link
       rel="stylesheet"
@@ -19,7 +22,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
         <style>
             body{
-                background-image: url("images/education.jpg");
                 background-size:cover;
                 margin: 0;
                 padding: 0;
@@ -49,9 +51,14 @@
                 text-align:center;
 
             }
+            .container-fluid{
+                padding-left: 92vw;
+
+            }
         </style>
 
-{#      <link rel="stylesheet" href="style.css">#}
+	    <link rel="stylesheet" type="text/css" href="{% static 'FindTutors/style.css' %}">
+
 
 
         <link href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap" rel="stylesheet">
@@ -94,10 +101,9 @@
 
             </nav>
 
-            <div class="container">
+            <div class="container-fluid">
                       <button class='btn pull-right'>
-                          <button style="position: absolute; right: 0;" class="btn btn-warning" href="{% url 'logout' %}">Logout</button>
-
+                                 <a class="btn btn-warning" href="{% url 'logout' %}">Logout</a>
             </div>
 
                 <div class ="row">
