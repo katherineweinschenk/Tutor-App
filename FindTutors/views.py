@@ -9,10 +9,9 @@ from .forms import RequestForm, RegisterForm, ProfileUpdateForm
 from django.views.generic import CreateView, ListView
 from django.contrib.auth.decorators import login_required
 
-#tutorRegistration view
+#tutor register form view
 class TutorRegisterView(CreateView):
     model = TUser
-    #form_class = RegisterForm               # check form
     fields = ['firstname', 'lastname', 'email', 'subjects', 'year', ]
     template_name = 'FindTutors/tutor_signup.html' # correct form HTML
 
@@ -21,9 +20,8 @@ class TutorRegisterView(CreateView):
         user.is_tutor = True
         user.save()
         return redirect('/home/tutors/') # Go back to the table of tutors
-        #return redirect('dashboard')           # redirect to proper dashboard
 
-#tutee registration view -my profile 
+#tutee registration view -my profile
 class TuteeRegisterView(CreateView):
     model = TUser
     # form_class = RegisterForm               # check form
