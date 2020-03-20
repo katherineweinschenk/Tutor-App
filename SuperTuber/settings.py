@@ -146,9 +146,14 @@ STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'FindTutors/static/messages/'),
+    os.path.join(BASE_DIR, 'FindTutors/static/registration/')
 )
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+CRISPY_TEMPLATE_PACK= 'bootstrap4'
 
 if '/app' in os.environ['HOME']:
     import django_heroku

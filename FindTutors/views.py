@@ -1,15 +1,13 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from django.contrib.auth import login, logout, authenticate
 from .models import Request, TUser
-#from .models import BigUser
-from .forms import RequestForm, RegisterForm
-from django.shortcuts import redirect
-from django.shortcuts import render
+from .forms import RequestForm, RegisterForm, ProfileUpdateForm
 from django.views.generic import CreateView, ListView
+from django.contrib.auth.decorators import login_required
 
 class TutorRegisterView(CreateView):
     model = TUser
@@ -54,30 +52,15 @@ def Tutees(request):
 
     return render(request, 'FindTutors/tutees.html', {'tutees': all_tutees})
 
-
-
 #registration views
 class SignUpView(generic.TemplateView):
     template_name = 'registration/signup.html'
-
-
-# class SignUpAsTutor(generic.TemplateView):
-#     template_name = 'registration/signup.html'
-#     redirect('tutor_dashboard')
-#
-# class SignUpAsTutee(generic.TemplateView):
-#     template_name = 'registration/signup.html'
-#     redirect('tutee_dashboard')
     
 class redirectView(generic.TemplateView):
     template_name = 'registration/redirect.html'
 
 class HomeView(generic.TemplateView):
     template_name = 'FindTutors/home.html'
-
-
-class MessagesView(generic.TemplateView):
-    template_name = "FindTutors/messages.html"
 
 class RequestView(generic.CreateView):
     model = Request
@@ -106,4 +89,43 @@ def TutorRequest(request):
  #   model = BigUser
   #  allUsers = BigUser.objects.all()
    # return render(request,'dashboard.html', {'all:': allUsers})
+
+class ProfileView(generic.TemplateView):
+    template_name = 'FindTutors/myprofile.html'
+
+@login_required
+def editprofile(request):
+    if request.method == 'POST':
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        if p_form.is_valid():
+            p_form.save()
+            return redirect('FindTutors:profile')
+    else:
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+
+    context = {
+        'p_form': p_form
+    }
+
+    return render(request, 'FindTutors/editprofile.html', context)
+
+class MessagesView(generic.TemplateView):
+    template_name = "FindTutors/messages.html"
+
+def Post(request):
+    if request.method == "POST":
+        msg = request.POST.get('msgbox', None)
+
+        c = Chat(user=request.user, message=msg)
+
+        if msg != '':
+            c.save()
+        # mg = src="https://scontent-ord1-1.xx.fbcdn.net/hprofile-xaf1/v/t1.0-1/p160x160/11070096_10204126647988048_6580328996672664529_n.jpg?oh=f9b916e359cd7de9871d8d8e0a269e3d&oe=576F6F12"
+        return JsonResponse({'msg': msg, 'user': c.user.username})
+    else:
+        return HttpResponse('Request must be POST.')
+
+def GetMessages(request):
+    c = Chat.objects.all()
+    return render(request, 'FindTutors/messages.html', {'chat': c})
 
