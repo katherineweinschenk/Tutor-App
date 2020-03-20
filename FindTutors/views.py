@@ -90,7 +90,7 @@ class RequestView(generic.CreateView):
     
     def form_valid(self, form):
         self.request_input = form.save(commit=False)
-        self.request_input.sender = self.request.user.TUser
+        self.request_input.sender = self.request.user
         self.request_input.recipient = TUser.objects.get(email=self.request.GET.get('recipient'))
         self.request_input.save()
         return redirect('/home/request/tutor_request/')
