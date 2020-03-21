@@ -104,7 +104,10 @@ class ProfileView(generic.TemplateView):
 @login_required
 def editprofile(request):
     if request.method == 'POST':
-        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        print("--- request ----")
+        print(request.user)
+        p_form = ProfileUpdateForm(request.POST, request.FILES)
+        # p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
         if p_form.is_valid():
             p_form.save()
             return redirect('FindTutors:profile')
@@ -119,6 +122,9 @@ def editprofile(request):
 
 class MessagesView(generic.TemplateView):
     template_name = "FindTutors/messages.html"
+
+
+
 
 def Post(request):
     if request.method == "POST":
