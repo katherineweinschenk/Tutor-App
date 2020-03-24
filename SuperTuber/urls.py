@@ -64,3 +64,5 @@ urlpatterns = [
     path('complete/google-oauth2/home/',
          views.redirectView.as_view(), name='redirect'),
 ]
+
+

@@ -41,10 +41,6 @@ def Tutors(request):
     model = TUser
     #the_tutors = []
     the_tutors = TUser.objects.filter(is_tutor = True)
-    # for user in BigUser.objects.all()
-    #     if user.is_tutor:
-    #         the_tutors.append(user)
-    #         print(user)
     return render(request,'FindTutors/tutors.html',{'tutors':the_tutors})
 
 def Tutees(request):
@@ -86,17 +82,12 @@ def TutorRequest(request):
     return render(request,'FindTutors/tutor_request.html', {'tutors':all_tutors})
 
 
-#TutorRegistration view
-class TutorRegistration(CreateView):
-    model = TUser
-    # form_class = RegisterForm               # check form
-    fields = ['firstname', 'lastname', 'email', 'subjects', 'year', ]
-    template_name = 'FindTutors/tutor_registration.html'  # correct form HTML
-
-#def Dashboard(request):
- #   model = BigUser
-  #  allUsers = BigUser.objects.all()
-   # return render(request,'dashboard.html', {'all:': allUsers})
+# #TutorRegistration view
+# class TutorRegistration(CreateView):
+#     model = TUser
+#     # form_class = RegisterForm               # check form
+#     fields = ['firstname', 'lastname', 'email', 'subjects', 'year']
+#     template_name = 'FindTutors/tutor_registration.html'  # correct form HTML
 
 class ProfileView(generic.TemplateView):
     template_name = 'FindTutors/myprofile.html'
@@ -107,7 +98,7 @@ def editprofile(request):
         print("--- request ----")
         print(request.user)
         p_form = ProfileUpdateForm(request.POST, request.FILES)
-        # p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
         if p_form.is_valid():
             p_form.save()
             return redirect('FindTutors:profile')

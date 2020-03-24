@@ -40,6 +40,7 @@
                 padding-left: 7vw;
                 font-family: 'Josefin Sans', sans-serif;
                 text-align:center;
+                color: white;
             }
             p{
                 padding-left: 7vw;
@@ -49,6 +50,7 @@
                 font-family: 'Josefin Sans', sans-serif;
                 font-size: 2vw;
                 text-align:center;
+                color: white;
 
             }
             .container-fluid{
@@ -119,47 +121,5 @@
 
         </div>
 
-
-
-{#    <div#}
-{#      class="jumbotron text-center bg-primary text-white"#}
-{#      style="margin-bottom:0"#}
-{#    >#}
-{#      <h1>SuperTuber</h1>#}
-{#      {% if user.is_authenticated %}#}
-{#      <p>{{user.get_full_name}}</p>#}
-{#      {% endif %}#}
-{#      <h4>Quickly Find Help For Your Study Problems</h4>#}
-{#      <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>#}
-{#    </div>#}
-{##}
-{#    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">#}
-{#      <a class="navbar-brand" href="">Home</a>#}
-{#      <button#}
-{#        class="navbar-toggler"#}
-{#        type="button"#}
-{#        data-toggle="collapse"#}
-{#        data-target="#collapsibleNavbar"#}
-{#      >#}
-{#        <span class="navbar-toggler-icon"></span>#}
-{#      </button>#}
-{#      <div class="collapse navbar-collapse" id="collapsibleNavbar">#}
-{#        <ul class="navbar-nav">#}
-{#          <li class="nav-item">#}
-{#            <a class="nav-link" href="/home/profile">My Profile</a>#}
-{#          </li>#}
-{#          <li class="nav-item">#}
-{#            <a class="nav-link" href="/home/tutors">Find Tutors</a>#}
-{#          </li>#}
-{#          <li class="nav-item">#}
-{#            <a class="nav-link" href="/home/messages">Messages</a>#}
-{#          </li>#}
-{#          <li class ="nav-item">#}
-{#              <a class = "nav-link" href="{% url 'tutor_registration' pk=tutor.pk %}"> Register as a Tutor</a>#}
-{#          </li>#}
-{#        </ul>#}
-{#      </div>#}
-{#    </nav>#}
-{#    {% block content %} {% endblock %}#}
   </body>
 </html>
