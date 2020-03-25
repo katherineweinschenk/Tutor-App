@@ -13,6 +13,7 @@ urlpatterns = [
     path('tutors/', views.Tutors, name='tutors'),
     path('tutees/', views.Tutees, name='tutees'),
     path('request/', views.RequestView.as_view(), name='request'),
+    # path('tutor_registration/', views.TutorRegistration.as_view(), name = 'tutor_registration'),
     path('register_tutor/', views.TutorRegisterView.as_view(), name='tutor_register'),
     path('register_tutee/', views.TuteeRegisterView.as_view(), name='tutee_register'),
     path('request/tutor_request/', views.TutorRequest, name='tutor_request' ),
@@ -22,6 +23,8 @@ urlpatterns = [
     url(r'^messages/$', views.MessagesView.as_view(), name='messages'),
     url(r'^post/$', views.Post, name='post'),
     url(r'^GetMessages/$', views.GetMessages, name='GetMessages'),
+    # path('tutors/<int:pk>/', views.TutorProfile, name='tutor_profile'),
+
 ]
 
 if settings.DEBUG:

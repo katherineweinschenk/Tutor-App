@@ -40,8 +40,8 @@
 {#    </ul>#}
 {#  </div>#}
 {#</nav>#}
-
 {% extends 'FindTutors/base.html' %} {% block content %}
-<p>Home</p>
+<p>Tutor Registration</p>
+    <a class="btn-tutor_register btn" href="{% url 'tutor_signup' pk=pk.tutor%}"></a>
 {% endblock %}
 

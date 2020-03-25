@@ -1,5 +1,45 @@
-{% block content %}
+{% load static %}
 
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>SignUp</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+      <meta nmae = "description" content = "">
+      <meta name="author" content = "">
+      <title>SignUp</title>
+<link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    >
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap" rel="stylesheet">
+
+
+{% block content %}
+    <style>
+    h2{
+        font-size: 5vw;
+        margin-top:2vh;
+        padding-left: 7vw;
+        font-family: 'Josefin Sans', sans-serif;
+        color: black;
+        text-align:center;
+    }
+    body{
+         background:url(/FindTutors/static/SignUp/images/pencils.jpg) no-repeat;
+         padding-top:0px;
+         background-size:cover;
+            }
+
+    </style>
+    </head>
+
+    <body>
 <h2> Create a New Tutor Account </h2>
 
 <form method='post'>
@@ -8,4 +48,6 @@
   <button type="submit"> Register As Tutor! </button>
 </form>
 <br>
+
+    </body>
 {% endblock %}
