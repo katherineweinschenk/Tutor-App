@@ -5,7 +5,7 @@ from django.views import generic
 from django.utils import timezone
 from django.contrib.auth import login, logout, authenticate
 from .models import Request, TUser
-from .forms import RequestForm, RegisterForm, ProfileUpdateForm
+from .forms import RequestForm, RegisterForm, ProfileUpdateForm, TutorRegistration, TutorUserSignUpForm
 from django.views.generic import CreateView, ListView
 from django.contrib.auth.decorators import login_required
 
@@ -21,7 +21,6 @@ class TutorRegisterView(CreateView):
         user.save()
         return redirect('/home/tutors/') # Go back to the table of tutors
 
-#tutee registration view -my profile
 class TuteeRegisterView(CreateView):
     model = TUser
     # form_class = RegisterForm               # check form
@@ -33,15 +32,32 @@ class TuteeRegisterView(CreateView):
         user.is_tutee = True
         user.save()
         return redirect('/home/tutees/')  # Go back to the table of tutors
-        # login(self.request, user)
+        login(self.request, user)
 
-        #return redirect('dashboard')           # redirect to proper dashboard
+        return redirect('dashboard')           # redirect to proper dashboard
 
 def Tutors(request):
     model = TUser
     #the_tutors = []
     the_tutors = TUser.objects.filter(is_tutor = True)
     return render(request,'FindTutors/tutors.html',{'tutors':the_tutors})
+
+
+# def TutorProfile(request):
+#     model = TUser
+#     if request.method == 'POST':
+#         form = TutorUserSignUpForm(request.POST)
+#         if form.is_valid():
+#             TUser = form.save()  # save user to db
+#
+#     else:
+#         form = TutorUserSignUpForm()
+#     c = {
+#       'form':form,
+#     }
+#     c.update(csrf(request))
+#     return render("FindTutors/tutors/<int:pk>.html", c)
+
 
 def Tutees(request):
     all_tutees = TUser.objects.filter(is_tutee=True)
