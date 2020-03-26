@@ -23,8 +23,8 @@ urlpatterns = [
     url(r'^messages/$', views.MessagesView.as_view(), name='messages'),
     url(r'^post/$', views.Post, name='post'),
     url(r'^GetMessages/$', views.GetMessages, name='GetMessages'),
-    # path('tutors/<int:pk>/', views.TutorProfile, name='tutor_profile'),
-
+    path('tutors/<pk>/', views.TutorProfile, name='tutor_profile'),
+    path('ratingsreview/', views.ReviewRating, name = 'ratings_review'),
 ]
 
 if settings.DEBUG:

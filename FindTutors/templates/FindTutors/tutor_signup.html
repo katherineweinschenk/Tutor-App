@@ -9,6 +9,8 @@
       <meta nmae = "description" content = "">
       <meta name="author" content = "">
       <title>SignUp</title>
+      {% load static %}
+
 <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -20,7 +22,8 @@
         <link href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap" rel="stylesheet">
 
 
-{% block content %}
+
+{#{% block content %}#}
     <style>
     h2{
         font-size: 5vw;
@@ -37,10 +40,12 @@
             }
 
     </style>
-    </head>
+            	    <link rel="stylesheet" type="text/css" href="{% static 'SignUp/style.css' %}">
 
+    </head>
     <body>
 <h2> Create a New Tutor Account </h2>
+
 
 <form method='post'>
   {% csrf_token %}
@@ -50,4 +55,5 @@
 <br>
 
     </body>
-{% endblock %}
+</html>
+{#{% endblock %}#}

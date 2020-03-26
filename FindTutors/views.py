@@ -4,15 +4,17 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from django.contrib.auth import login, logout, authenticate
-from .models import Request, TUser
-from .forms import RequestForm, RegisterForm, ProfileUpdateForm, TutorRegistration, TutorUserSignUpForm
+from .models import Request, TUser, Reviews
+from .forms import RequestForm, RegisterForm, ProfileUpdateForm, TutorRegistration, TutorUserSignUpForm, \
+    ReviewRatingForm
 from django.views.generic import CreateView, ListView
 from django.contrib.auth.decorators import login_required
 
 #tutor register form view
 class TutorRegisterView(CreateView):
     model = TUser
-    fields = ['firstname', 'lastname', 'email', 'subjects', 'year', ]
+    form_class = TutorUserSignUpForm
+    # fields = ['username', 'password','firstname', 'lastname', 'email', 'phone_number', 'subjects', 'year', ]
     template_name = 'FindTutors/tutor_signup.html' # correct form HTML
 
     def form_valid(self, form):
@@ -39,14 +41,25 @@ class TuteeRegisterView(CreateView):
 def Tutors(request):
     model = TUser
     #the_tutors = []
-    the_tutors = TUser.objects.filter(is_tutor = True)
+    the_tutors = TUser.objects.filter(is_tutor=1)
+    # the_tutors = TUser.objects.all()
     return render(request,'FindTutors/tutors.html',{'tutors':the_tutors})
+
+
+
+# class TutorProfile(generic.TemplateView):
+#     template_name = 'FindTutors/tutor_profile.html'
+
+def TutorProfile(request, pk):
+    if request.method == 'GET':
+        profile = get_object_or_404(TUser, pk=pk)
+        return render(request, 'FindTutors/tutor_profile.html', {'profile': profile})
 
 
 # def TutorProfile(request):
 #     model = TUser
 #     if request.method == 'POST':
-#         form = TutorUserSignUpForm(request.POST)
+#         form = TutorForm(request.POST)
 #         if form.is_valid():
 #             TUser = form.save()  # save user to db
 #
@@ -149,4 +162,16 @@ def Post(request):
 def GetMessages(request):
     c = Chat.objects.all()
     return render(request, 'FindTutors/messages.html', {'chat': c})
+
+
+#Review/Rating view
+def ReviewRating(request):
+    if request.method == "POST":
+        form = ReviewRatingForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('FindTutors:<pk>')
+    else:
+        form = ReviewRatingForm()
+    return render(request, 'FindTutors/ratings_review.html', {'form':form})
 
