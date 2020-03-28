@@ -5,8 +5,7 @@ from django.views import generic
 from django.utils import timezone
 from django.contrib.auth import login, logout, authenticate
 from .models import Request, TUser, Reviews
-from .forms import RequestForm, RegisterForm, ProfileUpdateForm, TutorRegistration, TutorUserSignUpForm, \
-    ReviewRatingForm
+from .forms import RequestForm, RegisterForm, ProfileUpdateForm, TutorRegistration, TutorUserSignUpForm
 from django.views.generic import CreateView, ListView
 from django.contrib.auth.decorators import login_required
 
@@ -22,6 +21,18 @@ class TutorRegisterView(CreateView):
         user.is_tutor = True
         user.save()
         return redirect('/home/tutors/') # Go back to the table of tutors
+#
+# class TutorRegisterView(CreateView):
+#     model = TutorProfile
+#     form_class = TutorUserSignUpForm
+#     # fields = ['username', 'password','firstname', 'lastname', 'email', 'phone_number', 'subjects', 'year', ]
+#     template_name = 'FindTutors/tutor_signup.html' # correct form HTML
+#
+#     def form_valid(self, form):
+#         user = form.save(commit=False)
+#         user.is_tutor = True
+#         user.save()
+#         return redirect('/home/tutors/')
 
 class TuteeRegisterView(CreateView):
     model = TUser
@@ -47,30 +58,10 @@ def Tutors(request):
 
 
 
-# class TutorProfile(generic.TemplateView):
-#     template_name = 'FindTutors/tutor_profile.html'
-
 def TutorProfile(request, pk):
     if request.method == 'GET':
-        profile = get_object_or_404(TUser, pk=pk)
+        profile = get_object_or_404(TUser, pk=pk) #change to TutorProfile
         return render(request, 'FindTutors/tutor_profile.html', {'profile': profile})
-
-
-# def TutorProfile(request):
-#     model = TUser
-#     if request.method == 'POST':
-#         form = TutorForm(request.POST)
-#         if form.is_valid():
-#             TUser = form.save()  # save user to db
-#
-#     else:
-#         form = TutorUserSignUpForm()
-#     c = {
-#       'form':form,
-#     }
-#     c.update(csrf(request))
-#     return render("FindTutors/tutors/<int:pk>.html", c)
-
 
 def Tutees(request):
     all_tutees = TUser.objects.filter(is_tutee=True)

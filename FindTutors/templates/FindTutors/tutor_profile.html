@@ -1,17 +1,67 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <head>
+    <title>Tutor Profile</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+      <meta nmae = "description" content = "">
+      <meta name="author" content = "">
+      <title>Tutor Profile</title>
+
+      {% load static %}
+
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    >
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+      <link rel="stylesheet" type="text/css" href="{% static 'SignUp/style.css' %}">
+
+
+
+      <link href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap" rel="stylesheet">
+
+
 </head>
 <body>
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">{{profile.firstname}} {{ profile.lastname }} 's Profile</h1>
+  </div>
+</div>
+<div class="container-fluid bg-1 text-center">
+  <img src="{{ TUser.profile.image.url }} class="img-circle" >
+</div>
 
- {{ profile.subjects }}
- {{ profile.firstname }}
- {{ profile.lastname }}
- {{ profile.email }}
- {{ profile.subjects }}
- {{ profile.year }}
+<div class="container-fluid bg-2 text-center">
+  <h3> Email </h3>
+  <p>{{profile.email }}</p>
+</div>
+
+<div class="container-fluid bg-3 text-center">
+  <h3>Phone Number </h3>
+  <p>{{profile.phone_number}}</p>
+</div>
+
+<div class="container-fluid bg-3 text-center">
+  <h3>Subjects </h3>
+  <p>{{profile.subjects}}</p>
+</div>
+<div class="container-fluid bg-3 text-center">
+  <h3>Years Of Experience </h3>
+  <p>{{profile.year}}</p>
+</div>
+
+<div class="container-fluid bg-3 text-left">
+  <h3>About {{ profile.firstname }} {{ profile.lastname }} </h3>
+  <p>{{profile.bio}}</p>
+</div>
 
 
 </body>

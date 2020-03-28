@@ -46,13 +46,72 @@
     <body>
 <h2> Create a New Tutor Account </h2>
 
-
-<form method='post'>
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit"> Register As Tutor! </button>
+<form method = "POST" class = "post-form">
+    {% csrf_token %}{{ form.as_p }}
+    <button type="submit">Register as a Tutor</button>
 </form>
-<br>
+
+{#    <div class="modal-content">#}
+{#        {% csrf_token %}#}
+{##}
+{##}
+{#         <!-- Material input name -->#}
+{#        <div class="md-form form-sm">#}
+{#          <i class="fa fa-envelope prefix"></i>#}
+{#          <input type="text" id="username" class="form-control form-control-sm">#}
+{#          <label for="id_username">Your username</label>#}
+{#        </div>#}
+{##}
+{#        <!-- Material input email -->#}
+{#        <div class="md-form form-sm">#}
+{#          <i class="fa fa-lock prefix"></i>#}
+{#          <input type="text" id="firstname" class="form-control form-control-sm">#}
+{#          <label for="id_firstname">Your first name:</label>#}
+{#        </div>#}
+{##}
+{#        <div class="md-form form-sm">#}
+{#          <i class="fa fa-lock prefix"></i>#}
+{#          <input type="text" id="lastname" class="form-control form-control-sm">#}
+{#          <label for="id_lastname">Your last name:</label>#}
+{#        </div>#}
+{##}
+{#        <!-- Material input subject -->#}
+{#        <div class="md-form form-sm">#}
+{#          <i class="fa fa-tag prefix"></i>#}
+{#          <input type="email" id="email" class="form-control form-control-sm">#}
+{#          <label for="id_email">Your email  </label>#}
+{#        </div>#}
+{##}
+{#        <div class="md-form form-sm">#}
+{#          <i class="fa fa-lock prefix"></i>#}
+{#          <input type="number" id="phone_number" class="form-control form-control-sm">#}
+{#          <label for="id_phone_number">Your phone number :</label>#}
+{#        </div>#}
+{##}
+{#        <div class="md-form form-sm">#}
+{#          <i class="fa fa-lock prefix"></i>#}
+{#          <input type="number" id="year" class="form-control form-control-sm">#}
+{#          <label for="id_year">Your years of experience:</label>#}
+{#        </div>#}
+{##}
+{#        <!-- Material textarea message -->#}
+{#        <div class="md-form form-sm">#}
+{#          <i class="fa fa-pencil-alt prefix"></i>#}
+{#          <textarea type="text" id="subjects"#}
+{#            class="md-textarea form-control"></textarea>#}
+{#          <label for="id_subjects">Your subjects</label>#}
+{#        </div>#}
+{##}
+{#        <div class="text-center mt-4 mb-2">#}
+{#            <button type="submit"> Register As Tutor! </button>#}
+{#            </form>#}
+{#            <br>#}
+{#          </button>#}
+{#        </div>#}
+{#            </div>#}
+{#            <button type="submit"> Register As Tutor! </button>#}
+{#            </form>#}
+{#            <br>#}
 
     </body>
 </html>
