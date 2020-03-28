@@ -5,13 +5,13 @@ from django.views import generic
 from django.utils import timezone
 from django.contrib.auth import login, logout, authenticate
 from .models import Request, TUser
-from .forms import RequestForm, RegisterForm, ProfileUpdateForm
+from .forms import RequestForm, RegisterForm, ProfileUpdateForm, TutorRegistration, TutorUserSignUpForm
 from django.views.generic import CreateView, ListView
 from django.contrib.auth.decorators import login_required
 
+#tutor register form view
 class TutorRegisterView(CreateView):
     model = TUser
-    #form_class = RegisterForm               # check form
     fields = ['firstname', 'lastname', 'email', 'subjects', 'year', ]
     template_name = 'FindTutors/tutor_signup.html' # correct form HTML
 
@@ -20,7 +20,6 @@ class TutorRegisterView(CreateView):
         user.is_tutor = True
         user.save()
         return redirect('/home/tutors/') # Go back to the table of tutors
-        #return redirect('dashboard')           # redirect to proper dashboard
 
 class TuteeRegisterView(CreateView):
     model = TUser
@@ -33,19 +32,32 @@ class TuteeRegisterView(CreateView):
         user.is_tutee = True
         user.save()
         return redirect('/home/tutees/')  # Go back to the table of tutors
-        # login(self.request, user)
+        login(self.request, user)
 
-        #return redirect('dashboard')           # redirect to proper dashboard
+        return redirect('dashboard')           # redirect to proper dashboard
 
 def Tutors(request):
     model = TUser
     #the_tutors = []
     the_tutors = TUser.objects.filter(is_tutor = True)
-    # for user in BigUser.objects.all()
-    #     if user.is_tutor:
-    #         the_tutors.append(user)
-    #         print(user)
     return render(request,'FindTutors/tutors.html',{'tutors':the_tutors})
+
+
+# def TutorProfile(request):
+#     model = TUser
+#     if request.method == 'POST':
+#         form = TutorUserSignUpForm(request.POST)
+#         if form.is_valid():
+#             TUser = form.save()  # save user to db
+#
+#     else:
+#         form = TutorUserSignUpForm()
+#     c = {
+#       'form':form,
+#     }
+#     c.update(csrf(request))
+#     return render("FindTutors/tutors/<int:pk>.html", c)
+
 
 def Tutees(request):
     all_tutees = TUser.objects.filter(is_tutee=True)
@@ -85,10 +97,13 @@ def TutorRequest(request):
         print('pie')
     return render(request,'FindTutors/tutor_request.html', {'tutors':all_tutors})
 
-#def Dashboard(request):
- #   model = BigUser
-  #  allUsers = BigUser.objects.all()
-   # return render(request,'dashboard.html', {'all:': allUsers})
+
+# #TutorRegistration view
+# class TutorRegistration(CreateView):
+#     model = TUser
+#     # form_class = RegisterForm               # check form
+#     fields = ['firstname', 'lastname', 'email', 'subjects', 'year']
+#     template_name = 'FindTutors/tutor_registration.html'  # correct form HTML
 
 class ProfileView(generic.TemplateView):
     template_name = 'FindTutors/myprofile.html'
@@ -96,6 +111,9 @@ class ProfileView(generic.TemplateView):
 @login_required
 def editprofile(request):
     if request.method == 'POST':
+        print("--- request ----")
+        print(request.user)
+        p_form = ProfileUpdateForm(request.POST, request.FILES)
         p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
         if p_form.is_valid():
             p_form.save()
@@ -111,6 +129,9 @@ def editprofile(request):
 
 class MessagesView(generic.TemplateView):
     template_name = "FindTutors/messages.html"
+
+
+
 
 def Post(request):
     if request.method == "POST":

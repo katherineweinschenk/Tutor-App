@@ -5,6 +5,8 @@ from .models import TUser, Request, Profile
 from django.forms import ModelForm
 from django.contrib.auth.models import User
 
+
+
 class RequestForm(ModelForm):
     class Meta:
         model = Request
@@ -37,6 +39,13 @@ class TuteeUserSignUpForm(UserCreationForm):
     #     if commit:
     #         user.save()
     #     return user
+
+
+#TutorRegistrationForm
+class TutorRegistration(UserCreationForm):
+    class Meta:
+        model = TUser
+        fields = ('firstname', 'lastname', 'phone_number', 'subjects')
 
 
 #update user profile
