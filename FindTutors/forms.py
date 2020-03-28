@@ -107,7 +107,7 @@
 
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import TUser, Profile, Request
+from .models import TUser, Profile, Request, Reviews
 from django.forms import ModelForm
 from django.contrib.auth.models import User
 from crispy_forms.helper import FormHelper
@@ -178,7 +178,7 @@ class RegisterForm(UserCreationForm):
 class TutorUserSignUpForm(UserCreationForm):
     class Meta:
         model = TUser
-        fields = ('firstname', 'lastname', 'email',
+        fields = ('username','firstname', 'lastname', 'email',
                   'phone_number', 'year', 'subjects', 'image', 'bio')
 
     def __init__(self, *args, **kwargs):
@@ -192,6 +192,7 @@ class TutorUserSignUpForm(UserCreationForm):
                 wrapper_class="md-form",
             ),
             Field('lastname', wrapper_class="md-form"),
+            Field('username', wrapper_class="md-form"),
             Field('email', wrapper_class="md-form"),
             Field('phone_number', wrapper_class="md-form"),
             Field('year', wrapper_class="md-form"),
@@ -222,5 +223,10 @@ class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['image', 'year', 'user_type', 'subjects', 'bio']
+
+class ReviewRatingForm(forms.ModelForm):
+    class Meta:
+        model = Reviews
+        fields = ['profile','rating','reviews']
 
 
