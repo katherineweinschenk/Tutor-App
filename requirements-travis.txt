@@ -21,3 +21,4 @@ sqlparse
 urllib3
 django-heroku
 Pillow
+psycopg2==2.8.4
