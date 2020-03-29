@@ -159,6 +159,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'FindTutors/static/messages/'),
     os.path.join(BASE_DIR, 'FindTutors/static/registration/')
+    os.path.join(BASE_DIR, 'FindTutors/static/FindTutors/')
+    os.path.join(BASE_DIR, 'FindTutors/static/SignUp/')
+
+
 )
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
