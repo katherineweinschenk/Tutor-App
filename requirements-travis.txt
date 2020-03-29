@@ -17,7 +17,6 @@ requests
 requests-oauthlib
 six
 social-auth-core
-sqlparse
 urllib3
 django-heroku
 Pillow
