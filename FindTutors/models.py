@@ -70,6 +70,7 @@ class TUser(AbstractBaseUser, PermissionsMixin):
 # profile of tutee?
 class Profile(models.Model):
     user = models.OneToOneField(TUser, on_delete=models.CASCADE)
+
     firstname = TUser.firstname
     lastname = TUser.lastname
     image = models.ImageField(default='default.jpg',

@@ -135,8 +135,6 @@ class MessagesView(generic.TemplateView):
     template_name = "FindTutors/messages.html"
 
 
-
-
 def Post(request):
     if request.method == "POST":
         msg = request.POST.get('msgbox', None)
