@@ -51,17 +51,19 @@ class TuteeRegisterView(CreateView):
 
 def Tutors(request):
     model = TUser
+    return render(request, 'FindTutors/tutors.html')
     #the_tutors = []
-    the_tutors = TUser.objects.filter(is_tutor=1)
-    # the_tutors = TUser.objects.all()
-    return render(request,'FindTutors/tutors.html',{'tutors':the_tutors})
+    # the_tutors = TUser.objects.filter(is_tutor=1)
+    # # the_tutors = TUser.objects.all()
+    # return render(request,'FindTutors/tutors.html',{'tutors':the_tutors})
 
 
 
 def TutorProfile(request, pk):
-    if request.method == 'GET':
-        profile = get_object_or_404(TUser, pk=pk) #change to TutorProfile
-        return render(request, 'FindTutors/tutor_profile.html', {'profile': profile})
+    return render(request, 'FindTutors/tutor_profile.html')
+    # if request.method == 'GET':
+        # profile = get_object_or_404(TUser, pk=pk) #change to TutorProfile
+        # return render(request, 'FindTutors/tutor_profile.html', {'profile': profile})
 
 def Tutees(request):
     all_tutees = TUser.objects.filter(is_tutee=True)
