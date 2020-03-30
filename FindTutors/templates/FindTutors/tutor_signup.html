@@ -1,87 +1,91 @@
-{% load static %}
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>SignUp</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" >
-      <meta nmae = "description" content = "">
-      <meta name="author" content = "">
-      <title>SignUp</title>
-      {% load static %}
-
-<link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    >
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-        <link href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap" rel="stylesheet">
-
-
-
-{% block content %}
-    <style>
-    h2{
-        font-size: 5vw;
-        margin-top:2vh;
-        padding-left: 7vw;
-        font-family: 'Josefin Sans', sans-serif;
-        color: black;
-        text-align:center;
-    }
-    body{
-         background:url(/FindTutors/static/SignUp/images/pencils.jpg) no-repeat;
-         padding-top:0px;
-         background-size:cover;
-            }
-
-    </style>
-            	    <link rel="stylesheet" type="text/css" href="{% static 'SignUp/style.css' %}">
-
-    </head>
-    <body>
-
-        <h2> Create a New Tutor Account </h2>
-
-        <form method="POST" class="post-form">
-            {% csrf_token %}{{ form.as_p }}
-             <button type="submit">Register as a Tutor</button>
-        </form>
- 
-    </body>
-</html>
-{% endblock %}
-
-
-{#{% extends 'FindTutors/base.html' %}#}
-{#<!-- Crispy form tag -->#}
-{#{% load crispy_forms_tags %}#}
-{#<!-- Content -->#}
+{#{% load static %}#}
+{##}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#  <head>#}
+{#    <title>SignUp</title>#}
+{#    <meta charset="utf-8" />#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1" >#}
+{#      <meta nmae = "description" content = "">#}
+{#      <meta name="author" content = "">#}
+{#      <title>SignUp</title>#}
+{#      {% load static %}#}
+{##}
+{#<link#}
+{#      rel="stylesheet"#}
+{#      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"#}
+{#    >#}
+{##}
+{#    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>#}
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>#}
+{#    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>#}
+{#        <link href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap" rel="stylesheet">#}
+{##}
+{##}
+{##}
 {#{% block content %}#}
-{#<div class="row">#}
-{#  <div class="col-lg-12 d-flex justify-content-center">#}
-{#    <div class="card col-lg-8 m-4">#}
-{#      <div class="card-body">#}
-{#        <!--Header-->#}
-{#        <div class="primary-color">#}
-{#          <h2 class="title text-center py-4">#}
-{#            Create a New Tutor Account#}
-{#          </h2>#}
-{#        </div>#}
-{#        <form method="POST">#}
-{#            {% csrf_token %}#}
-{#            <!-- Fields -->#}
-{#            {% crispy form %}#}
-{#            <button type="submit" class="btn btn-primary">#}
-{#              Register As Tutor!#}
-{#            </button>#}
+{#    <style>#}
+{#    h2{#}
+{#        font-size: 5vw;#}
+{#        margin-top:2vh;#}
+{#        padding-left: 7vw;#}
+{#        font-family: 'Josefin Sans', sans-serif;#}
+{#        color: black;#}
+{#        text-align:center;#}
+{#    }#}
+{#    body{#}
+{#         background:url(/FindTutors/static/SignUp/images/pencils.jpg) no-repeat;#}
+{#         padding-top:0px;#}
+{#         background-size:cover;#}
+{#            }#}
+{##}
+{#    </style>#}
+{#            	    <link rel="stylesheet" type="text/css" href="{% static 'SignUp/style.css' %}">#}
+{##}
+{#    </head>#}
+{#    <body>#}
+{##}
+{#        <h2> Create a New Tutor Account </h2>#}
+{##}
+{#        <form method="POST" class="post-form">#}
+{#            {% csrf_token %}{{ form.as_p }}#}
+{#             <button type="submit">Register as a Tutor</button>#}
 {#        </form>#}
-{#      </div>#}
-{#    </div>#}
-{#  </div>#}
-{#</div>#}
+{# #}
+{#    </body>#}
+{#</html>#}
 {#{% endblock %}#}
+
+ <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+
+{% extends 'FindTutors/base.html' %}
+<!-- Crispy form tag -->
+{% load crispy_forms_tags %}
+<!-- Content -->
+{% block content %}
+<div class="row">
+  <div class="col-lg-12 d-flex justify-content-center">
+    <div class="card col-lg-8 m-4">
+      <div class="card-body">
+        <!--Header-->
+        <div class="primary-color">
+          <h2 class="title text-center py-4">
+            Create a New Tutor Account
+          </h2>
+        </div>
+        <form method="POST" class="post-form">
+            {% csrf_token %}
+            <!-- Fields -->
+            {% crispy form %}
+            <a class="btn btn-warning" type="submit">
+              Register As Tutor!
+            </a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
