@@ -51,9 +51,9 @@ class TuteeRegisterView(CreateView):
 
 def Tutors(request):
     model = TUser
-    the_tutors = []
+    # the_tutors = []
     the_tutors = TUser.objects.filter(is_tutor=1)
-    the_tutors = TUser.objects.all()
+    # the_tutors = TUser.objects.all()
     return render(request,'FindTutors/tutors.html',{'tutors':the_tutors})
 
 

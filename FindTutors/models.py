@@ -144,6 +144,7 @@ class Reviews(models.Model):
 
 
 
+#profile signal
 @receiver(post_save, sender=TUser)
 def update_profile_signal(sender, instance, created, **kwargs):
     if created:
