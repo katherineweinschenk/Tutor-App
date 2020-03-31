@@ -6,6 +6,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from PIL import Image
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from django_google_maps import fields as map_fields
 
 
 class UserManager(BaseUserManager):
@@ -127,7 +128,8 @@ class Request(models.Model):
         TUser, models.SET_NULL, related_name="TUser_recipient", blank=True, null=True)
     subject = models.CharField(max_length=500, default="")
     description = models.CharField(max_length=500, default="")
-    location = models.CharField(max_length=500, default="")
+    address = map_fields.AddressField(max_length=200, default="164 McCormick Rd, Charlottesville, VA 22903")
+    geolocation = map_fields.GeoLocationField(max_length=100,default="")
 
 
 class Chat(models.Model):

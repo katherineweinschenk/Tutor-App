@@ -43,7 +43,10 @@ INSTALLED_APPS = [
     'crispy_forms',
     'bootstrap4',
     'django.contrib.gis',
+    'django_google_maps',
 ]
+
+GOOGLE_MAPS_API_KEY = 'AIzaSyB5QOIUA7DT_w1wgueh_nA-HTqLqGS6ZQM'
 
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth2',

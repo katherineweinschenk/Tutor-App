@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 class RequestForm(ModelForm):
     class Meta:
         model = Request
-        fields = ('subject', 'description', 'location',)
+        fields = ('subject', 'description', 'address')
 
 # Creating a Central Registration Form that will work for both Tutor and Tutee (set Booleans in view)
 class RegisterForm(UserCreationForm):
