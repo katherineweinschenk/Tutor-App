@@ -1,18 +1,112 @@
-{% load static %}
+{#{% load static %}#}
+{##}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#  <head>#}
+{#    <title>Home</title>#}
+{#    <meta charset="utf-8" />#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1" >#}
+{#      <meta nmae = "description" content = "">#}
+{#      <meta name="author" content = "">#}
+{#      <title>Home</title>#}
+{##}
+{#      {% load static %}#}
+{##}
+{#        <style>#}
+{#            body{#}
+{#                background-size:cover;#}
+{#                margin: 0;#}
+{#                padding: 0;#}
+{#            }#}
+{#            .navbar-nav{#}
+{#                font-family: 'Josefin Sans', sans-serif;#}
+{#            }#}
+{#            .nav-link{#}
+{#                font-family: 'Josefin Sans', sans-serif;#}
+{#                font-size: 20px;#}
+{#            }#}
 
+{##}
+{#            }#}
+{#            .container-fluid{#}
+{#                padding-left: 92vw;#}
+{##}
+{#            }#}
+{#        </style>#}
+{##}
+{#	    <link rel="stylesheet" type="text/css" href="{% static 'FindTutors/style.css' %}">#}
+{##}
+{##}
+{##}
+{#        <link href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap" rel="stylesheet">#}
+{##}
+{##}
+{#  </head>#}
+{#  <body>#}
+{##}
+{##}
+{#  <nav class="navbar navbar-expand-sm bg-light navbar-light">#}
+{#      <button#}
+{#        class="navbar-toggler"#}
+{#        type="button"#}
+{#        data-toggle="collapse"#}
+{#        data-target="#collapsibleNavbar"#}
+{#      >#}
+{#        <span class="navbar-toggler-icon"></span>#}
+{#      </button>#}
+{##}
+{#                <div class="collapse navbar-collapse" id="navbarcontent">#}
+{#                    <ul class="navbar-nav">#}
+{#                        <li class="nav-item active">#}
+{#                            <a class="nav-link" href="/home/"> Home <span class="sr-only">(current)</span></a>#}
+{#                        </li>#}
+{#                        <li class="nav-item active">#}
+{#                            <a class="nav-link" href="/home/profile">My Profile </a>#}
+{#                        </li>#}
+{#                        <li class="nav-item active">#}
+{#                            <a class="nav-link" href="/home/tutors">Find Tutors </a>#}
+{#                        </li>#}
+{#                        <li class="nav-item active">#}
+{#                            <a class="nav-link" href="/home/messages">Messages</a>#}
+{#                        </li>#}
+{#                        <li class ="nav-item active">#}
+{#                            <a class="nav-link" href="/home/register_tutor/">Register as a Tutor</a>#}
+{#                            <a class = "nav-link" href="{% url 'tutor_registration' %}"> Register as a Tutor</a>#}
+{#                        </li>#}
+{#                    </ul>#}
+{#                </div>#}
+{#   </nav>#}
+{##}
+{#            <div class="container-fluid">#}
+{#                      <button class='btn pull-right'>#}
+{#                                 <a class="btn btn-warning" href="{% url 'logout' %}">Logout</a>#}
+{#            </div>#}
+{##}
+{#                <div class ="row">#}
+{#                    <div class="col-12">#}
+{#                        <h1>Supertuber</h1>#}
+{#                        <div class="row">#}
+{#                            <p>Quickly Find Help For Your Study Problems</p>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#        </div>#}
+{#  </body>#}
+{##}
+{#</html>#}
+{##}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Home</title>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" >
-      <meta nmae = "description" content = "">
-      <meta name="author" content = "">
-      <title>Home</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Home</title>
       {% load static %}
 
-    <link
+      <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     >
@@ -20,21 +114,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-        <style>
-            body{
-                background-size:cover;
-                margin: 0;
-                padding: 0;
-            }
-            .navbar-nav{
-                {#position: absolute;#}
-                font-family: 'Josefin Sans', sans-serif;
-            }
-            .nav-link{
-                font-family: 'Josefin Sans', sans-serif;
-                font-size: 20px;
-            }
-            h1{
+
+  <style>
+
+                  h1{
                 font-size: 8vw;
                 margin-top:2vh;
                 padding-left: 7vw;
@@ -50,26 +133,41 @@
                 font-family: 'Josefin Sans', sans-serif;
                 font-size: 2vw;
                 text-align:center;
-                color: white;
+                color: white;}
 
-            }
-            .container-fluid{
-                padding-left: 92vw;
-
-            }
-        </style>
-
-	    <link rel="stylesheet" type="text/css" href="{% static 'FindTutors/style.css' %}">
+  </style>
 
 
 
-        <link href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap" rel="stylesheet">
-
-
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    />
+    <!-- Google Fonts -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    />
+    <!-- Bootstrap core CSS -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Material Design Bootstrap -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.14.1/css/mdb.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'FindTutors/style.css' %}"
+    />
   </head>
   <body>
 
-   <nav class="navbar navbar-expand-sm bg-light navbar-light">
+    <nav class="navbar navbar-expand-sm bg-light navbar-light">
       <button
         class="navbar-toggler"
         type="button"
@@ -78,38 +176,33 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
+      <div class="collapse navbar-collapse" id="navbarcontent">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="/home/">
+              Home <span class="sr-only">(current)</span></a
+            >
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/home/profile">My Profile </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/home/tutors">Find Tutors </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/home/messages">Messages</a>
+          </li>
+            <li class ="nav-item active">
+                <a class="nav-link" href="/home/register_tutor/">Register as a Tutor</a>
+            </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container-fluid">
+                      <button class='btn pull-right'> <a class="btn btn-warning" href="{% url 'logout' %}">Logout</a>
+    </div>
 
-                <div class="collapse navbar-collapse" id="navbarcontent">
-                    <ul class="navbar-nav">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="/home/"> Home <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="/home/profile">My Profile </a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="/home/tutors">Find Tutors </a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="/home/messages">Messages</a>
-                        </li>
-                        <li class ="nav-item active">
-                            <a class="nav-link" href="/home/register_tutor/">Register as a Tutor</a>
-{#                            <a class = "nav-link" href="{% url 'tutor_registration' %}"> Register as a Tutor</a>#}
-                        </li>
-                    </ul>
-                </div>
-
-
-
-            </nav>
-
-            <div class="container-fluid">
-                      <button class='btn pull-right'>
-                                 <a class="btn btn-warning" href="{% url 'logout' %}">Logout</a>
-            </div>
-
-                <div class ="row">
+                   <div class ="row">
                     <div class="col-12">
                         <h1>Supertuber</h1>
                         <div class="row">
@@ -117,9 +210,35 @@
                         </div>
                     </div>
                 </div>
-
-
         </div>
 
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          {% block content %}
+           {% endblock %}
+        </div>
+      </div>
+    </div>
+    <!-- JQuery -->
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+    ></script>
+    <!-- Bootstrap tooltips -->
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"
+    ></script>
+    <!-- Bootstrap core JavaScript -->
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"
+    ></script>
+    <!-- MDB core JavaScript -->
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.14.1/js/mdb.min.js"
+    ></script>
   </body>
 </html>

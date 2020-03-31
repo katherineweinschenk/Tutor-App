@@ -20,11 +20,12 @@ urlpatterns = [
     path('profile/', views.ProfileView.as_view(), name='profile'),
     path('profile/edit', views.editprofile, name='edit_profile'),
     path('request/tutor_request/', views.TutorRequest, name='tutor_request'),
-    url(r'^messages/$', views.MessagesView.as_view(), name='messages'),
-    url(r'^post/$', views.Post, name='post'),
-    url(r'^GetMessages/$', views.GetMessages, name='GetMessages'),
-    # path('tutors/<int:pk>/', views.TutorProfile, name='tutor_profile'),
-
+    path('tutors/<pk>/', views.TutorProfile, name='tutor_profile'),
+    path('ratingsreview/', views.ReviewRating, name = 'ratings_review'),
+    #https://www.twilio.com/blog/2018/05/build-chat-python-django-applications-programmable-chat.html
+    url(r'messages/$', views.all_rooms, name="all_rooms"),
+    url(r'token$', views.token, name="token"),
+    url(r'(?P<slug>[-\w]+)/$', views.room_detail, name="room_detail"),
 ]
 
 if settings.DEBUG:

@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.db import models
-from FindTutors.models import Profile, TUser
+from FindTutors.models import Profile, TUser, Room
 
 
 class validUserTests(TestCase):
@@ -67,3 +67,4 @@ class invalidUserTests(TestCase):
 
     def testBadSubjects(self):
         self.assertRaises(TypeError, TUser.objects.get(username="test").subjects, 5)
+

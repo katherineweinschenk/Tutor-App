@@ -49,11 +49,14 @@ class TUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(('email address'), unique=True)
     firstname = models.CharField(max_length=200)
     lastname = models.CharField(max_length=200)
+    image = models.ImageField(default='default.jpg',
+                              upload_to='profile_pictures')
     phone_number = models.IntegerField(blank=True, null=True)
     is_tutee = models.BooleanField('student status', default=False)
     is_tutor = models.BooleanField('teacher status', default=False)
     year = models.IntegerField(blank=True, null=True)
     subjects = models.CharField(max_length=500, default="")
+    bio = models.TextField(default=' ')
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
@@ -114,6 +117,32 @@ class Profile(models.Model):
         #     img.save(self.image.path)
 
 
+class Reviews(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+
+    #This would be what a tutee would rate a tutor?
+    Zero = '0'
+    One = '1'
+    Two = '2'
+    Three = '3'
+    Four = '4'
+    Five = '5'
+    YEAR_CHOICES = (
+        (Zero, "No Rating"),
+        (One, 'One Star'),
+        (Two, 'Two Stars'),
+        (Three, 'Three Stars'),
+        (Four, 'Four Stars'),
+        (Five, 'Five Stars'),
+    )
+    rating = models.CharField(max_length=3, choices=YEAR_CHOICES, default=Zero)
+
+    #This would be what a tutee would rate a tutor?
+    reviews = models.TextField(default= ' ')
+
+
+
+
 @receiver(post_save, sender=TUser)
 def update_profile_signal(sender, instance, created, **kwargs):
     if created:
@@ -131,11 +160,13 @@ class Request(models.Model):
     address = map_fields.AddressField(max_length=200, default="164 McCormick Rd, Charlottesville, VA 22903")
     geolocation = map_fields.GeoLocationField(max_length=100,default="")
 
+#https://www.twilio.com/blog/2018/05/build-chat-python-django-applications-programmable-chat.html
+class Room(models.Model):
+    """Represents chat rooms that users can join"""
+    name = models.CharField(max_length=30)
+    description = models.CharField(max_length=100)
+    slug = models.CharField(max_length=50)
 
-class Chat(models.Model):
-    created = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(TUser, on_delete=models.CASCADE)
-    message = models.TextField()
-
-    def __unicode__(self):
-        return self.message
+    def __str__(self):
+        """Returns human-readable representation of the model instance."""
+        return self.name

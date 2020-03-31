@@ -13,9 +13,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -159,10 +159,16 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
 STATIC_URL = '/static/'
 
+TWILIO_ACCOUNT_SID = 'ACc0ac8277ee2c88478706627261124260'
+TWILIO_API_KEY = 'SK5c7c27b4c1a86f65109bb47f0b7e28be'
+TWILIO_API_SECRET = 'B8J05OKyiDfsquD1wjoYe1jZC6X0CChi'
+TWILIO_CHAT_SERVICE_SID = 'ISeadadf27f7bb456e8b6f6888c2715b87'
+
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'FindTutors/static/messages/'),
-    os.path.join(BASE_DIR, 'FindTutors/static/registration/')
+    os.path.join(BASE_DIR, 'FindTutors/static/registration/'),
+    os.path.join(BASE_DIR, 'FindTutors/static/FindTutors/'),
+    os.path.join(BASE_DIR, 'FindTutors/static/SignUp/'),
 )
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -171,6 +177,6 @@ MEDIA_URL = '/media/'
 
 CRISPY_TEMPLATE_PACK= 'bootstrap4'
 
-if '/app' in os.environ['HOME']:
-    import django_heroku
-    django_heroku.settings(locals())
+# if '/app' in os.environ['HOME']:
+import django_heroku
+django_heroku.settings(locals())
