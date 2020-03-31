@@ -158,11 +158,13 @@ class Request(models.Model):
     description = models.CharField(max_length=500, default="")
     location = models.CharField(max_length=500, default="")
 
+#https://www.twilio.com/blog/2018/05/build-chat-python-django-applications-programmable-chat.html
+class Room(models.Model):
+    """Represents chat rooms that users can join"""
+    name = models.CharField(max_length=30)
+    description = models.CharField(max_length=100)
+    slug = models.CharField(max_length=50)
 
-class Chat(models.Model):
-    created = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(TUser, on_delete=models.CASCADE)
-    message = models.TextField()
-
-    def __unicode__(self):
-        return self.message
+    def __str__(self):
+        """Returns human-readable representation of the model instance."""
+        return self.name
