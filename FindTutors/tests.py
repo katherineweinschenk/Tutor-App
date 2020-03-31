@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.db import models
-from FindTutors.models import Profile, TUser
+from FindTutors.models import Profile, TUser, Room
 
 
 class validUserTests(TestCase):
@@ -67,3 +67,33 @@ class invalidUserTests(TestCase):
 
     def testBadSubjects(self):
         self.assertRaises(TypeError, TUser.objects.get(username="test").subjects, 5)
+
+class ChatTests(TestCase):
+    def testAllChatRoomsCreated(self):
+        Room.objects.create(
+            name='room 1',
+            slug='room-1',
+            description='This is the 1st room'
+        )
+        Room.objects.create(
+            name='room 2',
+            slug='room-2',
+            description='This is the 2nd room'
+        )
+
+        response = self.client.get('/home/messages/')
+
+        self.assertContains(response, 'room 1')
+        self.assertContains(response, 'room 2')
+
+    def testRoomDetails(self):
+        room_1 = Room.objects.create(
+            name='room X',
+            slug='room-x',
+            description='This is the X-room'
+        )
+
+        response = self.client.get('/home/messages/{}/'.format(room_1.slug))
+
+        self.assertContains(response, room_1.name)
+        self.assertContains(response, room_1.description)

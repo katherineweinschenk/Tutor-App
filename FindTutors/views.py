@@ -4,10 +4,15 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from django.contrib.auth import login, logout, authenticate
-from .models import Request, TUser, Reviews
+from .models import Request, TUser, Reviews, Room
 from .forms import RequestForm, RegisterForm, ProfileUpdateForm, TutorRegistration, TutorUserSignUpForm
 from django.views.generic import CreateView, ListView
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
+from django.http import JsonResponse
+from faker import Faker
+from twilio.jwt.access_token import AccessToken
+from twilio.jwt.access_token.grants import ChatGrant
 
 #tutor register form view
 class TutorRegisterView(CreateView):
@@ -131,30 +136,6 @@ def editprofile(request):
 
     return render(request, 'FindTutors/editprofile.html', context)
 
-class MessagesView(generic.TemplateView):
-    template_name = "FindTutors/messages.html"
-
-
-
-
-def Post(request):
-    if request.method == "POST":
-        msg = request.POST.get('msgbox', None)
-
-        c = Chat(user=request.user, message=msg)
-
-        if msg != '':
-            c.save()
-        # mg = src="https://scontent-ord1-1.xx.fbcdn.net/hprofile-xaf1/v/t1.0-1/p160x160/11070096_10204126647988048_6580328996672664529_n.jpg?oh=f9b916e359cd7de9871d8d8e0a269e3d&oe=576F6F12"
-        return JsonResponse({'msg': msg, 'user': c.user.username})
-    else:
-        return HttpResponse('Request must be POST.')
-
-def GetMessages(request):
-    c = Chat.objects.all()
-    return render(request, 'FindTutors/messages.html', {'chat': c})
-
-
 #Review/Rating view
 def ReviewRating(request):
     if request.method == "POST":
@@ -166,3 +147,41 @@ def ReviewRating(request):
         form = ReviewRatingForm()
     return render(request, 'FindTutors/ratings_review.html', {'form':form})
 
+#https://www.twilio.com/blog/2018/05/build-chat-python-django-applications-programmable-chat.html
+def all_rooms(request):
+    rooms = Room.objects.all()
+    return render(request, 'FindTutors/all_rooms.html', {'rooms': rooms})
+
+
+def room_detail(request, slug):
+    room = Room.objects.get(slug=slug)
+    return render(request, 'FindTutors/room_detail.html', {'room': room})
+
+
+fake = Faker()
+
+def token(request):
+    identity = request.GET.get('identity', fake.user_name())
+    device_id = request.GET.get('device', 'default')  # unique device ID
+
+    account_sid = settings.TWILIO_ACCOUNT_SID
+    api_key = settings.TWILIO_API_KEY
+    api_secret = settings.TWILIO_API_SECRET
+    chat_service_sid = settings.TWILIO_CHAT_SERVICE_SID
+
+    token = AccessToken(account_sid, api_key, api_secret, identity=identity)
+
+    # Create a unique endpoint ID for the device
+    endpoint = "MyDjangoChatRoom:{0}:{1}".format(identity, device_id)
+
+    if chat_service_sid:
+        chat_grant = ChatGrant(endpoint_id=endpoint,
+                               service_sid=chat_service_sid)
+        token.add_grant(chat_grant)
+
+    response = {
+        'identity': identity,
+        'token': token.to_jwt().decode('utf-8')
+    }
+
+    return JsonResponse(response)
