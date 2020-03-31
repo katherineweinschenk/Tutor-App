@@ -8,3 +8,4 @@ from .models import TUser, Request, Profile
 admin.site.register(TUser)
 admin.site.register(Request)
 admin.site.register(Profile)
+admin.site.register(Room)
