@@ -8,7 +8,7 @@ django-authtools==1.7.0
 django-crispy-forms==1.8.1
 django-heroku==0.3.1
 django-postgresql==0.0.3
-Faker=4.0.2
+Faker==4.0.2
 gunicorn==20.0.4
 idna==2.9
 oauthlib==3.1.0
@@ -24,4 +24,4 @@ social-auth-core==3.2.0
 sqlparse==0.3.0
 urllib3==1.25.8
 Pillow==7.0.0
-twilio=6.10.1
+twilio==6.10.1
