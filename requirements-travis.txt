@@ -26,4 +26,3 @@ django-postgresql
 faker
 twilio
 Django-google-maps
-Gdal-bin
