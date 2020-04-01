@@ -5,7 +5,8 @@ from django.views import generic
 from django.utils import timezone
 from django.contrib.auth import login, logout, authenticate
 from .models import Request, TUser, Reviews, Room
-from .forms import RequestForm, RegisterForm, ProfileUpdateForm, TutorRegistration, TutorUserSignUpForm
+from .forms import RequestForm, RegisterForm, ProfileUpdateForm, TutorRegistration, TutorUserSignUpForm, \
+    ReviewRatingForm
 from django.views.generic import CreateView, ListView
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
@@ -26,18 +27,6 @@ class TutorRegisterView(CreateView):
         user.is_tutor = True
         user.save()
         return redirect('/home/tutors/') # Go back to the table of tutors
-#
-# class TutorRegisterView(CreateView):
-#     model = TutorProfile
-#     form_class = TutorUserSignUpForm
-#     # fields = ['username', 'password','firstname', 'lastname', 'email', 'phone_number', 'subjects', 'year', ]
-#     template_name = 'FindTutors/tutor_signup.html' # correct form HTML
-#
-#     def form_valid(self, form):
-#         user = form.save(commit=False)
-#         user.is_tutor = True
-#         user.save()
-#         return redirect('/home/tutors/')
 
 class TuteeRegisterView(CreateView):
     model = TUser

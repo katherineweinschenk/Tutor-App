@@ -1,16 +1,83 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
 
+     <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    >
+    "<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <style>
+        body{
+            margin:0;
+            padding:0;
+        }
+        .rating{
+            position: absolute;
+            display: flex;
+            transform: translate(50%, 50%);
+            display: flex;
+        }
+        .rating input {
+            display: none;
+
+        }
+        .rating label {
+            display: block;
+            cursor: pointer;
+            width: 50px;
+            background: #ccc
+        }
+        .rating label:before {
+            content: '\f005';
+            font-family: fontAwesome;
+            position: relative;
+            display: block;
+            font-size: 25px;
+            color: #101010;
+
+        }
+        .rating label:after {
+            content: '\f005';
+            font-family: fontAwesome;
+            position: absolute;
+            display: block;
+            font-size: 25px;
+            color: #1f9cff;
+            top: 0;
+            opacity: 0;
+            transition:.5s;
+            text-shadow: 0 2px 5px rgba(0,0,0,.5);
+
+        }
+        .rating label:hover:after{
+            opactiy: 1;
+        }
+
+    </style>
 </head>
 
 <body>
 
 <form method='POST'>
-    {% csrf_token %}{{ form.as_p }}
-<button type='Submit'> Submit Review! </button>
+{#    {% csrf_token %}{{ form.as_p }}#}
+    <div class="rating">
+        <p>Ratings: </p>
+        <input type="radio" name="star" id="star1"><label for="star1"></label>
+        <input type="radio" name="star" id="star2"><label for="star2"></label>
+        <input type="radio" name="star" id="star3"><label for="star3"></label>
+        <input type="radio" name="star" id="star4"><label for="star4"></label>
+        <input type="radio" name="star" id="star5"><label for="star5"></label>
+    </div>
+{#<button type='Submit'> Submit Review! </button>#}
 
 </form>
 
-</body>
+
+    </body>
 </html>

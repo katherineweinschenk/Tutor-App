@@ -103,7 +103,7 @@ class ProfileUpdateForm(forms.ModelForm):
 class ReviewRatingForm(forms.ModelForm):
     class Meta:
         model = Reviews
-        fields = ['profile','rating','reviews']
+        fields = ['profile','reviews']
 
 # from django import forms
 # from django.contrib.auth.forms import UserCreationForm
