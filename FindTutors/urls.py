@@ -14,7 +14,7 @@ urlpatterns = [
     path('tutees/', views.Tutees, name='tutees'),
     path('request/', views.RequestView.as_view(), name='request'),
     # path('tutor_registration/', views.TutorRegistration.as_view(), name = 'tutor_registration'),
-    path('register_tutor/', views.TutorRegisterView.as_view(), name='tutor_register'),
+    path('register_tutor/', views.TutorRegister, name='tutor_register'),
     path('register_tutee/', views.TuteeRegisterView.as_view(), name='tutee_register'),
     path('request/tutor_request/', views.TutorRequest, name='tutor_request' ),
     path('profile/', views.ProfileView.as_view(), name='profile'),
@@ -26,7 +26,8 @@ urlpatterns = [
     url(r'messages/$', views.all_rooms, name="all_rooms"),
     url(r'token$', views.token, name="token"),
     url(r'(?P<slug>[-\w]+)/$', views.room_detail, name="room_detail"),
+    # url(r'^media/(?P.*)$''django.views.static.serve' {'media':settings.MEDIA_ROOT}), 
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# if settings.DEBUG:
+#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

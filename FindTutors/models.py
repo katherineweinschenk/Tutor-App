@@ -46,8 +46,7 @@ class TUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(('email address'), unique=True)
     firstname = models.CharField(max_length=200)
     lastname = models.CharField(max_length=200)
-    image = models.ImageField(default='default.jpg',
-                              upload_to='profile_pictures')
+    image = models.ImageField(default='default.png', upload_to='tutor_profile')
     phone_number = models.IntegerField(blank=True, null=True)
     is_tutee = models.BooleanField('student status', default=False)
     is_tutor = models.BooleanField('teacher status', default=False)

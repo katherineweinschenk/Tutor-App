@@ -36,7 +36,9 @@
   </div>
 </div>
 <div class="container-fluid bg-1 text-center">
-  <img src="{{ TUser.profile.image.url }} class="img-circle" >
+     {% if profile.image %}
+    <img src="{{ profile.image.url }}" width="240">
+    {% endif %}
 </div>
 
 <div class="container-fluid bg-2 text-center">
