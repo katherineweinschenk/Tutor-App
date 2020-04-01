@@ -16,17 +16,35 @@ from twilio.jwt.access_token import AccessToken
 from twilio.jwt.access_token.grants import ChatGrant
 
 #tutor register form view
-class TutorRegisterView(CreateView):
-    model = TUser
-    form_class = TutorUserSignUpForm
-    # fields = ['username', 'password','firstname', 'lastname', 'email', 'phone_number', 'subjects', 'year', ]
-    template_name = 'FindTutors/tutor_signup.html' # correct form HTML
+# class TutorRegisterView(CreateView):
+#     model = TUser
+#     form_class = TutorUserSignUpForm
+#     # fields = ['username', 'password','firstname', 'lastname', 'email', 'phone_number', 'subjects', 'year', ]
+#     template_name = 'FindTutors/tutor_signup.html' # correct form HTML
+#
+#     def form_valid(self, form):
+#
+#         user = form.save(commit=False)
+#         user.is_tutor = True
+#         user.save()
+#         return redirect('/home/tutors/') # Go back to the table of tutors
 
-    def form_valid(self, form):
-        user = form.save(commit=False)
-        user.is_tutor = True
-        user.save()
-        return redirect('/home/tutors/') # Go back to the table of tutors
+def TutorRegister(request):
+    if request.method == 'POST':
+        print("--- request ----")
+        print(request.user)
+        # p_form = ProfileUpdateForm(request.POST, request.FILES)
+        p_form = TutorUserSignUpForm(request.POST, request.FILES, instance=request.user.profile)
+        if p_form.is_valid():
+            p_form.save()
+            return redirect('/home/tutors')
+    else:
+        p_form = TutorUserSignUpForm()
+
+    context = {
+        'p_form': p_form
+    }
+    return render(request, 'FindTutors/tutor_signup.html', context)
 
 class TuteeRegisterView(CreateView):
     model = TUser
@@ -45,7 +63,7 @@ class TuteeRegisterView(CreateView):
 
 def Tutors(request):
     model = TUser
-    #the_tutors = []
+    # the_tutors = []
     the_tutors = TUser.objects.filter(is_tutor=1)
     # the_tutors = TUser.objects.all()
     return render(request,'FindTutors/tutors.html',{'tutors':the_tutors})

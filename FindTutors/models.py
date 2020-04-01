@@ -27,8 +27,6 @@ class UserManager(BaseUserManager):
 
 
 # We change following functions signature to allow "No password"
-
-
     def create_user(self, username, email, password=None):
         return self._create_user(username, email, password, False, False)
 
@@ -48,8 +46,7 @@ class TUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(('email address'), unique=True)
     firstname = models.CharField(max_length=200)
     lastname = models.CharField(max_length=200)
-    image = models.ImageField(default='default.jpg',
-                              upload_to='profile_pictures')
+    image = models.ImageField(default='default.png', upload_to='tutor_profile')
     phone_number = models.IntegerField(blank=True, null=True)
     is_tutee = models.BooleanField('student status', default=False)
     is_tutor = models.BooleanField('teacher status', default=False)
@@ -89,6 +86,8 @@ class Profile(models.Model):
     )
     year = models.CharField(max_length=3, choices=YEAR_CHOICES, default=FIRST)
 
+    print("hello")
+
     TUTOR = 'tutor'
     TUTEE = 'tutee'
     BOTH = 'tutor_tutee'
@@ -101,6 +100,8 @@ class Profile(models.Model):
         max_length=15, choices=USER_CHOICES, default=TUTOR)
     subjects = models.CharField(max_length=500, default="")
     bio = models.TextField(default=' ')
+
+    print("hi")
 
     def __str__(self):
         return "%s's profile" % self.user
@@ -142,6 +143,7 @@ class Reviews(models.Model):
 
 
 
+#profile signal
 @receiver(post_save, sender=TUser)
 def update_profile_signal(sender, instance, created, **kwargs):
     if created:
