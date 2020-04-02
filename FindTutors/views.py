@@ -34,7 +34,7 @@ def TutorRegister(request):
         print("--- request ----")
         print(request.user)
         # p_form = ProfileUpdateForm(request.POST, request.FILES)
-        p_form = TutorUserSignUpForm(request.POST, request.FILES, instance=request.user.profile)
+        p_form = TutorUserSignUpForm(request.POST, request.FILES, instance=request.user)
         if p_form.is_valid():
             p_form.save()
             return redirect('/home/tutors')

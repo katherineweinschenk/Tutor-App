@@ -9,7 +9,6 @@ app_name = 'FindTutors'
 
 urlpatterns = [
     path('register/', views.SignUpView.as_view(), name='signup'),
-    #path('dashboard/', views.Dashboard, name='dashboard'),
     path('tutors/', views.Tutors, name='tutors'),
     path('tutees/', views.Tutees, name='tutees'),
     path('request/', views.RequestView.as_view(), name='request'),
@@ -26,7 +25,6 @@ urlpatterns = [
     url(r'messages/$', views.all_rooms, name="all_rooms"),
     url(r'token$', views.token, name="token"),
     url(r'(?P<slug>[-\w]+)/$', views.room_detail, name="room_detail"),
-    # url(r'^media/(?P.*)$''django.views.static.serve' {'media':settings.MEDIA_ROOT}), 
 ]
 
 # if settings.DEBUG:
