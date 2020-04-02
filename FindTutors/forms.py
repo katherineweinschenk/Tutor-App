@@ -78,11 +78,11 @@ class TutorUserSignUpForm(forms.ModelForm):
             ),
         }
 
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        user.is_tutor = True
-        user.save()
-        return user
+    # def save(self, commit=True):
+    #     user = super().save(commit=False)
+    #     user.is_tutor = True
+    #     user.save()
+    #     return user
 
 # class TutorUserSignUpForm(UserCreationForm):
 #     def __init__(self, *args, **kwargs):
