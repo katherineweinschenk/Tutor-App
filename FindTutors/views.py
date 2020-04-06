@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from django.contrib.auth import login, logout, authenticate
-from .models import Request, TUser, Reviews, Room
+from .models import Request, TUser, Reviews, Room, Profile
 from .forms import RequestForm, RegisterForm, ProfileUpdateForm, TutorRegistration, TutorUserSignUpForm
 from django.views.generic import CreateView, ListView
 from django.contrib.auth.decorators import login_required
@@ -13,6 +13,7 @@ from django.http import JsonResponse
 from faker import Faker
 from twilio.jwt.access_token import AccessToken
 from twilio.jwt.access_token.grants import ChatGrant
+from django.db.models import Q
 
 #tutor register form view
 class TutorRegisterView(CreateView):
@@ -88,6 +89,7 @@ class RequestView(generic.CreateView):
     form_class = RequestForm
     template_name = 'FindTutors/request.html'
 
+
     # def get(self, request, *args, **kwargs):
     #     self.request_input.recipient = request.GET.get('recipient')
     #     return render(request, self.template_name, {'form': form})
@@ -97,6 +99,16 @@ class RequestView(generic.CreateView):
         self.request_input.sender = self.request.user
         self.request_input.recipient = TUser.objects.get(email=self.request.GET.get('recipient'))
         self.request_input.save()
+
+        #create private chat
+        sender = str(self.request.user.username)
+        recipient = str(TUser.objects.get(email=self.request.GET.get('recipient')))
+        subject = str(self.request_input.subject)
+        location = str(self.request_input.location)
+        description = "Use this private chat to discuss the details of your " + subject + " tutoring appointment at " + location + "."
+        slug = sender + "-" + recipient
+        name = sender + " & " + recipient + " (Private)"
+        Room.objects.create(name=name, slug=slug, description=description, validUser1=sender, validUser2=recipient)
         return redirect('/home/request/tutor_request/')
 
 def TutorRequest(request):
@@ -147,9 +159,11 @@ def ReviewRating(request):
         form = ReviewRatingForm()
     return render(request, 'FindTutors/ratings_review.html', {'form':form})
 
+
 #https://www.twilio.com/blog/2018/05/build-chat-python-django-applications-programmable-chat.html
 def all_rooms(request):
-    rooms = Room.objects.all()
+
+    rooms = Room.objects.filter(Q(validUser1="all")| Q(validUser2="all") | Q(validUser1=request.user.username) | Q(validUser2=request.user.username))
     return render(request, 'FindTutors/all_rooms.html', {'rooms': rooms})
 
 
@@ -158,10 +172,8 @@ def room_detail(request, slug):
     return render(request, 'FindTutors/room_detail.html', {'room': room})
 
 
-fake = Faker()
-
 def token(request):
-    identity = request.GET.get('identity', fake.user_name())
+    identity = request.GET.get("identity", request.user.username)
     device_id = request.GET.get('device', 'default')  # unique device ID
 
     account_sid = settings.TWILIO_ACCOUNT_SID

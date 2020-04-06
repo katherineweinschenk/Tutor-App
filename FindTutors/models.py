@@ -6,6 +6,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from PIL import Image
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from django.contrib.postgres.fields import ArrayField
 
 
 class UserManager(BaseUserManager):
@@ -161,9 +162,11 @@ class Request(models.Model):
 #https://www.twilio.com/blog/2018/05/build-chat-python-django-applications-programmable-chat.html
 class Room(models.Model):
     """Represents chat rooms that users can join"""
-    name = models.CharField(max_length=30)
-    description = models.CharField(max_length=100)
+    name = models.CharField(max_length=75)
+    description = models.CharField(max_length=150)
     slug = models.CharField(max_length=50)
+    validUser1 = models.CharField(default="all",max_length=30)
+    validUser2 = models.CharField(default="all",max_length=30)
 
     def __str__(self):
         """Returns human-readable representation of the model instance."""
