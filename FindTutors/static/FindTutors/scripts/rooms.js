@@ -47,7 +47,7 @@ $(function() {
       // Alert the user they have been assigned a random username
       username = data.identity;
       print(
-        "You have been assigned a random username of: " +
+        "Your username: " +
           '<span class="me">' +
           username +
           "</span>",
@@ -91,13 +91,17 @@ function createOrJoinChannel() {
 }
 
 function setupChannel(name) {
-  roomChannel.join().then(function(channel) {
-    print(
-      `Joined channel ${name} as <span class="me"> ${username} </span>.`,
-      true
-    );
-    channel.getMessages(30).then(processPage);
-  });
+   if (roomChannel.state.status == 'joined') {
+        roomChannel.getMessages(30).then(processPage)
+    } else {
+     roomChannel.join().then(function (channel) {
+       print(
+           `Joined channel ${name} as <span class="me"> ${username} </span>.`,
+           true
+       );
+       channel.getMessages(30).then(processPage);
+     });
+   }
 
   // Listen for new messages sent to the channel
   roomChannel.on("messageAdded", function(message) {
