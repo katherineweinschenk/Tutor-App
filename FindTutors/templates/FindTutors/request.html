@@ -26,7 +26,7 @@
                 text-align:center;
             }
          .navbar-nav{
-                {#position: absolute;#}
+                position: absolute;
                 font-family: 'Josefin Sans', sans-serif;
             }
         .nav-link{
@@ -57,6 +57,40 @@
 </head>
 
 <body>
+<nav class="navbar navbar-expand-sm bg-light navbar-light">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#collapsibleNavbar"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+                <div class="collapse navbar-collapse" id="navbarcontent">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/home/"> Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/home/profile">My Profile </a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/home/tutors">Find Tutors </a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/home/messages">Messages</a>
+                        </li>
+                        <li class ="nav-item active">
+                            <a class="nav-link" href="/home/register_tutor/">Register as a Tutor</a>
+{#                            <a class = "nav-link" href="{% url 'tutor_registration' %}"> Register as a Tutor</a>#}
+                        </li>
+                    </ul>
+                </div>
+
+
+
+            </nav>
 
  <nav class="navbar navbar-expand-sm bg-light navbar-light">
       <button
@@ -132,4 +166,3 @@ function initMap() {
     </script>
 </body>
 </html>
-
