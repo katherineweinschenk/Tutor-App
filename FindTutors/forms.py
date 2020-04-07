@@ -90,8 +90,8 @@ class TuteeUserSignUpForm(UserCreationForm):
 #TutorRegistrationForm
 class TutorRegistration(UserCreationForm):
     class Meta:
-        model = TUser
-        fields = ('firstname', 'lastname', 'phone_number', 'subjects')
+        model = Profile
+        fields = ('user', 'year', 'user_type', 'subjects', 'bio')
 
 
 #update user profile

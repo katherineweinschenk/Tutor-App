@@ -73,22 +73,22 @@ class TUser(AbstractBaseUser, PermissionsMixin):
 # profile of tutee?
 class Profile(models.Model):
     user = models.OneToOneField(TUser, on_delete=models.CASCADE)
-    firstname = TUser.firstname
-    lastname = TUser.lastname
+    first_name = TUser.firstname
+    last_name = TUser.lastname
     image = models.ImageField(default='default.jpg',
                               upload_to='profile_pictures')
 
-    FIRST = '1st'
-    SECOND = '2nd'
-    THIRD = '3rd'
-    FOURTH = '4th'
+    FIRST = '1st year'
+    SECOND = '2nd year'
+    THIRD = '3rd year'
+    FOURTH = '4th year'
     YEAR_CHOICES = (
         (FIRST, 'First Year'),
         (SECOND, 'Second Year'),
         (THIRD, 'Third Year'),
         (FOURTH, 'Fourth Year'),
     )
-    year = models.CharField(max_length=3, choices=YEAR_CHOICES, default=FIRST)
+    year = models.CharField(max_length=10, choices=YEAR_CHOICES, default=FIRST)
 
     TUTOR = 'tutor'
     TUTEE = 'tutee'
@@ -109,12 +109,12 @@ class Profile(models.Model):
     def save(self, *args, **kwargs):
         super().save()
 
-        # img = Image.open(self.image.path)
+        img = Image.open(self.image.path)
 
-        # if img.height > 300 or img.width > 300:
-        #     output_size = (300, 300)
-        #     img.thumbnail(output_size)
-        #     img.save(self.image.path)
+        if img.height > 300 or img.width > 300:
+            output_size = (300, 300)
+            img.thumbnail(output_size)
+            img.save(self.image.path)
 
 
 class Reviews(models.Model):
