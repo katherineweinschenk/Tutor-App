@@ -18,8 +18,7 @@ urlpatterns = [
     path('complete/google-oauth2/home/',views.redirectView.as_view(), name='redirect'),
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
 

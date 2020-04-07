@@ -37,6 +37,13 @@
                 font-size: 2vw;
                 text-align:center;
                 color: white;}
+            tbody {
+                color: white;
+
+            }
+            thead{
+                color: white;
+            }
 
   </style>
 
@@ -65,7 +72,7 @@
     <link
       rel="stylesheet"
       type="text/css"
-      href="{% static 'FindTutors/style.css' %}"
+      href="{% static 'tutors/style.css' %}"
     />
   </head>
   <body>
@@ -98,14 +105,17 @@
             <li class ="nav-item active">
                 <a class="nav-link" href="/home/register_tutor/">Register as a Tutor</a>
             </li>
+              <li class ="nav-item active">
+                <a class="nav-link" href="/home/ratingsreview/">Rate and Review Your Tutor! </a>
+            </li>
         </ul>
       </div>
     </nav>
 
   <div class="container">
-    <h2>Tutors</h2>
-    <table class="table table-bordered table-hover">
-      <thead>
+    <h1>Tutors</h1>
+    <table class="table">
+      <thead class="thead-dark">
         <tr>
           <th>Tutor's Name</th>
           <th>Tutor's Year</th>

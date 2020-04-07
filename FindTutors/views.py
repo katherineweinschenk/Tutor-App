@@ -16,7 +16,7 @@ from twilio.jwt.access_token import AccessToken
 from twilio.jwt.access_token.grants import ChatGrant
 
 #tutor register form view
-# class TutorRegisterView(CreateView):
+# class TutorRegister(CreateView):
 #     model = TUser
 #     form_class = TutorUserSignUpForm
 #     # fields = ['username', 'password','firstname', 'lastname', 'email', 'phone_number', 'subjects', 'year', ]
@@ -33,11 +33,11 @@ def TutorRegister(request):
     if request.method == 'POST':
         print("--- request ----")
         print(request.user)
-        # p_form = ProfileUpdateForm(request.POST, request.FILES)
+        p_form = ProfileUpdateForm(request.POST, request.FILES)
         p_form = TutorUserSignUpForm(request.POST, request.FILES, instance=request.user.profile)
         if p_form.is_valid():
             p_form.save()
-            return redirect('/home/tutors')
+            return redirect('/home/tutors/')
     else:
         p_form = TutorUserSignUpForm()
 
@@ -73,7 +73,10 @@ def Tutors(request):
 def TutorProfile(request, pk):
     if request.method == 'GET':
         profile = get_object_or_404(TUser, pk=pk) #change to TutorProfile
-        return render(request, 'FindTutors/tutor_profile.html', {'profile': profile})
+        print(pk)
+        profile_id=pk
+        reviews = Reviews.objects.filter(profile_id=profile_id)
+        return render(request, 'FindTutors/tutor_profile.html', {'profile': profile, "reviews": reviews})
 
 def Tutees(request):
     all_tutees = TUser.objects.filter(is_tutee=True)
@@ -148,8 +151,8 @@ def ReviewRating(request):
     if request.method == "POST":
         form = ReviewRatingForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('FindTutors:<pk>')
+            rating = form.save()
+            return redirect('/home/tutors/%s' % rating.profile_id)
     else:
         form = ReviewRatingForm()
     return render(request, 'FindTutors/ratings_review.html', {'form':form})

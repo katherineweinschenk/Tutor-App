@@ -121,21 +121,21 @@ class Reviews(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
     #This would be what a tutee would rate a tutor?
-    # Zero = '0'
-    # One = '1'
-    # Two = '2'
-    # Three = '3'
-    # Four = '4'
-    # Five = '5'
-    # YEAR_CHOICES = (
-    #     (Zero, "No Rating"),
-    #     (One, 'One Star'),
-    #     (Two, 'Two Stars'),
-    #     (Three, 'Three Stars'),
-    #     (Four, 'Four Stars'),
-    #     (Five, 'Five Stars'),
-    # )
-    # rating = models.CharField(max_length=3, choices=YEAR_CHOICES, default=Zero)
+    Zero = '0'
+    One = '1'
+    Two = '2'
+    Three = '3'
+    Four = '4'
+    Five = '5'
+    YEAR_CHOICES = (
+        (Zero, "No Rating"),
+        (One, 'One Star'),
+        (Two, 'Two Stars'),
+        (Three, 'Three Stars'),
+        (Four, 'Four Stars'),
+        (Five, 'Five Stars'),
+    )
+    rating = models.CharField(max_length=3, choices=YEAR_CHOICES, default=Zero)
 
     #This would be what a tutee would rate a tutor?
     reviews = models.TextField(default= ' ')
