@@ -15,7 +15,7 @@ class RequestForm(ModelForm):
         model = Request
         fields = ('subject', 'description', 'location',)
 
-# Creating a Central Registration Form that will work for both Tutor and Tutee (set Booleans in view)
+
 class RegisterForm(UserCreationForm):
     class Meta:
         model = TUser
@@ -24,8 +24,9 @@ class RegisterForm(UserCreationForm):
 
 class TutorUserSignUpForm(forms.ModelForm):
     class Meta:
-        model = TUser #change model to TutorProfile and add bio
-        fields = ['username','firstname', 'lastname', 'email', 'phone_number', 'subjects', 'year', 'image', 'bio' ]
+        model = TUser  # change model to TutorProfile and add bio
+        fields = ['username', 'firstname', 'lastname',
+                  'email', 'phone_number', 'subjects', 'image', 'year', 'bio']
         widgets = {
             'username': forms.TextInput(
                 attrs={
@@ -62,12 +63,12 @@ class TutorUserSignUpForm(forms.ModelForm):
                     'class': 'form-control'
                 }
             ),
-            'image': forms.ClearableFileInput(
+            'bio': forms.Textarea (
                 attrs={
                     'class': 'form-control'
                 }
             ),
-            'bio': forms.Textarea(
+            'image': forms.ClearableFileInput(
                 attrs={
                     'class': 'form-control'
                 }
@@ -78,30 +79,25 @@ class TutorUserSignUpForm(forms.ModelForm):
 class TuteeUserSignUpForm(UserCreationForm):
     class Meta:
         model = TUser
-        fields= ('firstname', 'lastname', 'email', 'phone_number','year','subjects')
-    # def save(self, commit=True):
-    #     user = super().save(commit=False)
-    #     user.is_tutee = True
-    #     if commit:
-    #         user.save()
-    #     return user
+        fields = ('firstname', 'lastname', 'email',
+                  'phone_number', 'year', 'subjects')
 
 
-#TutorRegistrationForm
+# TutorRegistrationForm
 class TutorRegistration(UserCreationForm):
     class Meta:
         model = TUser
         fields = ('firstname', 'lastname', 'phone_number', 'subjects')
 
 
-#update user profile
+# update user profile
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['image', 'year', 'user_type', 'subjects', 'bio']
 
+
 class ReviewRatingForm(forms.ModelForm):
     class Meta:
         model = Reviews
         fields = ['profile', 'rating', 'reviews']
-

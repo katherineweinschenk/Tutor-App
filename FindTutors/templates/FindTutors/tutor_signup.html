@@ -1,61 +1,3 @@
-{#{% load static %}#}
-{##}
-{#<!DOCTYPE html>#}
-{#<html lang="en">#}
-{#  <head>#}
-{#    <title>SignUp</title>#}
-{#    <meta charset="utf-8" />#}
-{#    <meta name="viewport" content="width=device-width, initial-scale=1" >#}
-{#      <meta nmae = "description" content = "">#}
-{#      <meta name="author" content = "">#}
-{#      <title>SignUp</title>#}
-{#      {% load static %}#}
-{##}
-{#<link#}
-{#      rel="stylesheet"#}
-{#      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"#}
-{#    >#}
-{##}
-{#    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>#}
-{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>#}
-{#    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>#}
-{#        <link href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap" rel="stylesheet">#}
-{##}
-{##}
-{##}
-{#{% block content %}#}
-{#    <style>#}
-{#    h2{#}
-{#        font-size: 5vw;#}
-{#        margin-top:2vh;#}
-{#        padding-left: 7vw;#}
-{#        font-family: 'Josefin Sans', sans-serif;#}
-{#        color: black;#}
-{#        text-align:center;#}
-{#    }#}
-{#    body{#}
-{#         background:url(/FindTutors/static/SignUp/images/pencils.jpg) no-repeat;#}
-{#         padding-top:0px;#}
-{#         background-size:cover;#}
-{#            }#}
-{##}
-{#    </style>#}
-{#            	    <link rel="stylesheet" type="text/css" href="{% static 'SignUp/style.css' %}">#}
-{##}
-{#    </head>#}
-{#    <body>#}
-{##}
-{#        <h2> Create a New Tutor Account </h2>#}
-{##}
-{#        <form method="POST" class="post-form">#}
-{#            {% csrf_token %}{{ form.as_p }}#}
-{#             <button type="submit">Register as a Tutor</button>#}
-{#        </form>#}
-{##}
-{#    </body>#}
-{#</html>#}
-{#{% endblock %}#}
-{##}
 {% load static %}
 
 <!DOCTYPE html>
@@ -80,13 +22,15 @@
         <link href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap" rel="stylesheet">
 
 
-      <style>
+
+{% block content %}
+    <style>
     h2{
         font-size: 5vw;
         margin-top:2vh;
         padding-left: 7vw;
         font-family: 'Josefin Sans', sans-serif;
-        color: red;
+        color: black;
         text-align:center;
     }
     body{
@@ -100,10 +44,8 @@
 
     </head>
     <body>
-    <h2 class="title text-center py-4">
-            Create a New Tutor Account
-          </h2>
 
+        <h2> Create a New Tutor Account </h2>
 
         <form method="POST" class="post-form">
             {% csrf_token %}{{ form.as_p }}
@@ -112,106 +54,6 @@
 
     </body>
 </html>
-
-{#{% extends 'FindTutors/base.html' %}#}
-{#<!-- Crispy form tag -->#}
-{#{% load crispy_forms_tags %}#}
-{#<!-- Content -->#}
-{#{% block content %}#}
-{#<div class="row">#}
-{#  <div class="col-lg-12 d-flex justify-content-center">#}
-{#    <div class="card col-lg-8 m-4">#}
-{#      <div class="card-body">#}
-{#        <!--Header-->#}
-{#        <div class="warning-color">#}
-{#          <h2 class="title text-center py-4">#}
-{#            Create a New Tutor Account#}
-{#          </h2>#}
-{#        </div>#}
-{#        <form method="POST" class="post-form">#}
-{#            {% csrf_token %}#}
-{#            <!-- Fields -->#}
-{#            {% crispy form %}#}
-{#            {{ form.as_p }}#}
-{##}
-{#            <button class="btn btn-warning" type="submit" href="tutors.html">#}
-{#              Register As Tutor!#}
-{#            </button>z#}
-{#        </form>#}
-{#      </div>#}
-{#    </div>#}
-{#  </div>#}
-{#</div>#}
-{#{% endblock %}#}
-
-{# <div class="container">#}
-{#        <!--##################START HERE#####################-->#}
-{##}
-{#        <!-- FORM -->#}
-{#        <form method="POST" class="post-form">#}
-{#             {% csrf_token %}#}
-{#            {{ form.as_p }}#}
-{#            <!-- TEXT FIELD GROUPS -->#}
-{#             <div class="form-group">#}
-{#                <label for="username">Username: </label>#}
-{#                <input class="form-control" type="text" id="username" placeholder="Enter First Name">#}
-{#            </div>#}
-{#            <div class="form-group">#}
-{#                <label for="firstname">First Name: </label>#}
-{#                <input class="form-control" type="text" id="firstname" placeholder="Enter First Name">#}
-{#            </div>#}
-{#            <div class="form-group">#}
-{#                <label for="lastname">Last Name: </label>#}
-{#                <input class="form-control" type="text" id="lastname" placeholder="Enter Last Name">#}
-{#            </div>#}
-{#            <div class="form-group">#}
-{#                <label for="email">Email address: </label>#}
-{#                <input class="form-control form-control-lg" type="email" id="email" placeholder="Enter email">#}
-{#            </div>#}
-{#             <div class="form-group">#}
-{#                <label for="phone_number">Phone address: </label>#}
-{#                <input class="form-control" type="number" id="phone_number" placeholder="Enter phone number: ">#}
-{#            </div>#}
-{#             <div class="form-group">#}
-{#                <label for="year">Years of Expertise </label>#}
-{#                <input class="form-control" type="number" id="year" placeholder="Enter years of experience: ">#}
-{#            </div>#}
-{#            <!-- TEXTAREA -->#}
-{#            <div class="form-group">#}
-{#                <label for="subjects">Subjects: </label>#}
-{#                <textarea class="form-control" id="subjects"></textarea>#}
-{#            </div>#}
-{#            <div class="form-group">#}
-{#                <label for="message">Biography: </label>#}
-{#                <textarea class="form-control" id="bio"></textarea>#}
-{#            </div>#}
-{#            <!-- CUSTOM FILE INPUT -->#}
-{#            <div class="custom-file">#}
-{#                <input type="file" id="myfile" class="custom-file-input">#}
-{#                <label class="custom-file-label" for="image">Choose file for Profile Picture</label>#}
-{#            </div>#}
-{#            <br>#}
-{#            <br>#}
-{#            <br>#}
-{##}
-{#        <br>#}
-{#        <br>#}
-{#                         <button type="submit" href="tutors.html">Register as a Tutor</button>#}
-{#        </form>#}
-
-        <!-- INLINE FORM -->
+{% endblock %}
 
 
-
-    <!-- ./container -->
-    <div style="margin-top:500px;"></div>
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
-        crossorigin="anonymous"></script>
-</body>
-
-</html>

@@ -1,13 +1,31 @@
 {% load crispy_forms_tags %}
+{% load static%}
 {% block content %}
-    <div class="content-section">
-      <div class="media">
-        <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
-        <div class="media-body">
-          <h2 class="account-heading">{{ user.username }}</h2>
-          <p class="text-secondary">{{ user.email }}</p>
-        </div>
-      </div>
+
+<head>
+  <meta charset="UTF-8">
+  <link rel=" stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Cabin+Sketch" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Dosis:800" rel="stylesheet">
+  <style type="text/css">
+      body {
+        background-image: url({% static "images/Clouds.jpg" %});
+        background-size: cover;
+      }
+  </style>
+</head>
+
+
+<div class="container">
+  <img src="{{ user.profile.image.url }}" class="img-circle" alt="" >
+</div>
+
+<div class="container">
+  <h1>{{ user.username }} {{ user.lastname }}</h1>
+</div>
+
+      <div class="container">
       <form method="POST" enctype="multipart/form-data">
           {% csrf_token %}
           <fieldset class="form-group">
@@ -19,4 +37,29 @@
           </div>
       </form>
     </div>
+  </div>
 {% endblock content %}
+
+{#{% extends 'FindTutors/base.html' %}#}
+{#{% load crispy_forms_tags %}#}
+{#{% block content %}#}
+{#    <div class="content-section">#}
+{#      <div class="media">#}
+{#        <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">#}
+{#        <div class="media-body">#}
+{#          <h2 class="account-heading">{{ user.username }}</h2>#}
+{#          <p class="text-secondary">{{ user.email }}</p>#}
+{#        </div>#}
+{#      </div>#}
+{#      <form method="POST" enctype="multipart/form-data">#}
+{#          {% csrf_token %}#}
+{#          <fieldset class="form-group">#}
+{#              <legend class="border-bottom mb-4">Profile Info</legend>#}
+{#              {{ p_form|crispy }}#}
+{#          </fieldset>#}
+{#          <div class="form-group">#}
+{#              <button class="btn btn-outline-info" type="submit">Update</button>#}
+{#          </div>#}
+{#      </form>#}
+{#    </div>#}
+{#{% endblock content %}#}

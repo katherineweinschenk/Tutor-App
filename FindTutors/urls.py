@@ -8,6 +8,7 @@ from django.conf.urls.static import static
 app_name = 'FindTutors'
 
 urlpatterns = [
+    path('', views.HomeView2, name='home2'),
     path('register/', views.SignUpView.as_view(), name='signup'),
     path('tutors/', views.Tutors, name='tutors'),
     path('tutees/', views.Tutees, name='tutees'),

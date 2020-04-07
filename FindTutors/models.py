@@ -6,6 +6,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from PIL import Image
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from django.contrib.postgres.fields import ArrayField
 
 
 class UserManager(BaseUserManager):
@@ -65,28 +66,24 @@ class TUser(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.username
 
-
-# profile of tutee?
 class Profile(models.Model):
     user = models.OneToOneField(TUser, on_delete=models.CASCADE)
-    firstname = TUser.firstname
-    lastname = TUser.lastname
-    image = models.ImageField(default='profile_pictures/default.jpg',
+    first_name = TUser.firstname
+    last_name = TUser.lastname
+    image = models.ImageField(default='default.jpg',
                               upload_to='profile_pictures')
 
-    FIRST = '1st'
-    SECOND = '2nd'
-    THIRD = '3rd'
-    FOURTH = '4th'
+    FIRST = '1st year'
+    SECOND = '2nd year'
+    THIRD = '3rd year'
+    FOURTH = '4th year'
     YEAR_CHOICES = (
         (FIRST, 'First Year'),
         (SECOND, 'Second Year'),
         (THIRD, 'Third Year'),
         (FOURTH, 'Fourth Year'),
     )
-    year = models.CharField(max_length=3, choices=YEAR_CHOICES, default=FIRST)
-
-    print("hello")
+    year = models.CharField(max_length=10, choices=YEAR_CHOICES, default=FIRST)
 
     TUTOR = 'tutor'
     TUTEE = 'tutee'
@@ -101,21 +98,18 @@ class Profile(models.Model):
     subjects = models.CharField(max_length=500, default="")
     bio = models.TextField(default=' ')
 
-    print("hi")
-
     def __str__(self):
         return "%s's profile" % self.user
 
     def save(self, *args, **kwargs):
         super().save()
 
-        # img = Image.open(self.image.path)
-        #
-        # if img.height > 300 or img.width > 300:
-        #     output_size = (300, 300)
-        #     img.thumbnail(output_size)
-        #     img.save(self.image.path)
+        img = Image.open(self.image.path)
 
+        if img.height > 300 or img.width > 300:
+            output_size = (300, 300)
+            img.thumbnail(output_size)
+            img.save(self.image.path)
 
 class Reviews(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
@@ -163,9 +157,11 @@ class Request(models.Model):
 #https://www.twilio.com/blog/2018/05/build-chat-python-django-applications-programmable-chat.html
 class Room(models.Model):
     """Represents chat rooms that users can join"""
-    name = models.CharField(max_length=30)
-    description = models.CharField(max_length=100)
+    name = models.CharField(max_length=75)
+    description = models.CharField(max_length=150)
     slug = models.CharField(max_length=50)
+    validUser1 = models.CharField(default="all",max_length=30)
+    validUser2 = models.CharField(default="all",max_length=30)
 
     def __str__(self):
         """Returns human-readable representation of the model instance."""

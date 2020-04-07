@@ -1,15 +1,74 @@
 {% load crispy_forms_tags %}
+{% load static %}
 {% block content %}
-    <div class="content-section">
-      <div class="media">
-        <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
-        <div class="media-body">
-          <h2 class="account-heading">{{ user.profile.year }}</h2>
-          <p class="text-secondary">{{ user.username }}</p>
-          <form action="{% url 'FindTutors:edit_profile' %}">
-            <input type="submit" value="Edit" />
-        </form>
-        </div>
+
+<head>
+  <meta charset="UTF-8">
+  <link rel=" stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Cabin+Sketch" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Dosis:800" rel="stylesheet">
+  <style type="text/css">
+      body {
+        background-image: url({% static "images/Clouds.jpg" %});
+        background-size: cover;
+
+      }
+
+  </style>
+</head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-sm bg-light navbar-light">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#collapsibleNavbar"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarcontent">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="/home/">
+              Home <span class="sr-only">(current)</span></a
+            >
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/home/profile">My Profile </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/home/tutors">Find Tutors </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/home/messages">Messages</a>
+          </li>
+            <li class ="nav-item active">
+                <a class="nav-link" href="/home/register_tutor/">Register as a Tutor</a>
+            </li>
+            <li class ="nav-item active">
+                <a class="nav-link" href="/home/ratingsreview/">Rate and Review Your Tutor! </a>
+            </li>
+        </ul>
       </div>
-    </div>
+    </nav>
+
+  <div class="container">
+    <img src="{ user.profile.image.url }" class="img-circle" alt="" >
+  </div>
+
+  <div class="container">
+    <h1>{{ user.username }} {{ user.lastname }}</h1>
+    <h4>{{ user.profile.year }}</h4>
+    <p class="text-secondary">{{ user.profile.subjects }}</p>
+    <p class="text-secondary">{{ user.profile.bio }}</p>
+    <a class="btn btn-outline-primary" href="{% url 'FindTutors:edit_profile' %}" role="button">Update</a>
+  </div>
+
+
+  </body>
+
 {% endblock content %}
+
