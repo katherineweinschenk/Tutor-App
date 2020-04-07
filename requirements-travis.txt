@@ -25,3 +25,4 @@ psycopg2==2.8.4
 django-postgresql
 faker
 twilio
+Django-google-maps

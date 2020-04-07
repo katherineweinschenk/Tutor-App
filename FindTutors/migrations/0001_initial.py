@@ -3,6 +3,7 @@
 from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
+import django_google_maps.fields
 
 
 class Migration(migrations.Migration):
@@ -78,7 +79,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('subject', models.CharField(default='', max_length=500)),
                 ('description', models.CharField(default='', max_length=500)),
-                ('location', models.CharField(default='', max_length=500)),
+                ('address', django_google_maps.fields.AddressField(default='164 McCormick Rd, Charlottesville, VA 22903', max_length=200)),
+                ('geolocation', django_google_maps.fields.GeoLocationField(default='', max_length=100)),
                 ('recipient', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='TUser_recipient', to=settings.AUTH_USER_MODEL)),
                 ('sender', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='TUser_sender', to=settings.AUTH_USER_MODEL)),
             ],

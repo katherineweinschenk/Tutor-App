@@ -26,7 +26,7 @@
                 text-align:center;
             }
          .navbar-nav{
-                {#position: absolute;#}
+                position: absolute;
                 font-family: 'Josefin Sans', sans-serif;
             }
         .nav-link{
@@ -38,6 +38,13 @@
             font-size: 20px;
         }
         /* Set the size of the div element that contains the map */
+       #map {
+         height: 500px;  /* The height is 400 pixels */
+         width: 40%;  /* The width is the width of the web page */
+         position:absolute;
+         left:480px;
+         top:300px;
+        }
 
         h3 {
             text-align: center;
@@ -46,8 +53,11 @@
     </style>
     <meta charset="UTF-8">
     <title>Request</title>
+
+</head>
+
 <body>
-<nav class="navbar navbar-expand-sm bg-light navbar-light">
+ <nav class="navbar navbar-expand-sm bg-light navbar-light">
       <button
         class="navbar-toggler"
         type="button"
@@ -83,10 +93,48 @@
             </nav>
 
 <h2> Request </h2>
+<h3> Move Pin to Desired Meeting Location </h3>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type='submit'> Send Request </button>
 </form>
+
+<div id="map"></div>
+    <script>
+// Initialize and add the map
+
+function initMap() {
+  // The location of Uluru
+  var uluru = {lat: 38.036460, lng: -78.506080};
+  // The map, centered at Uluru
+  var map = new google.maps.Map(
+      document.getElementById('map'), {zoom: 16, center: uluru});
+  // The marker, positioned at Uluru
+  var marker = new google.maps.Marker({position: uluru, map: map, draggable:true});
+  //geolocation = "("+marker.getPosition().lat()+","+marker.getPosition().log()+")";
+  
+
+  google.maps.event.addListener (marker, 'dragend', function (event) {
+    var point = marker.getPosition();
+    map.panTo(point);
+    geocoder = new google.maps.Geocoder();
+    geocoder.geocode({'latLng': point},function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+        document.getElementById("id_address").value = results[0].formatted_address;
+    }
+  });
+  }); 
+}
+
+    </script>
+    <!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5QOIUA7DT_w1wgueh_nA-HTqLqGS6ZQM&callback=initMap">
+    </script>
 </body>
 </html>
