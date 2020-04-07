@@ -25,7 +25,7 @@ class RegisterForm(UserCreationForm):
 class TutorUserSignUpForm(forms.ModelForm):
     class Meta:
         model = TUser #change model to TutorProfile and add bio
-        fields = ['username','firstname', 'lastname', 'email', 'phone_number', 'subjects', 'image', 'bio' ]
+        fields = ['username','firstname', 'lastname', 'email', 'phone_number', 'subjects', 'year', 'image', 'bio' ]
         widgets = {
             'username': forms.TextInput(
                 attrs={
@@ -57,11 +57,11 @@ class TutorUserSignUpForm(forms.ModelForm):
                     'class': 'form-control'
                 }
             ),
-            # 'year': forms.NumberInput(
-            #     attrs={
-            #         'class': 'form-control'
-            #     }
-            # ),
+            'year': forms.NumberInput(
+                attrs={
+                    'class': 'form-control'
+                }
+            ),
             'image': forms.ClearableFileInput(
                 attrs={
                     'class': 'form-control'
