@@ -10,11 +10,11 @@
   <link href="https://fonts.googleapis.com/css?family=Dosis:800" rel="stylesheet">
   <style type="text/css">
       body {
-        background-image: url({% static "images/Clouds.jpg" %}); 
+        background-image: url({% static "images/Clouds.jpg" %});
         background-size: cover;
-        
+
       }
-      
+
   </style>
 </head>
 
@@ -48,14 +48,17 @@
             <li class ="nav-item active">
                 <a class="nav-link" href="/home/register_tutor/">Register as a Tutor</a>
             </li>
+            <li class ="nav-item active">
+                <a class="nav-link" href="/home/ratingsreview/">Rate and Review Your Tutor! </a>
+            </li>
         </ul>
       </div>
     </nav>
- 
+
   <div class="container">
     <img src="{ user.profile.image.url }" class="img-circle" alt="" >
   </div>
-      
+
   <div class="container">
     <h1>{{ user.username }} {{ user.lastname }}</h1>
     <h4>{{ user.profile.year }}</h4>
@@ -64,7 +67,8 @@
     <a class="btn btn-outline-primary" href="{% url 'FindTutors:edit_profile' %}" role="button">Update</a>
   </div>
 
-    
+  <a href="/home/register_tutor/"> Put Yourself on Our Tutor List </a>
+
   </body>
 
 {% endblock content %}

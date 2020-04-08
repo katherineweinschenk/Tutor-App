@@ -4,8 +4,11 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from django.contrib.auth import login, logout, authenticate
-from .models import Request, TUser, Reviews, Room, Profile
-from .forms import RequestForm, RegisterForm, ProfileUpdateForm, TutorRegistration, TutorUserSignUpForm
+from .models import Request, TUser, Reviews, Room, Profile, TutorPosting
+from .forms import RequestForm, RegisterForm, ProfileUpdateForm, TutorRegistration, TutorUserSignUpForm, \
+    TutorPostingForm, ReviewRatingForm
+
+ReviewRatingForm
 from django.views.generic import CreateView, ListView
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
@@ -13,38 +16,50 @@ from django.http import JsonResponse
 from faker import Faker
 from twilio.jwt.access_token import AccessToken
 from twilio.jwt.access_token.grants import ChatGrant
-from django.db.models import Q
 
-#tutor register form view
-class TutorRegisterView(CreateView):
+# tutor register form view
+
+
+class TutorRegister(CreateView):
     model = TUser
     form_class = TutorUserSignUpForm
-    # fields = ['username', 'password','firstname', 'lastname', 'email', 'phone_number', 'subjects', 'year', ]
-    template_name = 'FindTutors/tutor_signup.html' # correct form HTML
+    template_name = 'FindTutors/tutor_signup.html'  # correct form HTML
 
+    # def get(self, request):
+    #     form = TutorUserSignUpForm()
+    #     return render(request,self.template_name,{'form':form})
+    #
     def form_valid(self, form):
+
         user = form.save(commit=False)
         user.is_tutor = True
         user.save()
-        return redirect('/home/tutors/') # Go back to the table of tutors
-#
-# class TutorRegisterView(CreateView):
-#     model = TutorProfile
-#     form_class = TutorUserSignUpForm
-#     # fields = ['username', 'password','firstname', 'lastname', 'email', 'phone_number', 'subjects', 'year', ]
-#     template_name = 'FindTutors/tutor_signup.html' # correct form HTML
-#
-#     def form_valid(self, form):
-#         user = form.save(commit=False)
-#         user.is_tutor = True
-#         user.save()
-#         return redirect('/home/tutors/')
+        return redirect('/home/tutors/')  # Go back to the table of tutors
+
+
+class TutorView2(generic.TemplateView):
+    model = TUser
+    template_name = 'FindTutors/tutor_signup.html'
+
+    def get(self, request):
+        form = TutorUserSignUpForm()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = TutorUserSignUpForm(request.POST, request.FILES)
+        if form.is_valid():
+            new = form.save(commit=False)
+            new.image = form.cleaned_data['image']
+            new.save()
+            form = TutorUserSignUpForm()
+            return HttpResponseRedirect('/home/tutors/')
+        return render(request, self.template_name, {'form': form})
 
 class TuteeRegisterView(CreateView):
     model = TUser
     # form_class = RegisterForm               # check form
-    fields = ['firstname','lastname','email','subjects','year',]
-    template_name = 'FindTutors/tutee_signup.html' # correct form HTML
+    fields = ['firstname', 'lastname', 'email', 'subjects', 'year', ]
+    template_name = 'FindTutors/tutee_signup.html'  # correct form HTML
 
     def form_valid(self, form):
         user = form.save(commit=False)
@@ -55,79 +70,74 @@ class TuteeRegisterView(CreateView):
 
         return redirect('dashboard')           # redirect to proper dashboard
 
+
 def Tutors(request):
     model = TUser
-    #the_tutors = []
-    the_tutors = TUser.objects.filter(is_tutor=1)
+    # the_tutors = []
+    the_tutors2 = TUser.objects.filter(is_tutor=1)
+    #the_tutors = Profile.objects.filter(user_type=1)
+    #both = Profile.objects.filter(user_type=3)
     # the_tutors = TUser.objects.all()
-    return render(request,'FindTutors/tutors.html',{'tutors':the_tutors})
-
+    the_tutors = TutorPosting.objects.filter(user_type=1)
+    both = TutorPosting.objects.filter(user_type=3)
+    return render(request, 'FindTutors/tutors.html', {'tutors': the_tutors, 'both': both, 'tutors2': the_tutors2})
 
 
 def TutorProfile(request, pk):
     if request.method == 'GET':
-        profile = get_object_or_404(TUser, pk=pk) #change to TutorProfile
-        return render(request, 'FindTutors/tutor_profile.html', {'profile': profile})
+        profile = get_object_or_404(TUser, pk=pk)  # change to TutorProfile
+        profile_id = pk
+        reviews = Reviews.objects.filter(profile_id=profile_id)
+
+        return render(request, 'FindTutors/tutor_profile.html', {'profile': profile, "reviews": reviews})
+
 
 def Tutees(request):
     all_tutees = TUser.objects.filter(is_tutee=True)
-
     return render(request, 'FindTutors/tutees.html', {'tutees': all_tutees})
 
-#registration views
+# registration views
+
+
 class SignUpView(generic.TemplateView):
     template_name = 'registration/signup.html'
-    
+
+
 class redirectView(generic.TemplateView):
     template_name = 'registration/redirect.html'
 
+def HomeView2(request):
+    return render(request, 'FindTutors/base.html')
+
 class HomeView(generic.TemplateView):
     template_name = 'FindTutors/home.html'
+
 
 class RequestView(generic.CreateView):
     model = Request
     form_class = RequestForm
     template_name = 'FindTutors/request.html'
 
-
-    # def get(self, request, *args, **kwargs):
-    #     self.request_input.recipient = request.GET.get('recipient')
-    #     return render(request, self.template_name, {'form': form})
-    
     def form_valid(self, form):
         self.request_input = form.save(commit=False)
         self.request_input.sender = self.request.user
-        self.request_input.recipient = TUser.objects.get(email=self.request.GET.get('recipient'))
+        self.request_input.recipient = TUser.objects.get(
+            email=self.request.GET.get('recipient'))
         self.request_input.save()
-
-        #create private chat
-        sender = str(self.request.user.username)
-        recipient = str(TUser.objects.get(email=self.request.GET.get('recipient')))
-        subject = str(self.request_input.subject)
-        location = str(self.request_input.location)
-        description = "Use this private chat to discuss the details of your " + subject + " tutoring appointment at " + location + "."
-        slug = sender + "-" + recipient
-        name = sender + " & " + recipient + " (Private)"
-        Room.objects.create(name=name, slug=slug, description=description, validUser1=sender, validUser2=recipient)
         return redirect('/home/request/tutor_request/')
+
 
 def TutorRequest(request):
     model = TUser
-    all_tutors = TUser.objects.filter(is_tutor = True)
+    all_tutors = TUser.objects.filter(is_tutor=True)
     if request.user.is_authenticated:
         print('pie')
-    return render(request,'FindTutors/tutor_request.html', {'tutors':all_tutors})
+    return render(request, 'FindTutors/tutor_request.html', {'tutors': all_tutors})
 
-
-# #TutorRegistration view
-# class TutorRegistration(CreateView):
-#     model = TUser
-#     # form_class = RegisterForm               # check form
-#     fields = ['firstname', 'lastname', 'email', 'subjects', 'year']
-#     template_name = 'FindTutors/tutor_registration.html'  # correct form HTML
 
 class ProfileView(generic.TemplateView):
     template_name = 'FindTutors/myprofile.html'
+
 
 @login_required
 def editprofile(request):
@@ -135,7 +145,8 @@ def editprofile(request):
         print("--- request ----")
         print(request.user)
         p_form = ProfileUpdateForm(request.POST, request.FILES)
-        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        p_form = ProfileUpdateForm(
+            request.POST, request.FILES, instance=request.user.profile)
         if p_form.is_valid():
             p_form.save()
             return redirect('FindTutors:profile')
@@ -148,22 +159,38 @@ def editprofile(request):
 
     return render(request, 'FindTutors/editprofile.html', context)
 
-#Review/Rating view
+
 def ReviewRating(request):
     if request.method == "POST":
         form = ReviewRatingForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('FindTutors:<pk>')
+            rating = form.save()
+            return redirect('/home/tutors/%s' % rating.profile_id)
     else:
         form = ReviewRatingForm()
-    return render(request, 'FindTutors/ratings_review.html', {'form':form})
+    return render(request, 'FindTutors/ratings_review.html', {'form': form})
+
+class TutorPostingView(generic.TemplateView):
+    template_name = 'FindTutors/newtutorposting.html'
+
+    def get(self, request):
+        form = TutorPostingForm()
+        return render(request,self.template_name,{'form':form})
+
+    def post(self, request):
+        form = TutorPostingForm(request.POST, request.FILES)
+        if form.is_valid():
+            posting = form.save(commit=False)
 
 
-#https://www.twilio.com/blog/2018/05/build-chat-python-django-applications-programmable-chat.html
+            posting.save()
+
+            form = TutorPostingForm()
+            return HttpResponseRedirect('/home/tutors/')
+        return render(request, self.template_name, {'form':form})
+
 def all_rooms(request):
-
-    rooms = Room.objects.filter(Q(validUser1="all")| Q(validUser2="all") | Q(validUser1=request.user.username) | Q(validUser2=request.user.username))
+    rooms = Room.objects.all()
     return render(request, 'FindTutors/all_rooms.html', {'rooms': rooms})
 
 
@@ -172,8 +199,11 @@ def room_detail(request, slug):
     return render(request, 'FindTutors/room_detail.html', {'room': room})
 
 
+fake = Faker()
+
+
 def token(request):
-    identity = request.GET.get("identity", request.user.username)
+    identity = request.GET.get('identity', fake.user_name())
     device_id = request.GET.get('device', 'default')  # unique device ID
 
     account_sid = settings.TWILIO_ACCOUNT_SID

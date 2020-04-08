@@ -29,8 +29,6 @@ class UserManager(BaseUserManager):
 
 
 # We change following functions signature to allow "No password"
-
-
     def create_user(self, username, email, password=None):
         return self._create_user(username, email, password, False, False)
 
@@ -50,8 +48,7 @@ class TUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(('email address'), unique=True)
     firstname = models.CharField(max_length=200)
     lastname = models.CharField(max_length=200)
-    image = models.ImageField(default='default.jpg',
-                              upload_to='profile_pictures')
+    image = models.ImageField(upload_to='tutor_profile/', default='default.png')
     phone_number = models.IntegerField(blank=True, null=True)
     is_tutee = models.BooleanField('student status', default=False)
     is_tutor = models.BooleanField('teacher status', default=False)
@@ -71,13 +68,31 @@ class TUser(AbstractBaseUser, PermissionsMixin):
         return self.username
 
 
-# profile of tutee?
+class TutorPosting(models.Model):
+    email = models.EmailField(('email address'), unique=True)
+    firstname = models.CharField(max_length=200)
+    lastname = models.CharField(max_length=200)
+    image = models.ImageField(upload_to='tutor_profile/', default='image3.PNG')
+    phone_number = models.IntegerField(blank=True, null=True)
+    year = models.IntegerField(blank=True, null=True)
+    subjects = models.CharField(max_length=500, default="")
+    bio = models.TextField(default=' ')
+    USER_CHOICES = (
+        (1, 'Tutor'),
+        (2, 'Tutee'),
+        (3, 'Tutor and Tutee'),
+    )
+    user_type = models.PositiveIntegerField(
+        choices=USER_CHOICES, default=1)
+
 class Profile(models.Model):
     user = models.OneToOneField(TUser, on_delete=models.CASCADE)
     first_name = TUser.firstname
     last_name = TUser.lastname
     image = models.ImageField(default='default.jpg',
                               upload_to='profile_pictures')
+    email = TUser.email
+    phone_number = TUser.phone_number
 
     FIRST = '1st year'
     SECOND = '2nd year'
@@ -91,16 +106,16 @@ class Profile(models.Model):
     )
     year = models.CharField(max_length=10, choices=YEAR_CHOICES, default=FIRST)
 
-    TUTOR = 'tutor'
-    TUTEE = 'tutee'
-    BOTH = 'tutor_tutee'
+    TUTOR = 'Tutor'
+    TUTEE = 'Tutee'
+    BOTH = 'Tutor and Tutee'
     USER_CHOICES = (
-        (FIRST, 'Tutor'),
-        (SECOND, 'Tutee'),
-        (THIRD, 'Tutor and Tutee'),
+        (1, 'Tutor'),
+        (2, 'Tutee'),
+        (3, 'Tutor and Tutee'),
     )
-    user_type = models.CharField(
-        max_length=15, choices=USER_CHOICES, default=TUTOR)
+    user_type = models.PositiveIntegerField(
+        choices=USER_CHOICES, default=1)
     subjects = models.CharField(max_length=500, default="")
     bio = models.TextField(default=' ')
 
@@ -116,7 +131,6 @@ class Profile(models.Model):
             output_size = (300, 300)
             img.thumbnail(output_size)
             img.save(self.image.path)
-
 
 class Reviews(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
@@ -144,6 +158,7 @@ class Reviews(models.Model):
 
 
 
+#profile signal
 @receiver(post_save, sender=TUser)
 def update_profile_signal(sender, instance, created, **kwargs):
     if created:
