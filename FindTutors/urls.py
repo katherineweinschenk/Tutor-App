@@ -9,12 +9,15 @@ app_name = 'FindTutors'
 
 urlpatterns = [
     path('', views.HomeView2, name='home2'),
+
+    path('newtutor/', views.TutorPostingView.as_view(), name='tutorposting'),
     path('register/', views.SignUpView.as_view(), name='signup'),
     path('tutors/', views.Tutors, name='tutors'),
     path('tutees/', views.Tutees, name='tutees'),
     path('request/', views.RequestView.as_view(), name='request'),
     # path('tutor_registration/', views.TutorRegistration.as_view(), name = 'tutor_registration'),
     path('register_tutor/', views.TutorRegister.as_view(), name='tutor_register'),
+
     path('register_tutee/', views.TuteeRegisterView.as_view(), name='tutee_register'),
     path('request/tutor_request/', views.TutorRequest, name='tutor_request' ),
     path('profile/', views.ProfileView.as_view(), name='profile'),

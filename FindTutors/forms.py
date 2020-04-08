@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import TUser, Profile, Request, Reviews
+from .models import TUser, Profile, Request, Reviews,TutorPosting
 from django.forms import ModelForm
 from django.contrib.auth.models import User
 from crispy_forms.helper import FormHelper
@@ -15,6 +15,10 @@ class RequestForm(ModelForm):
         model = Request
         fields = ('subject', 'description', 'location',)
 
+class TutorPostingForm(forms.ModelForm):
+    class Meta:
+        model = TutorPosting
+        fields = ['firstname', 'lastname', 'email', 'subjects', 'phone_number', 'year', 'bio', 'subjects','user_type']
 
 class RegisterForm(UserCreationForm):
     class Meta:
@@ -26,7 +30,7 @@ class TutorUserSignUpForm(forms.ModelForm):
     class Meta:
         model = TUser  # change model to TutorProfile and add bio
         fields = ['username', 'firstname', 'lastname',
-                  'email', 'phone_number', 'subjects', 'image', 'year', 'bio']
+                  'email', 'phone_number', 'subjects',  'year', 'bio']
         widgets = {
             'username': forms.TextInput(
                 attrs={
@@ -64,11 +68,6 @@ class TutorUserSignUpForm(forms.ModelForm):
                 }
             ),
             'bio': forms.Textarea (
-                attrs={
-                    'class': 'form-control'
-                }
-            ),
-            'image': forms.ClearableFileInput(
                 attrs={
                     'class': 'form-control'
                 }

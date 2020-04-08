@@ -4,9 +4,11 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from django.contrib.auth import login, logout, authenticate
-from .models import Request, TUser, Reviews, Room
+from .models import Request, TUser, Reviews, Room, Profile, TutorPosting
 from .forms import RequestForm, RegisterForm, ProfileUpdateForm, TutorRegistration, TutorUserSignUpForm, \
-    ReviewRatingForm
+    TutorPostingForm, ReviewRatingForm
+
+ReviewRatingForm
 from django.views.generic import CreateView, ListView
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
@@ -23,6 +25,10 @@ class TutorRegister(CreateView):
     form_class = TutorUserSignUpForm
     template_name = 'FindTutors/tutor_signup.html'  # correct form HTML
 
+    # def get(self, request):
+    #     form = TutorUserSignUpForm()
+    #     return render(request,self.template_name,{'form':form})
+    #
     def form_valid(self, form):
 
         user = form.save(commit=False)
@@ -30,6 +36,24 @@ class TutorRegister(CreateView):
         user.save()
         return redirect('/home/tutors/')  # Go back to the table of tutors
 
+
+class TutorView2(generic.TemplateView):
+    model = TUser
+    template_name = 'FindTutors/tutor_signup.html'
+
+    def get(self, request):
+        form = TutorUserSignUpForm()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = TutorUserSignUpForm(request.POST, request.FILES)
+        if form.is_valid():
+            new = form.save(commit=False)
+            new.image = form.cleaned_data['image']
+            new.save()
+            form = TutorUserSignUpForm()
+            return HttpResponseRedirect('/home/tutors/')
+        return render(request, self.template_name, {'form': form})
 
 class TuteeRegisterView(CreateView):
     model = TUser
@@ -50,9 +74,13 @@ class TuteeRegisterView(CreateView):
 def Tutors(request):
     model = TUser
     # the_tutors = []
-    the_tutors = TUser.objects.filter(is_tutor=1)
+    the_tutors2 = TUser.objects.filter(is_tutor=1)
+    #the_tutors = Profile.objects.filter(user_type=1)
+    #both = Profile.objects.filter(user_type=3)
     # the_tutors = TUser.objects.all()
-    return render(request, 'FindTutors/tutors.html', {'tutors': the_tutors})
+    the_tutors = TutorPosting.objects.filter(user_type=1)
+    both = TutorPosting.objects.filter(user_type=3)
+    return render(request, 'FindTutors/tutors.html', {'tutors': the_tutors, 'both': both, 'tutors2': the_tutors2})
 
 
 def TutorProfile(request, pk):
@@ -142,6 +170,24 @@ def ReviewRating(request):
         form = ReviewRatingForm()
     return render(request, 'FindTutors/ratings_review.html', {'form': form})
 
+class TutorPostingView(generic.TemplateView):
+    template_name = 'FindTutors/newtutorposting.html'
+
+    def get(self, request):
+        form = TutorPostingForm()
+        return render(request,self.template_name,{'form':form})
+
+    def post(self, request):
+        form = TutorPostingForm(request.POST, request.FILES)
+        if form.is_valid():
+            posting = form.save(commit=False)
+
+
+            posting.save()
+
+            form = TutorPostingForm()
+            return HttpResponseRedirect('/home/tutors/')
+        return render(request, self.template_name, {'form':form})
 
 def all_rooms(request):
     rooms = Room.objects.all()
