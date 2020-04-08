@@ -130,7 +130,7 @@ class RequestView(generic.CreateView):
         recipient = str(TUser.objects.get(email=self.request.GET.get('recipient')))
         subject = str(self.request_input.subject)
         location = str(self.request_input.address)
-        description = "Use this private chat to discuss the details of your " + subject + " tutoring appointment at " + location + "."
+        description = "Use this private chat to discuss the details of your " + subject + " tutoring appointment at \n" + location + "."
         slug = sender + "-" + recipient
         name = sender + " & " + recipient + " (Private)"
         Room.objects.create(name=name, slug=slug, description=description, validUser1=sender, validUser2=recipient)
