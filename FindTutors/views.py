@@ -201,7 +201,7 @@ class TutorPostingView(generic.TemplateView):
         return render(request, self.template_name, {'form':form})
 
 def all_rooms(request):
-    rooms = Room.objects.all()
+    rooms = Room.objects.filter(Q(validUser1="all")| Q(validUser2="all") | Q(validUser1=request.user.username) | Q(validUser2=request.user.username))
     return render(request, 'FindTutors/all_rooms.html', {'rooms': rooms})
 
 
