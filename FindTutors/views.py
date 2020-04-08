@@ -124,6 +124,17 @@ class RequestView(generic.CreateView):
         self.request_input.recipient = TUser.objects.get(
             email=self.request.GET.get('recipient'))
         self.request_input.save()
+        
+        #create private chat
+        sender = str(self.request.user.username)
+        recipient = str(TUser.objects.get(email=self.request.GET.get('recipient')))
+        subject = str(self.request_input.subject)
+        location = str(self.request_input.location)
+        description = "Use this private chat to discuss the details of your " + subject + " tutoring appointment at " + location + "."
+        slug = sender + "-" + recipient
+        name = sender + " & " + recipient + " (Private)"
+        Room.objects.create(name=name, slug=slug, description=description, validUser1=sender, validUser2=recipient)
+        
         return redirect('/home/request/tutor_request/')
 
 
@@ -199,11 +210,8 @@ def room_detail(request, slug):
     return render(request, 'FindTutors/room_detail.html', {'room': room})
 
 
-fake = Faker()
-
-
 def token(request):
-    identity = request.GET.get('identity', fake.user_name())
+    identity = request.GET.get("identity", request.user.username)
     device_id = request.GET.get('device', 'default')  # unique device ID
 
     account_sid = settings.TWILIO_ACCOUNT_SID
