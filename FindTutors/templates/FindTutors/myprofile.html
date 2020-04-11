@@ -1,6 +1,9 @@
 {% load crispy_forms_tags %}
 {% load static %}
 {% block content %}
+<!doctype html>
+<html lang="en">
+
 
 <head>
   <meta charset="UTF-8">
@@ -8,11 +11,23 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   <link href="https://fonts.googleapis.com/css?family=Cabin+Sketch" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Dosis:800" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   <style type="text/css">
+      .selector-for-some-widget {
+        box-sizing: content-box;
+       }
       body {
-        background-image: url({% static "images/Clouds.jpg" %});
-        background-size: cover;
-
+        background: linear-gradient(110deg, #edf2f7 60%, #2a4365 60%);
+        height: 100%;
+      }
+      html {
+        height: 100%;
+      }
+      .top-buffer { 
+        margin-top:20px; 
       }
 
   </style>
@@ -55,21 +70,29 @@
       </div>
     </nav>
 
-  <div class="container">
-    <img src="{ user.profile.image.url }" class="img-circle" alt="" >
-  </div>
+  
+    <div class="container rounded h-50 mt-4 mx-auto">
+      <div class="row rounded h-100">
+        <div class="col-4 bg-dark text-white rounded">
+          <!-- <img src="{ user.profile.image.url }" class="img-circle" alt="" > -->
+          <h2>{{ user.username }}</h2>
+          <h4>{{ user.profile.year }}</h4>
+          <p class="text-light">{{ user.profile.first_major }}</p>
+          <p class="text-light">{{ user.profile.second_major }}</p>
+        </div>
+        <div class="col bg-white rounded">
+          <h4>Bio:</h4>
+          <p class="text-dark">{{ user.profile.bio }}</p>
+        </div>
+      </div>
+    </div>
 
-  <div class="container">
-    <h1>{{ user.username }} {{ user.lastname }}</h1>
-    <h4>{{ user.profile.year }}</h4>
-    <p class="text-secondary">{{ user.profile.subjects }}</p>
-    <p class="text-secondary">{{ user.profile.bio }}</p>
-    <a class="btn btn-outline-primary" href="{% url 'FindTutors:edit_profile' %}" role="button">Update</a>
-  </div>
-
-  <a href="/home/register_tutor/"> Put Yourself on Our Tutor List </a>
-
+    <div class="container top-buffer">
+      <a class="btn btn-outline-primary" href="{% url 'FindTutors:edit_profile' %}" role="button">Update</a>
+    </div>
+    
   </body>
 
 {% endblock content %}
 
+</html>
