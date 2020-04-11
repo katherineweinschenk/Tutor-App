@@ -18,7 +18,7 @@ class RequestForm(ModelForm):
 class TutorPostingForm(forms.ModelForm):
     class Meta:
         model = TutorPosting
-        fields = ['firstname', 'lastname', 'email', 'subjects', 'phone_number', 'year', 'bio', 'subjects','user_type']
+        fields = ['firstname', 'lastname', 'email', 'phone_number', 'year', 'bio', 'first_major', 'second_major','user_type']
 
 class RegisterForm(UserCreationForm):
     class Meta:
@@ -93,7 +93,7 @@ class TutorRegistration(UserCreationForm):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['image', 'year', 'user_type', 'subjects', 'bio']
+        fields = ['image', 'year', 'user_type', 'first_major', 'second_major', 'bio']
 
 
 class ReviewRatingForm(forms.ModelForm):

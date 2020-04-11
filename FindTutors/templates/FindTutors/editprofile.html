@@ -10,19 +10,31 @@
   <link href="https://fonts.googleapis.com/css?family=Dosis:800" rel="stylesheet">
   <style type="text/css">
       body {
-        background-image: url({% static "images/Clouds.jpg" %});
-        background-size: cover;
+        background: linear-gradient(110deg, #edf2f7 60%, #2a4365 60%);
+        height: 100%;
+      }
+      html {
+        height: 100%;
+      }
+      .vertical{
+        margin-top:40%;
+      }
+      .top-buffer { 
+        margin-top:20px; 
       }
   </style>
 </head>
 
 
-<div class="container">
-  <img src="{{ user.profile.image.url }}" class="img-circle" alt="" >
-</div>
-
-<div class="container">
-  <h1>{{ user.username }} {{ user.lastname }}</h1>
+<div class="container rounded bg-light mt-4">
+  <div class="row rounded">
+    <div class="col"> 
+      <img src="{{ user.profile.image.url }}" class="img-circle" alt="icon" >
+    </div>
+    <div class="col">
+      <h1 class="vertical">{{ user.username }}</h1>
+    </div>
+  </div>
 </div>
 
       <div class="container">
