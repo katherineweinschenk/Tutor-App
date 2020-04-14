@@ -1,4 +1,106 @@
 body {
-    background: url(images/education.jpg);
-    background-size:cover;
+    padding: 0;
+    margin: 0;
+  }
+/*--- navigation bar ---*/
+.navbar {
+  background:#05326d;
+}
+.nav.navbar-nav.navbar li a{
+  color:white;
+}
+.nav-link,
+.navbar-brand {
+  color: #fff;
+  cursor: pointer;
+}
+.nav-link {
+  margin-right: 1em !important;
+}
+.nav-link:hover {
+  color: #000;
+}
+.navbar-collapse {
+  justify-content: flex-end;
+}
+
+.description {
+  left: 50%;
+  position: absolute;
+  top: 55%;
+  transform: translate(-50%, -55%);
+  text-align: center;
+}
+.description h1 {
+  color: #ff970e;
+}
+.description p {
+  color: rgb(0, 0, 0);
+  font-size: 1.3rem;
+  line-height: 1.5;
+}
+
+.description button {
+  border:1px solid #ff970e;
+  background:#ff970e;
+  border-radius: 0;
+  color:#fff;
+}
+.description button:hover {
+  border:1px solid #fff;
+  background:rgb(216, 130, 31);
+  color:#000;
+}
+
+.features {
+  margin: 4em auto;
+  padding: 1em;
+  position: relative;
+  outline: 1px solid grey;
+}
+.feature-title {
+  color: #333;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+.features img {
+  -webkit-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+  margin-bottom: 16px;
+}
+
+.footer-copyright {
+  color: #666;
+  padding: 40px 0;
+  position: absolute;
+  bottom: 0px;
+  right:1%;
+  left:1%;
+}
+
+.form {
+  left: 50%;
+  position: absolute;
+  top: 20%;
+  transform: translate(-50%, -55%);
+  text-align: center;
+}
+
+#map {
+  height: 500px;  /* The height is 400 pixels */
+  width: 40%;  /* The width is the width of the web page */
+  position: absolute;
+  top: 35%;
+  right:15%;
+  left:30%;
+}
+
+.caption {
+  position: absolute;
+  top: 32%;
+  right:20%;
+  left:40%;
 }
