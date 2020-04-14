@@ -126,8 +126,8 @@ class MessagingTest(TestCase):
 
         response = self.client.get('/home/messages/')
 
-        self.assertContains(response, 'room 1')
-        self.assertContains(response, 'room 2')
+        self.assertContains(response, 'Room 1')
+        self.assertContains(response, 'Room 2')
 
     def test_room_details_are_present_in_room_page(self):
         room_1 = Room.objects.create(
@@ -154,7 +154,7 @@ class MessagingTest(TestCase):
 
         response = self.client.get('/home/messages/')
 
-        self.assertNotContains(response,'room 1')
+        self.assertNotContains(response,'Room 1')
 
     def test_public_message(self):
         Room.objects.create(
@@ -167,7 +167,7 @@ class MessagingTest(TestCase):
 
         response = self.client.get('/home/messages/')
 
-        self.assertContains(response,'room 1')
+        self.assertContains(response,'Room 1')
 
     def test_private_and_public(self):
         Room.objects.create(
@@ -188,5 +188,5 @@ class MessagingTest(TestCase):
 
         response = self.client.get('/home/messages/')
 
-        self.assertNotContains(response, 'room 1')
-        self.assertContains(response, 'room 2')
+        self.assertNotContains(response, 'Room 1')
+        self.assertContains(response, 'Room 2')
