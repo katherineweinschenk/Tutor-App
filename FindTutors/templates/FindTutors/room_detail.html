@@ -15,6 +15,16 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="{% static 'FindTutors/style.css' %}">
 
+  <style>
+       /* Set the size of the div element that contains the map */
+      #map {
+        height: 500px;  /* The height is 400 pixels */
+        width: 80%;  /* The width is the width of the web page */
+        left: 70px;
+        top: 150px;
+       }
+  </style>
+
 </head>
 
 <body>
@@ -69,11 +79,51 @@
           <p class="subtitle">
             {{room.description|linebreaksbr}}
           </p>
+          <div id="map"></div>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+{% block content %}
+<script>
+// Initialize and add the map
+
+    function initMap() {
+        // The location of Uluru
+        var uluru = {lat: {{room.latitude}}, lng: {{room.longitude}}};
+        // The map, centered at Uluru
+        var map = new google.maps.Map(
+            document.getElementById('map'), {zoom: 16, center: uluru});
+        // The marker, positioned at Uluru
+        var marker = new google.maps.Marker({position: uluru, map: map, draggable:false});
+        //geolocation = "("+marker.getPosition().lat()+","+marker.getPosition().log()+")";
+
+
+        google.maps.event.addListener (marker, 'dragend', function (event) {
+            var point = marker.getPosition();
+            map.panTo(point);
+            geocoder = new google.maps.Geocoder();
+            geocoder.geocode({'latLng': point},function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    document.getElementById("id_address").value = results[0].formatted_address;
+                }
+            });
+        });
+    }
+
+</script>
+    <!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5QOIUA7DT_w1wgueh_nA-HTqLqGS6ZQM&callback=initMap">
+</script>
+{% endblock %}
+
   <script src="https://media.twiliocdn.com/sdk/js/common/v0.1/twilio-common.min.js"></script>
   <script src="https://media.twiliocdn.com/sdk/js/chat/v2.0/twilio-chat.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>

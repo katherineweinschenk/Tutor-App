@@ -29,6 +29,8 @@
 
         google.maps.event.addListener (marker, 'dragend', function (event) {
             var point = marker.getPosition();
+            document.getElementById("id_latitude").value = marker.getPosition().lat();
+            document.getElementById("id_longitude").value = marker.getPosition().lng();
             map.panTo(point);
             geocoder = new google.maps.Geocoder();
             geocoder.geocode({'latLng': point},function(results, status) {

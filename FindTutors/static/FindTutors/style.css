@@ -84,23 +84,23 @@ body {
 .form {
   left: 50%;
   position: absolute;
-  top: 20%;
+  top: 25%;
   transform: translate(-50%, -55%);
   text-align: center;
 }
 
 #map {
-  height: 500px;  /* The height is 400 pixels */
+  height: 350px;  /* The height is 400 pixels */
   width: 40%;  /* The width is the width of the web page */
   position: absolute;
-  top: 35%;
+  top: 42%;
   right:15%;
   left:30%;
 }
 
 .caption {
   position: absolute;
-  top: 32%;
+  top: 38%;
   right:20%;
   left:40%;
 }

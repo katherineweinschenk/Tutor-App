@@ -13,7 +13,8 @@ from crispy_forms.bootstrap import AppendedText, PrependedText, FormActions
 class RequestForm(ModelForm):
     class Meta:
         model = Request
-        fields = ('subject', 'description', 'address')
+        fields = ('subject', 'description', 'address', 'latitude', 'longitude')
+        widgets = {'latitude': forms.HiddenInput(), 'longitude': forms.HiddenInput()}
 
 class TutorPostingForm(forms.ModelForm):
     class Meta:

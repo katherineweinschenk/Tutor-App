@@ -378,6 +378,9 @@ class Request(models.Model):
     description = models.CharField(max_length=500, default="")
     address = map_fields.AddressField(max_length=200, default="164 McCormick Rd, Charlottesville, VA 22903")
     geolocation = map_fields.GeoLocationField(max_length=100,default="")
+    latitude = models.FloatField(default=0)
+    longitude = models.FloatField(default=0)
+
 
 #https://www.twilio.com/blog/2018/05/build-chat-python-django-applications-programmable-chat.html
 class Room(models.Model):
@@ -387,6 +390,8 @@ class Room(models.Model):
     slug = models.CharField(max_length=50)
     validUser1 = models.CharField(default="all",max_length=30)
     validUser2 = models.CharField(default="all",max_length=30)
+    latitude = models.FloatField(default=38.036460)
+    longitude = models.FloatField(default=-78.506080)
 
     def __str__(self):
         """Returns human-readable representation of the model instance."""
