@@ -1,5 +1,27 @@
 {% extends 'FindTutors/base.html' %}
 {% block content %}
-    <h1>hiiiiiii</h1>
+<header class="page-header header container-fluid">
+    <div class="description">
+        <h1>Welcome to SuperTuber</h1>
+        <p>Choose to find tutors or to register as a tutor.</p>
+        <button class="btn btn-outline-secondary btn-lg" onclick="window.location.href = '/home/tutors';">Find Tutors</button>
+        <button class="btn btn-outline-secondary btn-lg" onclick="window.location.href = '/home/register_tutor';">Register as a Tutor</button>        
+            <div class="container features">               
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <h3 class="feature-title">Find a Tutor</h3>
+                        <p>Look for the right tutor for you based on their year and previously taken courses.</p>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <h3 class="feature-title">Send them a Request and Meeting Location</h3>
+                        <p>Reach out to a tutor and send them a request with a meeting location attached.</p>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12">   
+                        <h3 class="feature-title">Get the Help You Need</h3>
+                        <p>Recieve personalized tutoring on whatever problem you may be having for whatever class.</p> 
+                    </div>
+                </div>            
+            </div>                      
+    </div>
+</header>
 {% endblock %}
-

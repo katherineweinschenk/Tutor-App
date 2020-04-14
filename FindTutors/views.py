@@ -108,7 +108,7 @@ class redirectView(generic.TemplateView):
     template_name = 'registration/redirect.html'
 
 def HomeView2(request):
-    return render(request, 'FindTutors/base.html')
+    return render(request, 'FindTutors/home.html')
 
 class HomeView(generic.TemplateView):
     template_name = 'FindTutors/home.html'
