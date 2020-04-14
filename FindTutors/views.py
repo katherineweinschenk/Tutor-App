@@ -130,13 +130,17 @@ class RequestView(generic.CreateView):
         sender = str(self.request.user.username)
         recipient = str(TUser.objects.get(email=self.request.GET.get('recipient')))
         subject = str(self.request_input.subject)
+        descript = str(self.request_input.description)
         location = str(self.request_input.address)
-        description = "Use this private chat to discuss the details of your " + subject + " tutoring appointment at \n" + location + "."
+        description = "Subject: " + subject + "\nDescription: " + descript + "\nLocation: " + location
         slug = sender + "-" + recipient
-        name = sender + " & " + recipient + " (Private)"
-        Room.objects.create(name=name, slug=slug, description=description, validUser1=sender, validUser2=recipient)
+        name = sender + " & " + recipient + " (Private Chat)"
+        isRoom = Room.objects.filter(slug=slug).count()
+        if isRoom < 1:
+            Room.objects.create(name=name, slug=slug, description=description, validUser1=sender, validUser2=recipient)
+        returnURL = "/home/messages/" + slug
         
-        return redirect('/home/request/tutor_request/')
+        return redirect(returnURL)
 
 
 def TutorRequest(request):
@@ -201,7 +205,18 @@ class TutorPostingView(generic.TemplateView):
             return HttpResponseRedirect('/home/tutors/')
         return render(request, self.template_name, {'form':form})
 
+
 def all_rooms(request):
+    delete = request.GET.get('delete', ' ')
+
+    if delete != " ":
+        deleteRoom = Room.objects.get(slug=delete)
+        deleteRoom.validUser1 = 'deleted'
+        deleteRoom.validUser2 = 'deleted'
+        deleteRoom.slug += "-archive" + str(Room.objects.count())
+        deleteRoom.name += " (archived)"
+        deleteRoom.save()
+
     rooms = Room.objects.filter(Q(validUser1="all")| Q(validUser2="all") | Q(validUser1=request.user.username) | Q(validUser2=request.user.username))
     return render(request, 'FindTutors/all_rooms.html', {'rooms': rooms})
 

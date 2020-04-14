@@ -5,12 +5,47 @@
 <html>
 
 <head>
-  <title>{{room.name}} | SuperTuber Chat</title>
+  <title>{{room.name}} | SuperTuber</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css" />
   <link rel="stylesheet" href="{% static "FindTutors/styles/room_detail.css" %}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'FindTutors/style.css' %}">
+
 </head>
 
 <body>
+
+<nav class="navbar navbar-expand-md navbar-dark">
+      <a class="navbar-brand" href="/">SuperTuber</a>
+      <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="main-navigation">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/home/tutors">Find Tutors </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/home/messages">Messages</a>
+          </li>
+          <li class ="nav-item">
+            <a class="nav-link" href="/home/register_tutor/">Register as a Tutor</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/home/profile">My Profile </a>
+          </li>
+          <li class ="nav-item">
+            <a class="btn btn-warning" href="{% url 'logout' %}">Logout</a>
+          </li>
+        </ul>
+
+      </div>
+    </nav>
+<section>
   <div class="container">
     <div class="columns">
       <div class="column is-three-quarters">
@@ -20,7 +55,7 @@
             <div class="field">
               <label class="label">Message</label>
               <div class="control">
-                  <textarea class="textarea" id="message-input"placeholder="Your message here" rows="3" autofocus></textarea>
+                  <textarea class="textarea" id="message-input"placeholder="Your message here" rows="3" cols="3" autofocus></textarea>
               </div>
             </div>
             <button type="submit" class="button">Send</button>
@@ -29,17 +64,16 @@
       </div>
 
       <div class="column sidebar">
-        <div class="float-right">
-          <h2 class="title">{{room.name}}</h2>
+        <div class="float-left">
+          <h2 class="title">{{room.name|title}}</h2>
           <p class="subtitle">
-            {{room.description}}
+            {{room.description|linebreaksbr}}
           </p>
         </div>
       </div>
-
     </div>
   </div>
-
+</section>
   <script src="https://media.twiliocdn.com/sdk/js/common/v0.1/twilio-common.min.js"></script>
   <script src="https://media.twiliocdn.com/sdk/js/chat/v2.0/twilio-chat.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
