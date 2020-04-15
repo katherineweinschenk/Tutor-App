@@ -17,7 +17,7 @@ urlpatterns = [
     path('request/', views.RequestView.as_view(), name='request'),
     # path('tutor_registration/', views.TutorRegistration.as_view(), name = 'tutor_registration'),
     path('register_tutor/', views.TutorRegister.as_view(), name='tutor_register'),
-
+    # path('tutors/', views.SubjectListView, name='subjects'), #new html for filtered results
     path('register_tutee/', views.TuteeRegisterView.as_view(), name='tutee_register'),
     path('request/tutor_request/', views.TutorRequest, name='tutor_request' ),
     path('profile/', views.ProfileView.as_view(), name='profile'),

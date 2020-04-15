@@ -79,9 +79,19 @@ def Tutors(request):
     #the_tutors = Profile.objects.filter(user_type=1)
     #both = Profile.objects.filter(user_type=3)
     # the_tutors = TUser.objects.all()
-    the_tutors = TutorPosting.objects.filter(user_type=1)
-    both = TutorPosting.objects.filter(user_type=3)
-    return render(request, 'FindTutors/tutors.html', {'tutors': the_tutors, 'both': both, 'tutors2': the_tutors2})
+    # the_tutors = TutorPosting.objects.filter(user_type=1)
+    # both = TutorPosting.objects.filter(user_type=3)
+    # the_tutors = TutorPosting.objects.filter(user_type=1)
+    # both = TutorPosting.objects.filter(user_type=3)
+    try:
+        category=request.GET['category']
+        filtered=TUser.objects.filter(subjects=category)
+        return render(request, 'FindTutors/tutors.html', {'tutors2': filtered})
+
+    except:
+        return render(request, 'FindTutors/tutors.html', {'tutors2': the_tutors2})
+
+    # return render(request, 'FindTutors/tutors.html', {'tutors': the_tutors, 'both': both, 'tutors2': the_tutors2})
 
 
 def TutorProfile(request, pk):
