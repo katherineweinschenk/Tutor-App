@@ -235,8 +235,9 @@ def all_rooms(request):
         deleteRoom.name += " (archived)"
         deleteRoom.save()
 
-    rooms = Room.objects.filter(Q(validUser1="all")| Q(validUser2="all") | Q(validUser1=request.user.username) | Q(validUser2=request.user.username))
-    return render(request, 'FindTutors/all_rooms.html', {'rooms': rooms})
+    publicRooms = Room.objects.filter(Q(validUser1="all")| Q(validUser2="all"))
+    rooms = Room.objects.filter(Q(validUser1=request.user.username) | Q(validUser2=request.user.username))
+    return render(request, 'FindTutors/all_rooms.html', {'rooms': rooms, 'publicRooms': publicRooms})
 
 
 def room_detail(request, slug):
