@@ -378,8 +378,8 @@ class Request(models.Model):
     description = models.CharField(max_length=500, default="")
     address = map_fields.AddressField(max_length=200, default="164 McCormick Rd, Charlottesville, VA 22903")
     geolocation = map_fields.GeoLocationField(max_length=100,default="")
-    latitude = models.FloatField(default=0)
-    longitude = models.FloatField(default=0)
+    latitude = models.FloatField(default=38.036460)
+    longitude = models.FloatField(default=-78.506080)
 
 
 #https://www.twilio.com/blog/2018/05/build-chat-python-django-applications-programmable-chat.html
