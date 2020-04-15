@@ -30,7 +30,7 @@ class RegisterForm(UserCreationForm):
 class TutorUserSignUpForm(forms.ModelForm):
     class Meta:
         model = TUser  # change model to TutorProfile and add bio
-        fields = ['username','firstname', 'lastname', 'email',
+        fields = ['username','firstname', 'lastname',
                   'subjects',  'year', 'bio']
     SUBJECT_CHOICES = (
         ('Computer Science', 'Computer Science'),
@@ -59,11 +59,6 @@ class TutorUserSignUpForm(forms.ModelForm):
             attrs={                    'class': 'form-control'
             }
          ),
-         'email': forms.EmailInput(
-              attrs={
-                'class': 'form-control'
-            }
-        ),
          'subjects': forms.Select(
             choices=SUBJECT_CHOICES,attrs={
                 'class': 'form-control'
