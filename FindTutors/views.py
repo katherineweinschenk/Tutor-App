@@ -34,6 +34,7 @@ class TutorRegister(CreateView):
 
         user = form.save(commit=False)
         user.is_tutor = True
+        user.username = self.request.user.username
         user.save()
         return redirect('/home/tutors/')  # Go back to the table of tutors
 
