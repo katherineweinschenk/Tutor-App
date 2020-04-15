@@ -59,6 +59,21 @@
   <section>
     <div class="container">
       <div class="rows">
+        {% for room in publicRooms %}
+        <div class="column">
+          <div class="card rounded-edges">
+            <div class="card-content">
+              <p class="title is-4">{{room.name|title}}</p>
+              <div class="content">
+                <p>
+                  {{room.description|linebreaksbr}}
+                </p>
+                <a href="{{room.slug}}" class="button">Join Room</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
         {% for room in rooms %}
         <div class="column">
           <div class="card rounded-edges">
