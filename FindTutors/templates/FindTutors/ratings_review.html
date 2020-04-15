@@ -1,4 +1,5 @@
-{% load static %}
+{% extends 'FindTutors/base.html' %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +17,6 @@
  <link
       rel="stylesheet"
       type="text/css"
-      href="{% static 'ratings/style.css' %}"
     />
 <body>
 
@@ -31,3 +31,4 @@
 
     </body>
 </html>
+{% endblock %}

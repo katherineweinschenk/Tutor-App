@@ -44,7 +44,7 @@ class UserManager(BaseUserManager):
 
 
 class TUser(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField(max_length=200, default='0')
+    username = models.CharField(max_length=200)
     email = models.EmailField(('email address'), unique=True)
     firstname = models.CharField(max_length=200)
     lastname = models.CharField(max_length=200)
@@ -53,7 +53,21 @@ class TUser(AbstractBaseUser, PermissionsMixin):
     is_tutee = models.BooleanField('student status', default=False)
     is_tutor = models.BooleanField('teacher status', default=False)
     year = models.IntegerField(blank=True, null=True)
-    subjects = models.CharField(max_length=500, default="")
+    SUBJECT_CHOICES = (
+        ('Computer Science', 'Computer Science'),
+        ('Biology', 'Biology'),
+        ('Chemistry', 'Chemistry'),
+        ('Physics', 'Physics'),
+        ('Math', 'Math'),
+        ('English', 'English'),
+        ('Algebra', 'Algebra'),
+        ('Calculus', 'Calculus'),
+        ('Geometry', 'Geometry'),
+        ('Language', 'Language'),
+        ('Reading', 'Reading'),
+        ('Music', 'Music'),
+    )
+    subjects = models.CharField(max_length=30, choices=SUBJECT_CHOICES)
     bio = models.TextField(default=' ')
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)

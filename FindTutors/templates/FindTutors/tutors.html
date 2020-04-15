@@ -1,25 +1,45 @@
 {% extends 'FindTutors/base.html' %}
 {% block content %}
 <div class="container">
+  <form method="GET" action="{% url 'FindTutors:tutors' %}" enctype="multipart/form-data">
+    <div class="form-group is-valid"><label for="SUBJECT_CHOICES">Please Select Which Subjects You Need Assistance In</label><select name="category" class="form-control is-valid" title="" id="id_category">
+  <option value="" selected>---------</option>
+
+  </optgroup>
+  <optgroup label="Subjects">
+  <option value="Biology">Biology</option>
+
+  <option value="Chemistry">Chemistry</option>
+
+  <option value="Physics">Physics</option>
+
+  <option value="Math">Math</option>
+
+  <option value="English">English</option>
+
+  <option value="Algebra">Algebra</option>
+
+  <option value="Calculus">Calculus</option>
+
+  <option value="Computer Science">Computer Science</option>
+
+  <option value="Geometry">Geometry</option>
+
+  <option value="Language">Language</option>
+
+      <option value="Reading">Reading</option>
+
+    <option value="Music">Music</option>
+
+  </select></div>
+        <button type="submit" class="save btn btn-default" style="background-color: #E57200 !important">Search</button>
+    </form>
   <h2>Tutors</h2>
-  <table class="table table-bordered table-hover">
+  <a class="nav-link" href="/home/ratingsreview/">Rate and Review Your Tutor! </a>
+
+<table class="table table-bordered table-hover">
     <thead>
       <tr>
-        <th>Tutor's Name</th>
-        <th>Tutor's Year</th>
-        <th>Tutor's Subjects</th>
-        <th>Request</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for tutor in tutors %}
-        <tr>
-          <td><a href="{{tutor.id}}/">{{ tutor.firstname }} {{tutor.lastname }}</a></td>
-          <td>{{ tutor.year }} </td>
-          <td>{{ tutor.subjects }} </td>
-          <td><a class="btn btn-warning" href="/../home/request/?recipient={{tutor.email}}" role = "button">Send Request</a></td>
-        </tr>
-      {% endfor %}
       {% for tutor in both %}
           <tr>
             <td><a href="{{tutor.id}}/">{{ tutor.firstname }} {{tutor.lastname }}</a></td>
@@ -40,3 +60,4 @@
   </table>
 </div>
 {% endblock %}
+

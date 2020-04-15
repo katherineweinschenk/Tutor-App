@@ -30,51 +30,51 @@ class RegisterForm(UserCreationForm):
 class TutorUserSignUpForm(forms.ModelForm):
     class Meta:
         model = TUser  # change model to TutorProfile and add bio
-        fields = ['username', 'firstname', 'lastname',
-                  'email', 'phone_number', 'subjects',  'year', 'bio']
-        widgets = {
-            'username': forms.TextInput(
-                attrs={
-                    'class': 'form-control'
-                }
-            ),
-            'firstname': forms.TextInput(
-                attrs={
-                    'class': 'form-control'
-                }
-            ),
-            'lastname': forms.TextInput(
-                attrs={
-                    'class': 'form-control'
-                }
-            ),
-            'email': forms.EmailInput(
-                attrs={
-                    'class': 'form-control'
-                }
-            ),
-            'phone_number': forms.NumberInput(
-                attrs={
-                    'class': 'form-control'
-                }
-            ),
-            'subjects': forms.Textarea(
-                attrs={
-                    'class': 'form-control'
-                }
-            ),
-            'year': forms.NumberInput(
-                attrs={
-                    'class': 'form-control'
-                }
-            ),
-            'bio': forms.Textarea (
-                attrs={
-                    'class': 'form-control'
-                }
-            ),
-        }
-
+        fields = ['firstname', 'lastname', 'email',
+                  'subjects',  'year', 'bio']
+    SUBJECT_CHOICES = (
+        ('Computer Science', 'Computer Science'),
+        ('Biology', 'Biology'),
+        ('Chemistry', 'Chemistry'),
+        ('Physics', 'Physics'),
+        ('Math', 'Math'),
+        ('English', 'English'),
+        ('Algebra', 'Algebra'),
+        ('Calculus', 'Calculus'),
+        ('Geometry', 'Geometry'),
+        ('Language', 'Language'),
+        ('Reading', 'Reading'),
+        ('Music', 'Music'),
+    )
+    widgets = {
+        'firstname': forms.TextInput(
+            attrs={                    'class': 'form-control'
+            }
+        ),
+        'lastname': forms.TextInput(
+            attrs={                    'class': 'form-control'
+            }
+         ),
+         'email': forms.EmailInput(
+              attrs={
+                'class': 'form-control'
+            }
+        ),
+         'subjects': forms.Select(
+            choices=SUBJECT_CHOICES,attrs={
+                'class': 'form-control'
+            }
+        ),
+        'year': forms.NumberInput(
+            attrs={                    'class': 'form-control'
+            }
+        ),
+        'bio': forms.Textarea (
+            attrs={                    'class': 'form-control'
+            }
+        ),
+    }
+#hello
 
 class TuteeUserSignUpForm(UserCreationForm):
     class Meta:
