@@ -223,13 +223,15 @@ class Profile(models.Model):
     )
     year = models.CharField(max_length=15, choices=YEAR_CHOICES, default=FIRST)
 
+    TUTOR="Tutor"
+    TUTEE="Tutee"
+    BOTH="Tutor and Tutee"
     USER_CHOICES = (
-        (1, 'Tutor'),
-        (2, 'Tutee'),
-        (3, 'Tutor and Tutee'),
+        (TUTOR, 'Tutor'),
+        (TUTEE, 'Tutee'),
+        (BOTH, 'Tutor and Tutee'),
     )
-    user_type = models.PositiveIntegerField(
-        choices=USER_CHOICES, default=1)
+    user_type = models.CharField(max_length=15, choices=USER_CHOICES, default=" ")
 
     AAA = 'African American and African Studies' 
     ASL = 'American Sign Language Program'
