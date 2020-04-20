@@ -4,10 +4,10 @@ body {
  }
 /*--- navigation bar ---*/
 .navbar {
-  background:#05326d;
+  background:#14141480;
 }
 .nav.navbar-nav.navbar li a{
-  color:white;
+  color:rgba(255, 255, 255, 0.658);
 }
 .nav-link,
 .navbar-brand {
