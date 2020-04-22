@@ -17,6 +17,8 @@ from faker import Faker
 from twilio.jwt.access_token import AccessToken
 from twilio.jwt.access_token.grants import ChatGrant
 from django.db.models import Q
+from django.views.generic.edit import UpdateView
+
 
 # tutor register form view
 
@@ -91,7 +93,6 @@ def Tutors(request):
     except:
         return render(request, 'FindTutors/tutors.html', {'tutors2': the_tutors2})
 
-    # return render(request, 'FindTutors/tutors.html', {'tutors': the_tutors, 'both': both, 'tutors2': the_tutors2})
 
 
 def TutorProfile(request, pk):
@@ -108,6 +109,11 @@ def Tutees(request):
     return render(request, 'FindTutors/tutees.html', {'tutees': all_tutees})
 
 # registration views
+
+class TutorSignUpUpdate(UpdateView):
+    model = TUser
+    form_class = TutorUserSignUpForm
+    success_url = '/home/tutors/'
 
 
 class SignUpView(generic.TemplateView):
@@ -191,7 +197,6 @@ def editprofile(request):
 
     return render(request, 'FindTutors/editprofile.html', context)
 
-
 def ReviewRating(request):
     if request.method == "POST":
         form = ReviewRatingForm(request.POST)
@@ -200,7 +205,9 @@ def ReviewRating(request):
             return redirect('/home/tutors/%s' % rating.profile_id)
     else:
         form = ReviewRatingForm()
+        form.fields["profile"].queryset = TUser.objects.filter(is_tutor=True)
     return render(request, 'FindTutors/ratings_review.html', {'form': form})
+
 
 class TutorPostingView(generic.TemplateView):
     template_name = 'FindTutors/newtutorposting.html'

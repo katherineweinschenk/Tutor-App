@@ -100,3 +100,4 @@ class ReviewRatingForm(forms.ModelForm):
     class Meta:
         model = Reviews
         fields = ['profile', 'rating', 'reviews']
+
