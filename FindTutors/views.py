@@ -140,6 +140,9 @@ class RequestView(generic.CreateView):
         #create private chat
         sender = str(self.request.user.username)
         recipient = str(TUser.objects.get(email=self.request.GET.get('recipient')))
+        email = str(self.request.GET.get('recipient'))
+        index = email.index("-tutor")
+        recipientUsername = email[0:index]
         slug = sender + "-" + recipient
         name = sender + " & " + recipient + " (Private Chat)"
 
@@ -153,7 +156,7 @@ class RequestView(generic.CreateView):
 
         isRoom = Room.objects.filter(slug=slug).count()
         if isRoom < 1:
-            Room.objects.create(name=name, slug=slug, description=description, validUser1=sender, validUser2=recipient,
+            Room.objects.create(name=name, slug=slug, description=description, validUser1=sender, validUser2=recipientUsername,
                                 latitude=lat, longitude=lng)
         returnURL = "/home/messages/" + slug
         
