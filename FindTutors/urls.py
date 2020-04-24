@@ -29,7 +29,6 @@ urlpatterns = [
     url(r'messages/$', views.all_rooms, name="all_rooms"),
     url(r'token$', views.token, name="token"),
     url(r'(?P<slug>[-\w]+)/$', views.room_detail, name="room_detail"),
-    url('<pk>/new_tutor_signup', views.TutorSignUpUpdate.as_view(), name='new_tutor_signup'),
 ]
 
 # if settings.DEBUG:

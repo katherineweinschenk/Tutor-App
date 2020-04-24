@@ -8,21 +8,18 @@
 
 <head>
   <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap" rel="stylesheet">
   <link rel=" stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Cabin+Sketch" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Dosis:800" rel="stylesheet">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   <style type="text/css">
-      .selector-for-some-widget {
-        box-sizing: content-box;
-       }
       body {
-        background: linear-gradient(110deg, #edf2f7 60%, #2a4365 60%);
-        height: 100%;
+        padding-bottom:100px;
+        position: relative;
+        background-color: #05326d;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 800 800'%3E%3Cg fill='none' stroke='%231168ff' stroke-width='1'%3E%3Cpath d='M769 229L1037 260.9M927 880L731 737 520 660 309 538 40 599 295 764 126.5 879.5 40 599-197 493 102 382-31 229 126.5 79.5-69-63'/%3E%3Cpath d='M-31 229L237 261 390 382 603 493 308.5 537.5 101.5 381.5M370 905L295 764'/%3E%3Cpath d='M520 660L578 842 731 737 840 599 603 493 520 660 295 764 309 538 390 382 539 269 769 229 577.5 41.5 370 105 295 -36 126.5 79.5 237 261 102 382 40 599 -69 737 127 880'/%3E%3Cpath d='M520-140L578.5 42.5 731-63M603 493L539 269 237 261 370 105M902 382L539 269M390 382L102 382'/%3E%3Cpath d='M-222 42L126.5 79.5 370 105 539 269 577.5 41.5 927 80 769 229 902 382 603 493 731 737M295-36L577.5 41.5M578 842L295 764M40-201L127 80M102 382L-261 269'/%3E%3C/g%3E%3Cg fill='%233a6bff'%3E%3Ccircle cx='769' cy='229' r='5'/%3E%3Ccircle cx='539' cy='269' r='5'/%3E%3Ccircle cx='603' cy='493' r='5'/%3E%3Ccircle cx='731' cy='737' r='5'/%3E%3Ccircle cx='520' cy='660' r='5'/%3E%3Ccircle cx='309' cy='538' r='5'/%3E%3Ccircle cx='295' cy='764' r='5'/%3E%3Ccircle cx='40' cy='599' r='5'/%3E%3Ccircle cx='102' cy='382' r='5'/%3E%3Ccircle cx='127' cy='80' r='5'/%3E%3Ccircle cx='370' cy='105' r='5'/%3E%3Ccircle cx='578' cy='42' r='5'/%3E%3Ccircle cx='237' cy='261' r='5'/%3E%3Ccircle cx='390' cy='382' r='5'/%3E%3C/g%3E%3C/svg%3E");
       }
       html {
         height: 100%;
@@ -30,28 +27,32 @@
       .top-buffer { 
         margin-top:20px; 
       }
+      p{ font-family: 'Manrope', sans-serif; }
+      h4{font-family: 'Manrope', sans-serif;}
+      img { width: 50%; height: auto; }
 
   </style>
 </head>
-    <div class="container rounded h-50 mt-4 mx-auto">
-      <div class="row rounded h-100">
-        <div class="col-4 bg-dark text-white rounded">
-          <!-- <img src="{ user.profile.image.url }" class="img-circle" alt="" > -->
-          <h2>{{ user.username }}</h2>
-          <h4>{{ user.profile.year }}</h4>
-          <p class="text-light">{{ user.profile.first_major }}</p>
-          <p class="text-light">{{ user.profile.second_major }}</p>
+<body>
+    <div class="container-fluid mt-4 p-3" style="width: 50%">
+        <div class="row">
+          <div class="col border bg-white p-4 mr-3">
+            <img src="{{ user.profile.image.url }}" class="rounded-circle img p-3" alt="icon" >
+            <h4>{{ user.username }}</h4>
+            <p>{{ user.profile.user_type }}</p>
+            <p>{{ user.profile.year }}</p>
+            <p class="text-dark">{{ user.profile.first_major }}</p>
+            <p class="text-dark">{{ user.profile.second_major }}</p>
+          </div>
+          <div class="col border bg-white p-3">
+            <h4>Bio</h4>
+            <p class="text-dark">{{ user.profile.bio }}</p>
+          </div>
         </div>
-        <div class="col bg-white rounded">
-          <h4>Bio:</h4>
-          <p class="text-dark">{{ user.profile.bio }}</p>
+        <div class="row pt-4">      
+          <a class="btn  btn-light" href="{% url 'FindTutors:edit_profile' %}" role="button">Update</a>
         </div>
       </div>
-    </div>
-
-    <div class="container top-buffer">
-      <a class="btn btn-outline-primary" href="{% url 'FindTutors:edit_profile' %}" role="button">Update</a>
-    </div>
     
   </body>
 
