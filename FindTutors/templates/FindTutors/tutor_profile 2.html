@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Tutor Profile</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+      <meta nmae = "description" content = "">
+      <meta name="author" content = "">
+      <title>Tutor Profile</title>
+
+      {% load static %}
+
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    >
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+      <link rel="stylesheet" type="text/css" href="{% static 'profile/style.css' %}">
+
+
+
+      <link href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap" rel="stylesheet">
+
+
+</head>
+<body>
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">{{profile.firstname}} {{ profile.lastname }} 's Profile</h1>
+  </div>
+    <div class="container">
+    <div class="row m-y-2">
+        <div class="col-lg-8 push-lg-4">
+            <div class="tab-content p-b-3">
+                <div class="tab-pane active" id="profile">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Biography</h6>
+                            <p>
+                                {{ profile.bio }}
+                            </p>
+                            <h6>Years of Experience</h6>
+                            <p>
+                               {{ profile.year }}
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            {% if user.image %}
+                            <img src="{{ user.image.url }}" width="150"/>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-12">
+                            <h4 class="m-t-2"><span class="fa fa-clock-o ion-clock pull-xs-right"></span> Ratings and Reviews</h4>
+                            <table class="table table-hover table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            {% for review in reviews %}
+                                                 <p>{{review.reviews}} {{ review.rating }}</p>
+                                            {% endfor %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!--/row-->
+                </div>
+</div>
+</body>
+</html>
