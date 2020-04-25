@@ -54,8 +54,15 @@
     
 
 <table class="table table-bordered table-hover">
-    <thead>
+    <thead>     
       <tr>
+        <td>Name</td>
+        <td>Year</td>
+        <td>Expertise</td>
+        <td>Request this Tutor</td>
+      </tr>
+    </thead>
+      <tbody>
       {% for tutor in both %}
           <tr>
             <td><a href="{{tutor.id}}/">{{ tutor.firstname }} {{tutor.lastname }}</a></td>
